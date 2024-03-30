@@ -55,11 +55,13 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 //! Partner 
 const Partner = React.lazy(() => import('./views/partner/partnerDetail/PartnerDetail'))
+const ViewPartner = React.lazy(() => import('./views/partner/viewPartner/ViewPartner'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/partner', name: 'Colors', element: Partner }, // Partner
+  { path: '/partner/:id', name: 'Colors', element: ViewPartner }, // Partner
   { path: '/booking', name: 'Booking', element: Booking },
   { path: '/notepage', name: 'NotePage', element: NotePage },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },

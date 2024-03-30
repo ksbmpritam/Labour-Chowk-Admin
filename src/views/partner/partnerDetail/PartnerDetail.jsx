@@ -1,9 +1,14 @@
 import CIcon from '@coreui/icons-react';
-import React from 'react'
+import React, { useState } from 'react'
 import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
+import { DataTableCustomStyles } from '../../../styles';
+import { useNavigate } from 'react-router-dom';
+import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react';
 
 const PartnerDetail = () => {
+    const navigate = useNavigate();
+    const [visible, setVisible] = useState(false)
 
     const data = [
         {
@@ -46,43 +51,24 @@ const PartnerDetail = () => {
         {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="sm" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="sm" onClick={() => handleEdit(row)} />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} size="sm" />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Ban-Unban" icon={icon.cilBan} size="sm" />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Verify" icon={icon.cilCheckCircle} size="sm" />
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView()} icon={icon.cilTouchApp} size="sm" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
             </div>,
             width: '180px'
         },
     ];
 
-    const dataTableCustomStyles = {
-        cells: {
-            style: {
-                // fontSize: '14px',
-                // padding: "10px 0",
-                textAlign: "center",
-                color: "rgba(0, 0, 0, 0.6)", whiteSpace: "nowrap",
-            },
-        },
-        rows: {
-            style: {
-                minHeight: '65px', // override the row height,
-                backgroundColor: "#fff"
-            },
-        },
-        headRow: {
-            style: {
-                whiteSpace: 'nowrap',
-                fontSize: "14px",
-                fontWeight: "600", color: "#fff",
-                backgroundColor: "#212631"
-            }
-        }
-    };
+    const handleView = (data) => {
+        console.log("View Data ::: ", data)
+        navigate(`/partner/${data?.id}`);
+    }
 
-    const handleView = () => {
-        console.log("Clicked")
+    const handleEdit = (data) => {
+        setVisible(!visible)
+        console.log("Edit Data ::: ", data)
     }
 
     return (
@@ -101,9 +87,30 @@ const PartnerDetail = () => {
                     columns={columns}
                     data={data}
                     pagination
-                    customStyles={dataTableCustomStyles}
+                    customStyles={DataTableCustomStyles}
                 />
             </div>
+
+            {/* Edit Modal */}
+            <CModal
+                backdrop="static"
+                visible={visible}
+                onClose={() => setVisible(false)}
+                aria-labelledby="LiveDemoExampleLabel"
+            >
+                <CModalHeader onClose={() => setVisible(false)}>
+                    <CModalTitle id="LiveDemoExampleLabel">Modal title</CModalTitle>
+                </CModalHeader>
+                <CModalBody>
+                    <p>Woohoo, you're reading this text in a modal!</p>
+                </CModalBody>
+                <CModalFooter>
+                    <CButton color="secondary" onClick={() => setVisible(false)}>
+                        Close
+                    </CButton>
+                    <CButton color="primary">Save changes</CButton>
+                </CModalFooter>
+            </CModal>
         </>
     )
 }
