@@ -38,33 +38,33 @@ const _nav = [
   //   component: CNavTitle,
   //   name: 'Admin', //! Extra
   // },
-  {
-    component: CNavGroup,
-    name: 'Pages',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Login',
-        to: '/login',
-      },
-      {
-        component: CNavItem,
-        name: 'Register',
-        to: '/register',
-      },
-      {
-        component: CNavItem,
-        name: 'Error 404',
-        to: '/404',
-      },
-      {
-        component: CNavItem,
-        name: 'Error 500',
-        to: '/500',
-      },
-    ],
-  },
+  // {
+  //   component: CNavGroup,
+  //   name: 'Pages',
+  //   icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+  //   items: [
+  //     {
+  //       component: CNavItem,
+  //       name: 'Login',
+  //       to: '/login',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Register',
+  //       to: '/register',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Error 404',
+  //       to: '/404',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Error 500',
+  //       to: '/500',
+  //     },
+  //   ],
+  // },
   // {
   //   component: CNavItem,
   //   name: 'Docs',
@@ -82,23 +82,23 @@ const _nav = [
   //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   // },
   // //! Partner Start 
-  // {
-  //   component: CNavGroup,
-  //   name: 'Partner',
-  //   icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-  //   items: [
-  //     {
-  //       component: CNavItem,
-  //       name: 'Partner Details',
-  //       to: '/login',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'View Parnter',
-  //       to: '/login',
-  //     },
-  //   ],
-  // },
+  {
+    component: CNavGroup,
+    name: 'Category',
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Skill',
+        to: '/skill',
+      },
+      {
+        component: CNavItem,
+        name: 'Sub Skill',
+        to: '/sub-skill',
+      },
+    ],
+  },
   // //! Partner End 
   {
     component: CNavItem,
@@ -106,7 +106,12 @@ const _nav = [
     to: '/partner',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
-  
+  {
+    component: CNavItem,
+    name: 'User',
+    to: '/user',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
   {
     component: CNavItem,
     name: 'Booking',
@@ -116,26 +121,49 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Notifications',
-    to: '/notepage',
+    to: '/notification',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
-
+  {
+    component: CNavItem,
+    name: 'Banner',
+    to: '/banner',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Job Uploaded',
+    to: '/job-uploaded',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Wallet',
+    to: '/wallet',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Report',
+    to: '/report',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
   // {
   //   component: CNavItem,
   //   name: 'Old Partner',
   //   to: '/theme/partner',
   //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   // },
-  {
-    component: CNavItem,
-    name: 'Typography',
-    to: '/theme/typography',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavTitle,
-    name: 'Admin', //! User
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Typography',
+  //   to: '/theme/typography',
+  //   icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Admin', //! User
+  // },
   // {
   //   component: CNavGroup,
   //   name: 'Base',
@@ -284,38 +312,38 @@ const _nav = [
   //     },
   //   ],
   // },
-  {
-    component: CNavItem,
-    name: 'Charts',
-    to: '/charts',
-    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavGroup,
-    name: 'Icons',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'CoreUI Free',
-        to: '/icons/coreui-icons',
-        badge: {
-          color: 'success',
-          text: 'NEW',
-        },
-      },
-      {
-        component: CNavItem,
-        name: 'CoreUI Flags',
-        to: '/icons/flags',
-      },
-      {
-        component: CNavItem,
-        name: 'CoreUI Brands',
-        to: '/icons/brands',
-      },
-    ],
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Charts',
+  //   to: '/charts',
+  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavGroup,
+  //   name: 'Icons',
+  //   icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+  //   items: [
+  //     {
+  //       component: CNavItem,
+  //       name: 'CoreUI Free',
+  //       to: '/icons/coreui-icons',
+  //       badge: {
+  //         color: 'success',
+  //         text: 'NEW',
+  //       },
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'CoreUI Flags',
+  //       to: '/icons/flags',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'CoreUI Brands',
+  //       to: '/icons/brands',
+  //     },
+  //   ],
+  // },
   // {
   //   component: CNavGroup,
   //   name: 'Notifications',
@@ -343,16 +371,16 @@ const _nav = [
   //     },
   //   ],
   // },
-  {
-    component: CNavItem,
-    name: 'Widgets',
-    to: '/widgets',
-    icon: <CIcon icon={cilCalculator} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
-  }
+  // {
+  //   component: CNavItem,
+  //   name: 'Widgets',
+  //   to: '/widgets',
+  //   icon: <CIcon icon={cilCalculator} customClassName="nav-icon" />,
+  //   badge: {
+  //     color: 'info',
+  //     text: 'NEW',
+  //   },
+  // }
 ]
 
 export default _nav
