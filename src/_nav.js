@@ -106,6 +106,19 @@ const _nav = [
     to: '/partner',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
+  
+  {
+    component: CNavItem,
+    name: 'Booking',
+    to: '/booking',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Notifications',
+    to: '/notepage',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
 
   // {
   //   component: CNavItem,
