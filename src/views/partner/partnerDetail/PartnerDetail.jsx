@@ -4,7 +4,7 @@ import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 import { DataTableCustomStyles } from '../../../styles';
 import { useNavigate } from 'react-router-dom';
-import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react';
+import { CButton, CCol, CForm, CFormCheck, CFormFeedback, CFormInput, CFormLabel, CFormSelect, CInputGroup, CInputGroupText, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react';
 
 const PartnerDetail = () => {
     const navigate = useNavigate();
@@ -69,6 +69,34 @@ const PartnerDetail = () => {
     const handleEdit = (data) => {
         setVisible(!visible)
         console.log("Edit Data ::: ", data)
+
+        setFormData({
+            name: data.name || '',
+            email: data.email || '',
+        });
+
+    }
+
+    const [validated, setValidated] = useState(false)
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const form = event.currentTarget
+        if (form.checkValidity() === false) {
+            event.stopPropagation()
+        } else {
+            console.log('Form data:', formData);
+        }
+        setValidated(true)
     }
 
     return (
@@ -99,17 +127,50 @@ const PartnerDetail = () => {
                 aria-labelledby="LiveDemoExampleLabel"
             >
                 <CModalHeader onClose={() => setVisible(false)}>
-                    <CModalTitle id="LiveDemoExampleLabel">Modal title</CModalTitle>
+                    <CModalTitle id="LiveDemoExampleLabel">Edit Partner</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
-                    <p>Woohoo, you're reading this text in a modal!</p>
+                    <CForm
+                        className="row g-3 needs-validation"
+                        noValidate
+                        validated={validated}
+                        onSubmit={handleSubmit}
+                    >
+                        <CCol md={6}>
+                            <CFormInput
+                                type="text"
+                                // defaultValue="Mark"
+                                feedbackValid="Looks good!"
+                                feedbackInvalid="Please provide a First Name."
+                                id="validationCustom01"
+                                label="Name"
+                                required
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                            />
+                        </CCol>
+                        <CCol md={6}>
+                            <CFormInput
+                                type="text"
+                                // defaultValue="Otto"
+                                feedbackValid="Looks good!"
+                                feedbackInvalid="Please provide Email."
+                                id="validationCustom02"
+                                label="Email"
+                                required
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                            />
+                        </CCol>
+                        <CCol xs={12}>
+                            <CButton color="primary" type="submit">
+                                Submit form
+                            </CButton>
+                        </CCol>
+                    </CForm>
                 </CModalBody>
-                <CModalFooter>
-                    <CButton color="secondary" onClick={() => setVisible(false)}>
-                        Close
-                    </CButton>
-                    <CButton color="primary">Save changes</CButton>
-                </CModalFooter>
             </CModal>
         </>
     )
