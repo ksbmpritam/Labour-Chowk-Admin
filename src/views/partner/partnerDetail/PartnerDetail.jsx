@@ -89,7 +89,7 @@ const PartnerDetail = () => {
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", }}>
-                    <div style={{ fontSize: "20px", fontWeight: "600" }}>Partner</div>
+                    <div style={{ fontSize: "20px", fontWeight: "600" }}>Partner Change</div>
                     <div style={{ display: "flex", gap: "20px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
                             <div style={{ fontSize: "16px", fontWeight: "600" }}>Download</div>
