@@ -3,22 +3,20 @@ import React from 'react'
 import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 
-const Jobs = () => {
+const Banner = () => {
 
     const data = [
         {
             id: 1,
             title: "Plumber",
-            skills: "abc",
-            discription: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
-            status: "Open",
+            banner: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
+           
         },
         {
             id: 2,
             title: "Carpainter",
-            skills: "def",
-            discription: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
-            status: "expired",
+            banner: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
+            
         }
     ]
 
@@ -32,20 +30,15 @@ const Jobs = () => {
             selector: row => row.title,
         },
         {
-            name: 'Skills',
-            selector: row => row.skills,
+            name: 'Banners',
+            cell: row => <img src={row.banner} alt="Banner" style={{ width: '50px', height: '50px'}} />,
         },
-        // {
-        //     name: 'Discription',
-        //     selector: row => row.discription,
-        // },
-        {
-            name: 'Status',
-            selector: row => row.status,
-        },
+       
         {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
+                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="lg" onClick={() => handleEdit(row)} />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} size="lg" />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView()} icon={icon.cilTouchApp} size="lg" />
             </div>,
             width: '180px'
@@ -85,7 +78,7 @@ const Jobs = () => {
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", }}>
-                    <div style={{ fontSize: "20px", fontWeight: "600" }}>Job Uploaded</div>
+                    <div style={{ fontSize: "20px", fontWeight: "600" }}>Banners</div>
                     <div style={{ display: "flex", gap: "20px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
                             <div style={{ fontSize: "16px", fontWeight: "600" }}>Download</div>
@@ -104,4 +97,4 @@ const Jobs = () => {
     )
 }
 
-export default Jobs
+export default Banner
