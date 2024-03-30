@@ -5,51 +5,37 @@ import CIcon from '@coreui/icons-react';
 
 const columns = [
     {
-        name: 'Partner',
-        selector: row => row.name,
-
-
+        name: 'Description',
+        selector: row => row.description,
     },
     {
-        name: 'Job',
-        selector: row => row.job,
-
+        name: 'Sent to',
+        selector: row => row.Sentto,
     },
-    {
-        name: 'Status',
-        selector: row => row.status,
-
-    },
-
-
+    
 ];
 
 const data = [
     {
         id: 1,
-        name: 'Beetlejuice',
-        job: "This page was last edited on 9 January 2024, at 23:54 (UTC).",
-        status: 'active'
+        description: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
+        Sentto: 'All'
     },
     {
         id: 1,
-        name: 'Gautam',
-        job: "This page was last edited on 9 January 2024, at 23:54 (UTC).",
-        status: 'active'
+        description: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
+        Sentto: 'All Users'
     },
 ]
 const dataTableCustomStyles = {
     cells: {
         style: {
-            // fontSize: '14px',
-            // padding: "10px 0",
             textAlign: "center",
             color: "rgba(0, 0, 0, 0.6)", whiteSpace: "nowrap",
         },
     },
     rows: {
         style: {
-            // minHeight: '72px', // override the row height,
             backgroundColor: "#fff"
         },
     },
@@ -64,12 +50,12 @@ const dataTableCustomStyles = {
 };
 
 
-const Booking = () => {
+const Notification = () => {
     return (
         <>
-             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
+           <div style={{ padding: "20px", backgroundColor: "#fff" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", }}>
-                    <div style={{ fontSize: "20px", fontWeight: "600" }}>Booking</div>
+                    <div style={{ fontSize: "20px", fontWeight: "600" }}>Notifications</div>
                     <div style={{ display: "flex", gap: "20px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
                             <div style={{ fontSize: "16px", fontWeight: "600" }}>Download</div>
@@ -88,4 +74,4 @@ const Booking = () => {
     )
 }
 
-            export default Booking
+export default Notification

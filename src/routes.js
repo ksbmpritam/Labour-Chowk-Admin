@@ -4,6 +4,8 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Booking = React.lazy(() => import('./views/booking/Booking'))
 const NotePage = React.lazy(() => import('./views/notepage/NotePage'))
+const Notification = React.lazy(() => import('./views/notification/Notification'))
+const Jobs = React.lazy(() => import('./views/jobs/Jobs'))
 // const Partner = React.lazy(() => import('./views/theme/partner/Partner'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
@@ -62,6 +64,8 @@ const routes = [
   { path: '/partner', name: 'Colors', element: Partner }, // Partner
   { path: '/booking', name: 'Booking', element: Booking },
   { path: '/notepage', name: 'NotePage', element: NotePage },
+  { path: '/notification', name: 'Notification', element: Notification },
+  { path: '/job-uploaded', name: 'Jobs', element: Jobs },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
