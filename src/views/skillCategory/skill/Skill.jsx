@@ -41,7 +41,7 @@ const Skill = () => {
     return (
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeaderWithAdd title={'Sub Skill'} data={skillData} url={'add-skill'} />
+                <DataTableHeaderWithAdd title={'Skill'} data={skillData} url={'add-skill'} />
                 <DataTable
                     columns={skillColumns}
                     data={skillData}

@@ -15,12 +15,9 @@ const DataTableButton = ({ title, url }) => {
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", }}>
         <div style={{ fontSize: "20px", fontWeight: "600" }}>{title}</div>
 
-        <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
-
-          <div onClick={() => handleNavigate()} style={{ fontWeight: "600", backgroundColor: "#212631", color: "#fff", padding: "2px 5px", borderRadius: "5px", display: "flex", alignItems: "center", gap: "5px", cursor: "pointer" }}>
-            <div style={{ fontSize: "15px" }}>Display</div>
-            <CIcon icon={icon.cilList} />
-          </div>
+        <div onClick={() => handleNavigate()} style={{ fontWeight: "600", backgroundColor: "#212631", color: "#fff", padding: "2px 10px", borderRadius: "5px", display: "flex", alignItems: "center", gap: "7px", cursor: "pointer" }}>
+          <div style={{ fontSize: "15px" }}>Display</div>
+          <CIcon icon={icon.cilList} size='sm' />
         </div>
       </div>
     </>
