@@ -65,6 +65,12 @@ const ActivePartner = React.lazy(() => import('./views/partner/activePartner/Act
 const BannedPartner = React.lazy(() => import('./views/partner/bannedPartner/BannedPartner'))
 const ViewPartner = React.lazy(() => import('./views/partner/viewPartner/ViewPartner'))
 
+// Users
+const AllUser = React.lazy(() => import('./views/user/allUser/AllUser'))
+const ActiveUser = React.lazy(() => import('./views/user/activeUser/ActiveUser'))
+const BannedUser = React.lazy(() => import('./views/user/bannedUser/BannedUser'))
+const ViewUser = React.lazy(() => import('./views/user/viewUser/ViewUser'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -74,6 +80,13 @@ const routes = [
   { path: '/active-partner', name: 'Colors', element: ActivePartner },
   { path: '/banned-partner', name: 'Colors', element: BannedPartner },
   { path: '/partner/:id', name: 'Colors', element: ViewPartner },
+
+  // users
+  { path: '/all-user', name: 'Colors', element: AllUser },
+  { path: '/active-user', name: 'Colors', element: ActiveUser },
+  { path: '/banned-user', name: 'Colors', element: BannedUser },
+  { path: '/user/:id', name: 'Colors', element: ViewUser },
+
 
   { path: '/booking', name: 'Booking', element: Booking },
   { path: '/notepage', name: 'NotePage', element: NotePage },
