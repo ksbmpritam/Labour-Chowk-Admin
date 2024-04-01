@@ -1,12 +1,16 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react';
 import * as icon from '@coreui/icons';
-import { CCol, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CRow, CWidgetStatsA } from '@coreui/react';
+import { CCol, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CRow, CWidgetStatsA, CWidgetStatsD } from '@coreui/react';
 import DataTable from 'react-data-table-component';
 import { DataTableCustomStyles } from '../../styles';
 import DataTableHeader from '../../components/common/DataTableHeader';
+import { useNavigate } from 'react-router-dom';
+import { CChart, CChartLine } from '@coreui/react-chartjs';
+import { getStyle } from '@coreui/utils';
 
 const Dashboard = () => {
+  const navigate = useNavigate()
 
   //! User Start
   const userData = [
@@ -104,107 +108,140 @@ const Dashboard = () => {
   ]
   //! partner End
 
+  const handleMoreInfo = (data) => {
+    if (data == 'Total User') {
+      console.log("Total Booking Clicked")
+      navigate('/all-user')
+    }
+    if (data == 'Total Partner') {
+      console.log("Total Booking Clicked")
+      navigate('/all-partner')
+    }
+  }
+
   return (
     <>
       <CRow className="mb-4" xs={{ gutter: 4 }}>
-        <CCol sm={6} xl={4} xxl={3}>
-          <CWidgetStatsA
-            color="primary"
-            style={{ height: "150px" }}
-            value={
-              <>
-                26K{' '}
-              </>
-            }
-            title="Total Booking"
-            action={
-              <CDropdown alignment="end">
-                <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
-                  <CIcon icon={icon.cilOptions} />
-                </CDropdownToggle>
-                <CDropdownMenu>
-                  <CDropdownItem>Action</CDropdownItem>
-                  <CDropdownItem disabled>Disabled action</CDropdownItem>
-                </CDropdownMenu>
-              </CDropdown>
-            }
+        <CCol xs={6} xl={4} xxl={3}>
+          <CWidgetStatsD
+            className="mb-3"
+            icon={<CIcon className="my-4 text-white" icon={icon.cilUser} height={40} />}
+            style={{ '--cui-card-cap-bg': '#212631' }}
+            values={[
+              { title: <div>Total User</div>, value: '89K' },
+              { title: <div>More Info</div>, value: <div style={{ cursor: "pointer" }} onClick={() => handleMoreInfo('Total User')}><CIcon className="text-black" icon={icon.cilArrowRight} /></div> },
+            ]}
           />
         </CCol>
 
-        <CCol sm={6} xl={4} xxl={3} >
-          <CWidgetStatsA
-            color="info"
-            style={{ height: "150px" }}
-            value={
-              <>
-                26K{' '}
-              </>
-            }
-            title="Total Earning"
-            action={
-              <CDropdown alignment="end">
-                <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
-                  <CIcon icon={icon.cilOptions} />
-                </CDropdownToggle>
-                <CDropdownMenu>
-                  <CDropdownItem>Action</CDropdownItem>
-                  <CDropdownItem disabled>Disabled action</CDropdownItem>
-                </CDropdownMenu>
-              </CDropdown>
-            }
+        <CCol xs={6} xl={4} xxl={3}>
+          <CWidgetStatsD
+            className="mb-3"
+            icon={<CIcon className="my-4 text-white" icon={icon.cilUser} height={40} />}
+            style={{ '--cui-card-cap-bg': '#212631' }}
+            values={[
+              { title: <div>Total Partner</div>, value: '89K' },
+              { title: <div>More Info</div>, value: <div style={{ cursor: "pointer" }} onClick={() => handleMoreInfo('Total Partner')}><CIcon className="text-black" icon={icon.cilArrowRight} /></div> },
+            ]}
           />
         </CCol>
 
-        <CCol sm={6} xl={4} xxl={3} >
-          <CWidgetStatsA
-            color="warning"
-            style={{ height: "150px" }}
-            value={
-              <>
-                26K{' '}
-              </>
-            }
-            title="Today Booking"
-            action={
-              <CDropdown alignment="end">
-                <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
-                  <CIcon icon={icon.cilOptions} />
-                </CDropdownToggle>
-                <CDropdownMenu>
-                  <CDropdownItem>Action</CDropdownItem>
-                  <CDropdownItem disabled>Disabled action</CDropdownItem>
-                </CDropdownMenu>
-              </CDropdown>
-            }
+        <CCol xs={6} xl={4} xxl={3}>
+          <CWidgetStatsD
+            className="mb-3"
+            icon={<CIcon className="my-4 text-white" icon={icon.cilUser} height={40} />}
+            style={{ '--cui-card-cap-bg': '#212631' }}
+            values={[
+              { title: <div>Total Earning</div>, value: '89K' },
+              { title: <div>More Info</div>, value: <div style={{ cursor: "pointer" }} onClick={() => handleMoreInfo('Total Earning')}><CIcon className="text-black" icon={icon.cilArrowRight} /></div> },
+            ]}
           />
         </CCol>
 
-        <CCol sm={6} xl={4} xxl={3} >
-          <CWidgetStatsA
-            color="danger"
-            style={{ height: "150px" }}
-            value={
-              <>
-                26K{' '}
-              </>
-            }
-            title="Rejected"
-            action={
-              <CDropdown alignment="end">
-                <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
-                  <CIcon icon={icon.cilOptions} />
-                </CDropdownToggle>
-                <CDropdownMenu>
-                  <CDropdownItem>Action</CDropdownItem>
-                  <CDropdownItem disabled>Disabled action</CDropdownItem>
-                </CDropdownMenu>
-              </CDropdown>
-            }
+        <CCol xs={6} xl={4} xxl={3}>
+          <CWidgetStatsD
+            className="mb-3"
+            icon={<CIcon className="my-4 text-white" icon={icon.cilUser} height={40} />}
+            style={{ '--cui-card-cap-bg': '#212631' }}
+            values={[
+              { title: <div>Total Booking</div>, value: '89K' },
+              { title: <div>More Info</div>, value: <div style={{ cursor: "pointer" }} onClick={() => handleMoreInfo('Total Booking')}><CIcon className="text-black" icon={icon.cilArrowRight} /></div> },
+            ]}
+          />
+        </CCol>
+
+        <CCol xs={6} xl={4} xxl={3}>
+          <CWidgetStatsD
+            className="mb-3"
+            icon={<CIcon className="my-4 text-white" icon={icon.cilUser} height={40} />}
+            style={{ '--cui-card-cap-bg': '#212631' }}
+            values={[
+              { title: <div>Total Rejected</div>, value: '89K' },
+              { title: <div>More Info</div>, value: <div style={{ cursor: "pointer" }} onClick={() => handleMoreInfo('Total Rejected')}><CIcon className="text-black" icon={icon.cilArrowRight} /></div> },
+            ]}
           />
         </CCol>
       </CRow>
 
-      <div className='mb-4 p' style={{ padding: "20px", backgroundColor: "#fff" }}>
+      <CRow className='justify-content-between px-3 mb-4' xs={{ gutter: 4 }} >
+        <CCol sm={5} className='bg-white p-3' style={{ borderRadius: "6px" }}>
+          <CRow className='justify-content-center' xs={{ gutter: 4 }}>
+            <div style={{ fontSize: "20px", fontWeight: "600" }}>Today Joining</div>
+            <CChart
+              type="doughnut"
+              data={{
+                labels: ['User', 'Partner'],
+                datasets: [
+                  {
+                    backgroundColor: ['#212631', '#a1a1a1'],
+                    data: [40, 20],
+                  },
+                ],
+              }}
+              options={{
+                plugins: {
+                  legend: {
+                    labels: {
+                      color: getStyle('--cui-body-color'),
+                    }
+                  }
+                },
+              }}
+              style={{ width: "350px" }}
+            />
+          </CRow>
+        </CCol>
+
+        <CCol sm={5} className='bg-white p-3' style={{ borderRadius: "6px" }}>
+          <CRow className='justify-content-center' xs={{ gutter: 4 }} >
+            <div style={{ fontSize: "20px", fontWeight: "600" }}>Total Joining</div>
+            <CChart
+              type="doughnut"
+              data={{
+                labels: ['User', 'Partner'],
+                datasets: [
+                  {
+                    backgroundColor: ['#212631', '#a1a1a1'],
+                    data: [40, 20],
+                  },
+                ],
+              }}
+              options={{
+                plugins: {
+                  legend: {
+                    labels: {
+                      color: getStyle('--cui-body-color'),
+                    }
+                  }
+                },
+              }}
+              style={{ width: "350px" }}
+            />
+          </CRow>
+        </CCol>
+      </CRow>
+
+      {/* <div className='mb-4 p' style={{ padding: "20px", backgroundColor: "#fff" }}>
         <DataTableHeader title={'Recent User'} data={userData} />
         <DataTable
           columns={userColumns}
@@ -222,7 +259,7 @@ const Dashboard = () => {
           pagination
           customStyles={DataTableCustomStyles}
         />
-      </div>
+      </div> */}
     </>
   )
 }
