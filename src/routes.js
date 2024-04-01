@@ -59,14 +59,22 @@ const ActivePartner = React.lazy(() => import('./views/partner/activePartner/Act
 const BannedPartner = React.lazy(() => import('./views/partner/bannedPartner/BannedPartner'))
 const ViewPartner = React.lazy(() => import('./views/partner/viewPartner/ViewPartner'))
 
-// Users
+//! Users
 const AllUser = React.lazy(() => import('./views/user/allUser/AllUser'))
 const ActiveUser = React.lazy(() => import('./views/user/activeUser/ActiveUser'))
 const BannedUser = React.lazy(() => import('./views/user/bannedUser/BannedUser'))
 const ViewUser = React.lazy(() => import('./views/user/viewUser/ViewUser'))
 
+//! Skill
+const Skill = React.lazy(() => import('./views/skillCategory/skill/Skill'))
+const AddSkill = React.lazy(() => import('./views/skillCategory/addSkill/AddSkill'))
+const SubSkill = React.lazy(() => import('./views/skillCategory/subSkill/SubSkill'))
+const AddSubSkill = React.lazy(() => import('./views/skillCategory/addSubSkill/AddSubSkill'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+
+  //! Dashboard 
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
 
   //! Partner
@@ -75,12 +83,17 @@ const routes = [
   { path: '/banned-partner', name: 'Colors', element: BannedPartner },
   { path: '/partner/:id', name: 'Colors', element: ViewPartner },
 
-  // users
+  //! User
   { path: '/all-user', name: 'Colors', element: AllUser },
   { path: '/active-user', name: 'Colors', element: ActiveUser },
   { path: '/banned-user', name: 'Colors', element: BannedUser },
   { path: '/user/:id', name: 'Colors', element: ViewUser },
 
+  //! Skill
+  { path: '/skill', name: 'Colors', element: Skill },
+  { path: '/add-skill', name: 'Colors', element: AddSkill },
+  { path: '/sub-skill', name: 'Colors', element: SubSkill },
+  { path: '/add-sub-skill', name: 'Colors', element: AddSubSkill },
 
   { path: '/booking', name: 'Booking', element: Booking },
   { path: '/notification', name: 'Notification', element: Notification },
