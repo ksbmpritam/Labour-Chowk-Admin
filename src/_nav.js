@@ -85,7 +85,7 @@ const _nav = [
   //! Category Start 
   {
     component: CNavGroup,
-    name: 'Category',
+    name: 'Skill Category',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     items: [
       {
