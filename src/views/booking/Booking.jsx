@@ -71,15 +71,7 @@ const Booking = () => {
     return (
         <>
              <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                {/* <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", }}>
-                    <div style={{ fontSize: "20px", fontWeight: "600" }}>Booking</div>
-                    <div style={{ display: "flex", gap: "20px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
-                            <div style={{ fontSize: "16px", fontWeight: "600" }}>Download</div>
-                            <CIcon icon={icon.cilDataTransferDown} size="sm" />
-                        </div>
-                    </div>
-                </div> */}
+                
                 <DataTableHeader title={'Booking'} data={data} />
                 <DataTable
                     columns={columns}

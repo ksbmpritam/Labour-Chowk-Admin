@@ -3,10 +3,10 @@ import React from 'react'
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Booking = React.lazy(() => import('./views/booking/Booking'))
-const NotePage = React.lazy(() => import('./views/notepage/NotePage'))
-const UserNotification = React.lazy(() => import('./views/notification/users/UserNotification'))
-const PartnerNotifications = React.lazy(() => import('./views/notification/partners/PartnerNotifications'))
-const AddPartnerNotifi = React.lazy(() => import('./views/notification/partners/AddPartnerNotifi'))
+const UserNotification = React.lazy(() => import('./views/notification/users/displayNotifications/UserNotification'))
+const AddUserNotification = React.lazy(() => import('./views/notification/users/addNotification/AddUserNotification'))
+const PartnerNotifications = React.lazy(() => import('./views/notification/partners/displayNotification/PartnerNotifications'))
+const AddPartnerNotification = React.lazy(() => import('./views/notification/partners/addNotification/AddPartnerNotification'))
 const Jobs = React.lazy(() => import('./views/jobs/Jobs'))
 const Banner = React.lazy(() => import('./views/banner/bannerDeatils/Banner'))
 const AddBanner = React.lazy(() => import('./views/banner/addBanner/AddBanner'))
@@ -51,12 +51,6 @@ const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIc
 const Flags = React.lazy(() => import('./views/icons/flags/Flags'))
 const Brands = React.lazy(() => import('./views/icons/brands/Brands'))
 
-// Notifications
-const Alerts = React.lazy(() => import('./views/notifications/alerts/Alerts'))
-const Badges = React.lazy(() => import('./views/notifications/badges/Badges'))
-const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
-const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
-
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 //! Partner 
@@ -89,11 +83,11 @@ const routes = [
 
 
   { path: '/booking', name: 'Booking', element: Booking },
-  { path: '/notepage', name: 'NotePage', element: NotePage },
   { path: '/notification', name: 'Notification', element: Notification },
   { path: '/userNotification', name: 'UserNotification', element: UserNotification },
+  { path: '/add-user-notification', name: 'AddUserNotifications', element: AddUserNotification },
   { path: '/partnerNotifications', name: 'PartnerNotifications', element: PartnerNotifications },
-  { path: '/addpnotification', name: 'AddPartnerNotifications', element: AddPartnerNotifi },
+  { path: '/add-partnet-notification', name: 'AddPartnerNotifications', element: AddPartnerNotification },
   { path: '/job-uploaded', name: 'Jobs', element: Jobs },
   { path: '/banner', name: 'Banner', element: Banner },
   { path: '/addBanner', name: 'AddBanner', element: AddBanner },
@@ -133,11 +127,6 @@ const routes = [
   { path: '/icons/coreui-icons', name: 'CoreUI Icons', element: CoreUIIcons },
   { path: '/icons/flags', name: 'Flags', element: Flags },
   { path: '/icons/brands', name: 'Brands', element: Brands },
-  { path: '/notifications', name: 'Notifications', element: Alerts, exact: true },
-  { path: '/notifications/alerts', name: 'Alerts', element: Alerts },
-  { path: '/notifications/badges', name: 'Badges', element: Badges },
-  { path: '/notifications/modals', name: 'Modals', element: Modals },
-  { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
 ]
 

@@ -2,12 +2,12 @@ import React from 'react'
 import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-import DataTableHeaderWithAdd from '../../../components/common/DataTableHeaderWithAdd';
+import DataTableHeaderWithAdd from '../../../../components/common/DataTableHeaderWithAdd';
 
 const columns = [
     {
-        name: 'Description',
-        selector: row => row.description,
+        name: 'Notification',
+        selector: row => row.notification,
     },
     {
         name: 'Sent to',
@@ -19,12 +19,12 @@ const columns = [
 const data = [
     {
         id: 1,
-        description: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
+        notification: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
         Sentto: 'All'
     },
     {
         id: 1,
-        description: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
+        notification: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
         Sentto: 'All Users'
     },
 ]
@@ -51,11 +51,12 @@ const dataTableCustomStyles = {
 };
 
 
-const UserNotification = () => {
+const PartnerNotifications = () => {
     return (
         <>
            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeaderWithAdd title={'User Notifications'} data={data} url={'addBanner'}/>
+               
+                <DataTableHeaderWithAdd title={'Partner Notifications'} data={data} url={'add-partnet-notification'}/>
                 <DataTable
                     columns={columns}
                     data={data}
@@ -67,4 +68,4 @@ const UserNotification = () => {
     )
 }
 
-export default UserNotification
+export default PartnerNotifications

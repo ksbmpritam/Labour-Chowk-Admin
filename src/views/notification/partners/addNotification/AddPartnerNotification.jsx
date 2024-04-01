@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react';
 import * as icon from '@coreui/icons';
-import DataTableButton from '../../../components/common/DataTableButton';
+import DataTableButton from '../../../../components/common/DataTableButton';
 
-const AddPartnerNotifi = () => {
+const AddPartnerNotification = () => {
     const [editVisible, setEditVisible] = useState(false);
     const [viewVisible, setViewVisible] = useState(false);
     const [selectedEditRow, setSelectedEditRow] = useState(null);
@@ -161,4 +161,4 @@ const AddPartnerNotifi = () => {
     )
 }
 
-export default AddPartnerNotifi
+export default AddPartnerNotification

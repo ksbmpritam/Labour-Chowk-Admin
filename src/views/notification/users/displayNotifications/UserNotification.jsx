@@ -2,7 +2,7 @@ import React from 'react'
 import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-import DataTableHeaderWithAdd from '../../../components/common/DataTableHeaderWithAdd';
+import DataTableHeaderWithAdd from '../../../../components/common/DataTableHeaderWithAdd';
 
 const columns = [
     {
@@ -51,12 +51,11 @@ const dataTableCustomStyles = {
 };
 
 
-const PartnerNotifications = () => {
+const UserNotification = () => {
     return (
         <>
            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-               
-                <DataTableHeaderWithAdd title={'Partner Notifications'} data={data} url={'addpnotification'}/>
+                <DataTableHeaderWithAdd title={'User Notifications'} data={data} url={'add-user-notification'}/>
                 <DataTable
                     columns={columns}
                     data={data}
@@ -68,4 +67,4 @@ const PartnerNotifications = () => {
     )
 }
 
-export default PartnerNotifications
+export default UserNotification
