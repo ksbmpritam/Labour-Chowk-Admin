@@ -1,29 +1,36 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react';
-import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
-import WidgetsBrand from '../widgets/WidgetsBrand'
-import WidgetsDropdown from '../widgets/WidgetsDropdown'
+import { CCol, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CRow, CWidgetStatsA } from '@coreui/react';
+import DataTable from 'react-data-table-component';
+import { DataTableCustomStyles } from '../../styles';
+import { CSVLink } from 'react-csv'
+import DataTableHeader from '../../components/common/DataTableHeader';
+import DataTableHeaderWithAdd from '../../components/common/DataTableHeaderWithAdd';
 
 const Dashboard = () => {
-  const data = [
+
+  //! User Start
+  const userData = [
     {
       id: 1,
-      name: "Partner One",
-      email: "info@gmail.com",
-      aadhar: 2222222,
+      name: "User One",
+      email: "userone@gmail.com",
+      aadhar: 5425878,
+      contact: "8757858745",
       profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg"
     },
     {
       id: 2,
-      name: "Partner Two",
-      email: "info@gmail.com",
+      name: "user Two",
+      email: "usertwo@gmail.com",
       aadhar: 444444,
+      contact: "8709858745",
       profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg"
     }
   ]
 
-  const columns = [
+  const userColumns = [
     {
       name: 'S.No',
       selector: (row, index) => index + 1,
@@ -45,66 +52,177 @@ const Dashboard = () => {
       selector: row => row.aadhar,
     },
     {
-      name: 'Action',
-      cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-        <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="sm" />
-        <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} size="sm" />
-        <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Ban-Unban" icon={icon.cilBan} size="sm" />
-        <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Verify" icon={icon.cilCheckCircle} size="sm" />
-        <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView()} icon={icon.cilTouchApp} size="sm" />
-      </div>,
-      width: '180px'
+      name: 'Mobile',
+      selector: row => row.contact,
     },
-  ];
+  ]
+  //! User End
 
-  const dataTableCustomStyles = {
-    cells: {
-      style: {
-        // fontSize: '14px',
-        // padding: "10px 0",
-        textAlign: "center",
-        color: "rgba(0, 0, 0, 0.6)", whiteSpace: "nowrap",
-      },
+  //! Partner Start
+  const partnerData = [
+    {
+      id: 1,
+      name: "Partner One",
+      email: "partnerone@gmail.com",
+      aadhar: 5425878,
+      contact: "8757858745",
+      profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg"
     },
-    rows: {
-      style: {
-        minHeight: '65px', // override the row height,
-        backgroundColor: "#fff"
-      },
-    },
-    headRow: {
-      style: {
-        whiteSpace: 'nowrap',
-        fontSize: "14px",
-        fontWeight: "600", color: "#fff",
-        backgroundColor: "#212631"
-      }
+    {
+      id: 2,
+      name: "Partner Two",
+      email: "partnertwo@gmail.com",
+      aadhar: 444444,
+      contact: "8709858745",
+      profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg"
     }
-  };
+  ]
 
-  const handleView = () => {
-    console.log("Clicked")
-  }
+  const partnerColumns = [
+    {
+      name: 'S.No',
+      selector: (row, index) => index + 1,
+    },
+    {
+      name: 'Name',
+      selector: row => row.name,
+    },
+    {
+      name: 'Email',
+      selector: row => row.email,
+    },
+    {
+      name: 'Profile Image',
+      cell: row => <img src={row.profileImage} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
+    },
+    {
+      name: 'Aadhar',
+      selector: row => row.aadhar,
+    },
+    {
+      name: 'Mobile',
+      selector: row => row.contact,
+    },
+  ]
+  //! partner End
 
   return (
     <>
-      <WidgetsDropdown className="mb-4" />
-      <WidgetsBrand className="mb-4" withCharts />
-      <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", }}>
-          <div style={{ fontSize: "20px", fontWeight: "600" }}>Recent User</div>
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
-              <div style={{ fontSize: "16px", fontWeight: "600" }}>Download</div>
-              <CIcon icon={icon.cilDataTransferDown} size="sm" />
-            </div>
-          </div>
-        </div>
+      <CRow className="mb-4" xs={{ gutter: 4 }}>
+        <CCol sm={6} xl={4} xxl={3}>
+          <CWidgetStatsA
+            color="primary"
+            style={{ height: "150px" }}
+            value={
+              <>
+                26K{' '}
+              </>
+            }
+            title="Total Booking"
+            action={
+              <CDropdown alignment="end">
+                <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
+                  <CIcon icon={icon.cilOptions} />
+                </CDropdownToggle>
+                <CDropdownMenu>
+                  <CDropdownItem>Action</CDropdownItem>
+                  <CDropdownItem disabled>Disabled action</CDropdownItem>
+                </CDropdownMenu>
+              </CDropdown>
+            }
+          />
+        </CCol>
+
+        <CCol sm={6} xl={4} xxl={3} >
+          <CWidgetStatsA
+            color="info"
+            style={{ height: "150px" }}
+            value={
+              <>
+                26K{' '}
+              </>
+            }
+            title="Total Earning"
+            action={
+              <CDropdown alignment="end">
+                <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
+                  <CIcon icon={icon.cilOptions} />
+                </CDropdownToggle>
+                <CDropdownMenu>
+                  <CDropdownItem>Action</CDropdownItem>
+                  <CDropdownItem disabled>Disabled action</CDropdownItem>
+                </CDropdownMenu>
+              </CDropdown>
+            }
+          />
+        </CCol>
+
+        <CCol sm={6} xl={4} xxl={3} >
+          <CWidgetStatsA
+            color="warning"
+            style={{ height: "150px" }}
+            value={
+              <>
+                26K{' '}
+              </>
+            }
+            title="Today Booking"
+            action={
+              <CDropdown alignment="end">
+                <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
+                  <CIcon icon={icon.cilOptions} />
+                </CDropdownToggle>
+                <CDropdownMenu>
+                  <CDropdownItem>Action</CDropdownItem>
+                  <CDropdownItem disabled>Disabled action</CDropdownItem>
+                </CDropdownMenu>
+              </CDropdown>
+            }
+          />
+        </CCol>
+
+        <CCol sm={6} xl={4} xxl={3} >
+          <CWidgetStatsA
+            color="danger"
+            style={{ height: "150px" }}
+            value={
+              <>
+                26K{' '}
+              </>
+            }
+            title="Rejected"
+            action={
+              <CDropdown alignment="end">
+                <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
+                  <CIcon icon={icon.cilOptions} />
+                </CDropdownToggle>
+                <CDropdownMenu>
+                  <CDropdownItem>Action</CDropdownItem>
+                  <CDropdownItem disabled>Disabled action</CDropdownItem>
+                </CDropdownMenu>
+              </CDropdown>
+            }
+          />
+        </CCol>
+      </CRow>
+
+      <div className='mb-4 p' style={{ padding: "20px", backgroundColor: "#fff" }}>
+        <DataTableHeader title={'Recent User'} data={userData} />
         <DataTable
-          columns={columns}
-          data={data}
+          columns={userColumns}
+          data={userData}
           pagination
-          customStyles={dataTableCustomStyles}
+          customStyles={DataTableCustomStyles}
+        />
+      </div>
+
+      <div className='mb-4 p' style={{ padding: "20px", backgroundColor: "#fff" }}>
+        <DataTableHeaderWithAdd title={'Recent Partner'} data={partnerData} url={'partner'}/>
+        <DataTable
+          columns={partnerColumns}
+          data={partnerData}
+          pagination
+          customStyles={DataTableCustomStyles}
         />
       </div>
     </>
