@@ -34,54 +34,55 @@ const _nav = [
       text: 'NEW',
     },
   },
-  // {
-  //   component: CNavTitle,
-  //   name: 'Admin', //! Extra
-  // },
-  // {
-  //   component: CNavGroup,
-  //   name: 'Pages',
-  //   icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-  //   items: [
-  //     {
-  //       component: CNavItem,
-  //       name: 'Login',
-  //       to: '/login',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Register',
-  //       to: '/register',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Error 404',
-  //       to: '/404',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Error 500',
-  //       to: '/500',
-  //     },
-  //   ],
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: 'Docs',
-  //   href: 'https://coreui.io/react/docs/templates/installation/',
-  //   icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
-  // },
-  // {
-  //   component: CNavTitle,
-  //   name: 'Partner', //! Partner
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: 'Colors',
-  //   to: '/theme/colors',
-  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  // },
-  // //! Partner Start 
+  //! Partner Start 
+  {
+    component: CNavGroup,
+    name: 'Partner',
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'All Partner',
+        to: '/all-partner',
+      },
+      {
+        component: CNavItem,
+        name: 'Active Partner',
+        to: '/active-partner',
+      },
+      {
+        component: CNavItem,
+        name: 'Banned Partner',
+        to: '/banned-partner',
+      },
+    ],
+  },
+  //! Partner End 
+  //! User Start 
+  {
+    component: CNavGroup,
+    name: 'User',
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'All User',
+        to: '/all-user',
+      },
+      {
+        component: CNavItem,
+        name: 'Active User',
+        to: '/active-user',
+      },
+      {
+        component: CNavItem,
+        name: 'Banned User',
+        to: '/banned-user',
+      },
+    ],
+  },
+  //! User End 
+  //! Category Start 
   {
     component: CNavGroup,
     name: 'Category',
@@ -99,19 +100,7 @@ const _nav = [
       },
     ],
   },
-  // //! Partner End 
-  {
-    component: CNavItem,
-    name: 'Partner',
-    to: '/partner',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'User',
-    to: '/user',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  },
+  //! Category End 
   {
     component: CNavItem,
     name: 'Booking',
@@ -135,12 +124,12 @@ const _nav = [
       },
     ],
   },
-  {
-    component: CNavItem,
-    name: 'Notifications',
-    to: '/notification',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Notifications',
+  //   to: '/notification',
+  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  // },
   {
     component: CNavItem,
     name: 'Banner',

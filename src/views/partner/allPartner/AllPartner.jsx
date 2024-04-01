@@ -9,7 +9,7 @@ import DataTableHeader from '../../../components/common/DataTableHeader';
 // import logo_icon from "../../assets/images/logo_icon.png";
 import pictureIcon from "../../../assets/images/avatars/4.jpg";
 
-const PartnerDetail = () => {
+const AllPartner = () => {
     //! Partner Start
     const partnerData = [
         {
@@ -263,4 +263,4 @@ const PartnerDetail = () => {
     )
 }
 
-export default PartnerDetail
+export default AllPartner

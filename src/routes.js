@@ -60,14 +60,21 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 //! Partner 
-const Partner = React.lazy(() => import('./views/partner/partnerDetail/PartnerDetail'))
+const AllPartner = React.lazy(() => import('./views/partner/allPartner/AllPartner'))
+const ActivePartner = React.lazy(() => import('./views/partner/activePartner/ActivePartner'))
+const BannedPartner = React.lazy(() => import('./views/partner/bannedPartner/BannedPartner'))
 const ViewPartner = React.lazy(() => import('./views/partner/viewPartner/ViewPartner'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/partner', name: 'Colors', element: Partner }, // Partner
-  { path: '/partner/:id', name: 'Colors', element: ViewPartner }, // Partner
+
+  //! Partner
+  { path: '/all-partner', name: 'Colors', element: AllPartner },
+  { path: '/active-partner', name: 'Colors', element: ActivePartner },
+  { path: '/banned-partner', name: 'Colors', element: BannedPartner },
+  { path: '/partner/:id', name: 'Colors', element: ViewPartner },
+
   { path: '/booking', name: 'Booking', element: Booking },
   { path: '/notepage', name: 'NotePage', element: NotePage },
   { path: '/notification', name: 'Notification', element: Notification },
@@ -77,7 +84,7 @@ const routes = [
   { path: '/job-uploaded', name: 'Jobs', element: Jobs },
   { path: '/banner', name: 'Banner', element: Banner },
   { path: '/addBanner', name: 'AddBanner', element: AddBanner },
-  { path: '/theme', name: 'Theme', element: Colors, exact: true }, 
+  { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
   { path: '/base', name: 'Base', element: Cards, exact: true },
