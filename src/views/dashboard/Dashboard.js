@@ -4,9 +4,7 @@ import * as icon from '@coreui/icons';
 import { CCol, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CRow, CWidgetStatsA } from '@coreui/react';
 import DataTable from 'react-data-table-component';
 import { DataTableCustomStyles } from '../../styles';
-import { CSVLink } from 'react-csv'
 import DataTableHeader from '../../components/common/DataTableHeader';
-import DataTableHeaderWithAdd from '../../components/common/DataTableHeaderWithAdd';
 
 const Dashboard = () => {
 
@@ -217,7 +215,7 @@ const Dashboard = () => {
       </div>
 
       <div className='mb-4 p' style={{ padding: "20px", backgroundColor: "#fff" }}>
-        <DataTableHeaderWithAdd title={'Recent Partner'} data={partnerData} url={'partner'}/>
+        <DataTableHeader title={'Recent Partner'} data={partnerData} />
         <DataTable
           columns={partnerColumns}
           data={partnerData}
