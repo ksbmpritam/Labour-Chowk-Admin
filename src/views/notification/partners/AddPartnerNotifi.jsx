@@ -10,6 +10,14 @@ const AddPartnerNotifi = () => {
     const [viewVisible, setViewVisible] = useState(false);
     const [selectedEditRow, setSelectedEditRow] = useState(null);
     const [selectedViewRow, setSelectedViewRow] = useState(null);
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    
+
+    const handleChange = (event) => {
+        const selectedValues = Array.from(event.target.selectedOptions, option => option.value);
+        setSelectedOptions(selectedValues);
+    };
+    
 
     const handleEdit = (row) => {
         setSelectedEditRow(row);
@@ -91,10 +99,11 @@ const AddPartnerNotifi = () => {
                 <DataTableButton title={'Add'} url={'partnerNotifications'} />
                 <div>
                     <div className='m-2' >
-                        <label htmlFor="title">Title:</label>
+                        <label htmlFor="title">Notification</label>
                         <input className='form-control' id="title" type="text" defaultValue={selectedEditRow?.title} />
                     </div>
-                    <div className="dropdown">
+                    <div className="dropdown m-2">
+                    <label htmlFor="title">Send To</label>
                         <input
                             type="text"
                             className="form-control"
@@ -104,14 +113,46 @@ const AddPartnerNotifi = () => {
                             aria-expanded="false"
                         />
                         <datalist id="dropdownOptions">
-                            <option value="Option 1" />
-                            <option value="Option 2" />
-                            <option value="Option 3" />
+                        <select
+                            className="form-control"
+                            multiple
+                            onChange={handleChange}
+                            value={selectedOptions}
+                        >
+                            <option value="All Partners">All Partners</option>
+                            <option value="Selected Partners">Selected Partners</option>
+                        </select>
+                        </datalist>
+                    </div>
+
+                    <div className="dropdown m-2" >
+                    <label htmlFor="title">Select Users</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            list="dropdownOptions"
+                            placeholder="Select an option"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        />
+                        <datalist id="dropdownOptions">
+                        <select
+                            className="form-control"
+                            multiple
+                            onChange={handleChange}
+                            value={selectedOptions}
+                        >
+                            <option value="User 1">User 1</option>
+                            <option value="User 2">User 2</option>
+                            <option value="User 3">User 3</option>
+                            <option value="User 4">User 4</option>
+                            <option value="User 5">User 5</option>
+                        </select>
                         </datalist>
                     </div>
                     <CModalFooter style={{ justifyContent: "flex-end" }}>
                         <CButton style={{ backgroundColor: '#212631' }} className="mt-3" color="primary" onClick={() => handleSaveChanges(selectedEditRow)}>
-                            Save
+                            Send
                         </CButton>
                     </CModalFooter>
                 </div>

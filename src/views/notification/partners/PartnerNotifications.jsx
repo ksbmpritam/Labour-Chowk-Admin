@@ -6,8 +6,8 @@ import DataTableHeaderWithAdd from '../../../components/common/DataTableHeaderWi
 
 const columns = [
     {
-        name: 'Description',
-        selector: row => row.description,
+        name: 'Notification',
+        selector: row => row.notification,
     },
     {
         name: 'Sent to',
@@ -19,12 +19,12 @@ const columns = [
 const data = [
     {
         id: 1,
-        description: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
+        notification: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
         Sentto: 'All'
     },
     {
         id: 1,
-        description: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
+        notification: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
         Sentto: 'All Users'
     },
 ]
