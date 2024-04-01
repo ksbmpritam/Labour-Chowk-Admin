@@ -8,6 +8,7 @@ const AddUserNotification = React.lazy(() => import('./views/notification/users/
 const PartnerNotifications = React.lazy(() => import('./views/notification/partners/displayNotification/PartnerNotifications'))
 const AddPartnerNotification = React.lazy(() => import('./views/notification/partners/addNotification/AddPartnerNotification'))
 const Jobs = React.lazy(() => import('./views/jobs/Jobs'))
+const Wallet = React.lazy(() => import('./views/wallet/Wallet'))
 const Banner = React.lazy(() => import('./views/banner/bannerDeatils/Banner'))
 const AddBanner = React.lazy(() => import('./views/banner/addBanner/AddBanner'))
 // const Partner = React.lazy(() => import('./views/theme/partner/Partner'))
@@ -89,6 +90,7 @@ const routes = [
   { path: '/partnerNotifications', name: 'PartnerNotifications', element: PartnerNotifications },
   { path: '/add-partnet-notification', name: 'AddPartnerNotifications', element: AddPartnerNotification },
   { path: '/job-uploaded', name: 'Jobs', element: Jobs },
+  { path: '/wallet', name: 'Wallet', element: Wallet },
   { path: '/banner', name: 'Banner', element: Banner },
   { path: '/addBanner', name: 'AddBanner', element: AddBanner },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },

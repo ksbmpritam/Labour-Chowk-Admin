@@ -6,8 +6,8 @@ const ViewUser = () => {
     id: 1,
     aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
     contact: "8757858745",
-    email: "partnerone@gmail.com",
-    name: "Partner One",
+    email: "userone@gmail.com",
+    name: "User One",
     profileImage: "/src/assets/images/avatars/4.jpg"
   }
 

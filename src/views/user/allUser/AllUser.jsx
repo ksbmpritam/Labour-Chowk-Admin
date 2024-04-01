@@ -11,26 +11,26 @@ import pictureIcon from "../../../assets/images/avatars/4.jpg";
 
 const AllUser = () => {
    //! Partner Start
-   const partnerData = [
+   const userData = [
     {
         id: 1,
-        name: "Partner One",
-        email: "partnerone@gmail.com",
+        name: "User One",
+        email: "userone@gmail.com",
         contact: "8757858745",
         profileImage: pictureIcon,
         aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
     },
     {
         id: 2,
-        name: "Partner Two",
-        email: "partnertwo@gmail.com",
+        name: "User Two",
+        email: "usertwo@gmail.com",
         contact: "8709858745",
         profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
         aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
     }
 ]
 
-const partnerColumns = [
+const userColumns = [
     {
         name: 'S.No',
         selector: (row, index) => index + 1,
@@ -146,10 +146,10 @@ const handleSubmit = (event) => {
   return (
     <>
     <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-        <DataTableHeader title={'All Users'} data={partnerData} />
+        <DataTableHeader title={'All Users'} data={userData} />
         <DataTable
-            columns={partnerColumns}
-            data={partnerData}
+            columns={userColumns}
+            data={userData}
             pagination
             customStyles={DataTableCustomStyles}
         />

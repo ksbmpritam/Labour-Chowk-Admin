@@ -14,16 +14,16 @@ const ActiveUser = () => {
     const userData = [
         {
             id: 1,
-            name: "Partner One",
-            email: "partnerone@gmail.com",
+            name: "User One",
+            email: "userone@gmail.com",
             contact: "8757858745",
             profileImage: pictureIcon,
             aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
         },
         {
             id: 2,
-            name: "Partner Two",
-            email: "partnertwo@gmail.com",
+            name: "User Two",
+            email: "usertwo@gmail.com",
             contact: "8709858745",
             profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
             aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
