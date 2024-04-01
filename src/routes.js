@@ -4,9 +4,12 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Booking = React.lazy(() => import('./views/booking/Booking'))
 const NotePage = React.lazy(() => import('./views/notepage/NotePage'))
-const Notification = React.lazy(() => import('./views/notification/Notification'))
+const UserNotification = React.lazy(() => import('./views/notification/users/UserNotification'))
+const PartnerNotifications = React.lazy(() => import('./views/notification/partners/PartnerNotifications'))
+const AddPartnerNotifi = React.lazy(() => import('./views/notification/partners/AddPartnerNotifi'))
 const Jobs = React.lazy(() => import('./views/jobs/Jobs'))
-const Banner = React.lazy(() => import('./views/banner/Banner'))
+const Banner = React.lazy(() => import('./views/banner/bannerDeatils/Banner'))
+const AddBanner = React.lazy(() => import('./views/banner/addBanner/AddBanner'))
 // const Partner = React.lazy(() => import('./views/theme/partner/Partner'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
@@ -68,9 +71,13 @@ const routes = [
   { path: '/booking', name: 'Booking', element: Booking },
   { path: '/notepage', name: 'NotePage', element: NotePage },
   { path: '/notification', name: 'Notification', element: Notification },
+  { path: '/userNotification', name: 'UserNotification', element: UserNotification },
+  { path: '/partnerNotifications', name: 'PartnerNotifications', element: PartnerNotifications },
+  { path: '/addpnotification', name: 'AddPartnerNotifications', element: AddPartnerNotifi },
   { path: '/job-uploaded', name: 'Jobs', element: Jobs },
   { path: '/banner', name: 'Banner', element: Banner },
-  { path: '/theme', name: 'Theme', element: Colors, exact: true },
+  { path: '/addBanner', name: 'AddBanner', element: AddBanner },
+  { path: '/theme', name: 'Theme', element: Colors, exact: true }, 
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
   { path: '/base', name: 'Base', element: Cards, exact: true },

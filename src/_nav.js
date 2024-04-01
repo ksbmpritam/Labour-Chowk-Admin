@@ -119,6 +119,23 @@ const _nav = [
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
   {
+    component: CNavGroup,
+    name: 'Notifications',
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'User',
+        to: '/userNotification',
+      },
+      {
+        component: CNavItem,
+        name: 'Partner',
+        to: '/partnerNotifications',
+      },
+    ],
+  },
+  {
     component: CNavItem,
     name: 'Notifications',
     to: '/notification',

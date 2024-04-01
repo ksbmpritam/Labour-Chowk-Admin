@@ -2,7 +2,7 @@ import React from 'react'
 import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-import DataTableHeaderWithAdd from '../../components/common/DataTableHeaderWithAdd';
+import DataTableHeaderWithAdd from '../../../components/common/DataTableHeaderWithAdd';
 
 const columns = [
     {
@@ -51,20 +51,11 @@ const dataTableCustomStyles = {
 };
 
 
-const Notification = () => {
+const UserNotification = () => {
     return (
         <>
            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                {/* <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", }}>
-                    <div style={{ fontSize: "20px", fontWeight: "600" }}>Notifications</div>
-                    <div style={{ display: "flex", gap: "20px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
-                            <div style={{ fontSize: "16px", fontWeight: "600" }}>Download</div>
-                            <CIcon icon={icon.cilDataTransferDown} size="sm" />
-                        </div>
-                    </div>
-                </div> */}
-                <DataTableHeaderWithAdd title={'Notifications'} data={data} url={'addBanner'}/>
+                <DataTableHeaderWithAdd title={'User Notifications'} data={data} url={'addBanner'}/>
                 <DataTable
                     columns={columns}
                     data={data}
@@ -76,4 +67,4 @@ const Notification = () => {
     )
 }
 
-export default Notification
+export default UserNotification

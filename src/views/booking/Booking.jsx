@@ -2,6 +2,7 @@ import React from 'react'
 import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
+import DataTableHeader from '../../components/common/DataTableHeader';
 
 const columns = [
     {
@@ -20,6 +21,7 @@ const columns = [
         selector: row => row.status,
 
     },
+    
 
 
 ];
@@ -61,6 +63,7 @@ const dataTableCustomStyles = {
             backgroundColor: "#212631"
         }
     }
+
 };
 
 
@@ -68,7 +71,7 @@ const Booking = () => {
     return (
         <>
              <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", }}>
+                {/* <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", }}>
                     <div style={{ fontSize: "20px", fontWeight: "600" }}>Booking</div>
                     <div style={{ display: "flex", gap: "20px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
@@ -76,7 +79,8 @@ const Booking = () => {
                             <CIcon icon={icon.cilDataTransferDown} size="sm" />
                         </div>
                     </div>
-                </div>
+                </div> */}
+                <DataTableHeader title={'Booking'} data={data} />
                 <DataTable
                     columns={columns}
                     data={data}
@@ -88,4 +92,4 @@ const Booking = () => {
     )
 }
 
-            export default Booking
+export default Booking
