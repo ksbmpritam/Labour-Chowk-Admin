@@ -148,12 +148,12 @@ const _nav = [
     to: '/wallet',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
-  {
-    component: CNavItem,
-    name: 'Report',
-    to: '/report',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Report',
+  //   to: '/report',
+  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  // },
   // {
   //   component: CNavItem,
   //   name: 'Old Partner',
