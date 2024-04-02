@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CIcon from '@coreui/icons-react';
 import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
@@ -6,9 +6,18 @@ import { DataTableCustomStyles } from '../../../styles';
 import { useNavigate } from 'react-router-dom';
 import DataTableHeader from '../../../components/common/DataTableHeader';
 import pictureIcon from "../../../assets/images/avatars/4.jpg";
+import axios from 'axios';
 
 const ActivePartner = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const getpartner = async () => {
+            let response = await axios.get('https://api.biovisuals.in/api/user/adminCategories')
+            console.log("Response ::: ", response?.data)
+        }
+        getpartner()
+    }, [])
 
     //! Partner Start
     const partnerData = [
@@ -58,7 +67,7 @@ const ActivePartner = () => {
         {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }}  onClick={() => handleView(row)} icon={icon.cilTouchApp} size="lg" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="lg" />
             </div>,
         },
     ]
