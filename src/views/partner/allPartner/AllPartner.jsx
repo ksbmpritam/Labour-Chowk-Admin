@@ -252,8 +252,8 @@ const AllPartner = () => {
                             </CRow>
                         </CCol>
                         <CCol xs={12}>
-                            <CButton color="primary" type="submit">
-                                Submit
+                            <CButton type="submit" style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
+                                Edit Partner
                             </CButton>
                         </CCol>
                     </CForm>
