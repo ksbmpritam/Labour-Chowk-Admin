@@ -80,15 +80,15 @@ const Banner = () => {
         },
         {
             name: 'Banners',
-            cell: row => <img src={row.banner} alt="Banner" style={{ width: '50px', height: '50px' }} />,
+            cell: row => <img src={row.banner} alt="Banner" style={{ width: '50px', height: '50px' }} onClick={() => handleView(row)}  />,
         },
         {
             name: 'Action',
             cell: row => (
                 <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="lg" onClick={() => handleEdit(row)} />
-                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} size="lg" />
-                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="lg" />
+                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="md" onClick={() => handleEdit(row)} />
+                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} size="md" />
+                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="md" />
                 </div>
             ),
             width: '180px'
@@ -227,7 +227,7 @@ const Banner = () => {
                             </div>
                         </CCol>
                         <CCol xs={2} className="text-center">
-                            <CButton color="secondary" onClick={() => setViewVisible(false)}>
+                            <CButton  style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }} onClick={() => setViewVisible(false)}>
                                 Close
                             </CButton>
                         </CCol>
