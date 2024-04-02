@@ -19,6 +19,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 const Login = () => {
   let navigate = useNavigate()
   const handleLogin = () => {
+    localStorage.setItem("status", true)
     navigate("dashboard")
   }
 

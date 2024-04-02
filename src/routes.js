@@ -40,9 +40,18 @@ const Jobs = React.lazy(() => import('./views/jobs/Jobs'))
 //! Wallet
 const Wallet = React.lazy(() => import('./views/wallet/Wallet'))
 
+//! Not Found
+const NotFound = () => {
+  return (
+    <>
+      Not Found
+    </>
+  )
+}
 
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
+  // { path: '/', exact: true, name: 'Home' },
+  { path: '*', exact: true, name: 'NotFound', element: NotFound },
 
   //! Dashboard 
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },

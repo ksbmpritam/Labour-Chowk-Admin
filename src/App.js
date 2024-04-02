@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -18,6 +18,13 @@ const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
 const App = () => {
   const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
   const storedTheme = useSelector((state) => state.theme)
+  const [loginStatus, setLoginStatus] = useState(false)
+
+  useEffect(() => {
+    const localStatus = localStorage.getItem("status")
+    // console.log("Local Status ::: ", localStatus)
+    setLoginStatus(localStatus)
+  }, [])
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.href.split('?')[1])
@@ -44,11 +51,12 @@ const App = () => {
       >
         <Routes>
           <Route exact path="/" name="Login Page" element={<Login />} />
-          <Route exact path="/login" name="Login Page" element={<Login />} />
           <Route exact path="/register" name="Register Page" element={<Register />} />
+          {/* {loginStatus && <> */}
           <Route exact path="/404" name="Page 404" element={<Page404 />} />
           <Route exact path="/500" name="Page 500" element={<Page500 />} />
           <Route path="*" name="Home" element={<DefaultLayout />} />
+          {/* </>} */}
         </Routes>
         <Tooltip id="my-tooltip" />
       </Suspense>
