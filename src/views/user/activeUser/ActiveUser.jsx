@@ -10,7 +10,7 @@ import pictureIcon from "../../../assets/images/avatars/4.jpg";
 const ActiveUser = () => {
   const navigate = useNavigate();
 
-    //! Partner Start
+    //! User Start
     const userData = [
         {
             id: 1,
@@ -62,7 +62,7 @@ const ActiveUser = () => {
             </div>,
         },
     ]
-    //! partner End
+    //! User End
     const handleView = (data) => {
         console.log("View Data ::: ", data)
         navigate(`/user/${data?.id}`);

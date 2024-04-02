@@ -11,7 +11,7 @@ const BannedUser = () => {
 
   const navigate = useNavigate();
 
-  //! Partner Start
+  //! User Start
   const userData = [
       {
           id: 1,
@@ -63,7 +63,7 @@ const BannedUser = () => {
           </div>,
       },
   ]
-  //! partner End
+  //! User End
   const handleView = (data) => {
       console.log("View Data ::: ", data)
       navigate(`/user/${data?.id}`);

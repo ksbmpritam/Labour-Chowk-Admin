@@ -10,7 +10,7 @@ import DataTableHeader from '../../../components/common/DataTableHeader';
 import pictureIcon from "../../../assets/images/avatars/4.jpg";
 
 const AllUser = () => {
-    //! Partner Start
+    //! User Start
     const userData = [
         {
             id: 1,
@@ -67,7 +67,7 @@ const AllUser = () => {
             width: '180px'
         },
     ]
-    //! partner End
+    //! User End
     const handleView = (data) => {
         console.log("View Data ::: ", data)
         navigate(`/user/${data?.id}`);
