@@ -227,7 +227,7 @@ const Banner = () => {
                             </div>
                         </CCol>
                         <CCol xs={2} className="text-center">
-                            <CButton color="secondary" onClick={() => setViewVisible(false)}>
+                            <CButton  style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }} onClick={() => setViewVisible(false)}>
                                 Close
                             </CButton>
                         </CCol>

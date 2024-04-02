@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 import DataTableHeader from '../../components/common/DataTableHeader';
-import { CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CButton } from '@coreui/react';
+import { CButton, CCol, CForm, CFormInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow } from '@coreui/react';
 
 const Jobs = () => {
     const [selectedViewRow, setSelectedViewRow] = useState(null);
@@ -103,24 +103,33 @@ const Jobs = () => {
                 <CModalHeader>
                     <CModalTitle id="VerticallyCenteredExample">View Banner</CModalTitle>
                 </CModalHeader>
+                
+
                 <CModalBody>
-                    <div>
-                        {selectedViewRow && (
-                            <>
-                                <p><span style={{fontWeight:'bold', fontSize:'18px'}}>Title:</span> {selectedViewRow.title} </p>
-                                <p><span style={{fontWeight:'bold', fontSize:'18px'}}>Skills:</span> {selectedViewRow.skills} </p>
-                                <p><span style={{fontWeight:'bold', fontSize:'18px'}}>Description:</span> {selectedViewRow.description}  </p>
-                                <p><span style={{fontWeight:'bold', fontSize:'18px'}}>Status:</span> {selectedViewRow.status}  </p>
-                                
-                            </>
-                        )}
-                    </div>
+                    <CForm className="row g-3 needs-validation">
+                        <CCol md={12}>
+                            <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Title:</span> {selectedViewRow.title} </p>
+                        </CCol>
+                        <CCol md={12}>
+                            <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Skills:</span> {selectedViewRow.skills} </p>
+                        </CCol>
+
+                        <CCol md={12}>
+                            <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Description:</span> {selectedViewRow.description}  </p>
+                        </CCol>
+                        <CCol md={12}>
+                            <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Status:</span> {selectedViewRow.status}  </p>
+                        </CCol>
+
+                        <CCol xs={2} className="text-center">
+                            <CButton style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }} onClick={() => setViewVisible(false)}>
+                                Close
+                            </CButton>
+                        </CCol>
+                    </CForm>
                 </CModalBody>
-                <CModalFooter>
-                    <CButton color="secondary" onClick={() => setViewVisible(false)}>
-                        Close
-                    </CButton>
-                </CModalFooter>
+
+
 
             </CModal>
         </>
