@@ -29,10 +29,7 @@ const AddBanner = () => {
             });
         }
     };
-
   
-
-
     return (
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>

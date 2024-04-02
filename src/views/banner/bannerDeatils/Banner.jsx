@@ -5,6 +5,7 @@ import DataTable from 'react-data-table-component';
 import { CButton, CCol, CForm, CFormInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow } from '@coreui/react';
 import * as icon from '@coreui/icons';
 import DataTableHeaderWithAdd from '../../../components/common/DataTableHeaderWithAdd';
+import { DataTableCustomStyles } from '../../../styles';
 
 const Banner = () => {
     const [editVisible, setEditVisible] = useState(false);
@@ -56,7 +57,7 @@ const Banner = () => {
     };
 
 
-    const data = [
+    const bannerData = [
         {
             id: 1,
             title: "Plumber",
@@ -69,7 +70,7 @@ const Banner = () => {
         }
     ]
 
-    const columns = [
+    const bannerColumns = [
         {
             name: 'S.No',
             selector: (row, index) => index + 1,
@@ -80,7 +81,7 @@ const Banner = () => {
         },
         {
             name: 'Banners',
-            cell: row => <img src={row.banner} alt="Banner" style={{ width: '50px', height: '50px' }} onClick={() => handleView(row)}  />,
+            cell: row => <img src={row.banner} alt="Banner" style={{ width: '50px', height: '50px' }} onClick={() => handleView(row)} />,
         },
         {
             name: 'Action',
@@ -95,49 +96,19 @@ const Banner = () => {
         },
     ];
 
-    const dataTableCustomStyles = {
-        cells: {
-            style: {
-                textAlign: "center",
-                color: "rgba(0, 0, 0, 0.6)",
-                whiteSpace: "nowrap",
-            },
-        },
-        rows: {
-            style: {
-                minHeight: '65px',
-                backgroundColor: "#fff"
-            },
-        },
-        headRow: {
-            style: {
-                whiteSpace: 'nowrap',
-                fontSize: "14px",
-                fontWeight: "600",
-                color: "#fff",
-                backgroundColor: "#212631"
-            }
-        }
-    };
-
-
-
     return (
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeaderWithAdd title={'Banners'} data={data} url={'add-banner'} />
+                <DataTableHeaderWithAdd title={'Banners'} data={bannerData} url={'add-banner'} />
                 <DataTable
-                    columns={columns}
-                    data={data}
+                    columns={bannerColumns}
+                    data={bannerData}
                     pagination
-                    customStyles={dataTableCustomStyles}
+                    customStyles={DataTableCustomStyles}
                 />
             </div>
 
-
-
             {/* edit modal  */}
-
             <CModal
                 backdrop="static"
                 visible={editVisible}
@@ -197,12 +168,7 @@ const Banner = () => {
                 </CModalBody>
             </CModal>
 
-
-
-
             {/* view modal */}
-
-
             <CModal
                 backdrop="static"
                 visible={viewVisible}
@@ -227,7 +193,7 @@ const Banner = () => {
                             </div>
                         </CCol>
                         <CCol xs={2} className="text-center">
-                            <CButton  style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }} onClick={() => setViewVisible(false)}>
+                            <CButton style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }} onClick={() => setViewVisible(false)}>
                                 Close
                             </CButton>
                         </CCol>

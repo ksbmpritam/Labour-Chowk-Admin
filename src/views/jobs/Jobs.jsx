@@ -4,6 +4,7 @@ import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 import DataTableHeader from '../../components/common/DataTableHeader';
 import { CButton, CCol, CForm, CModal, CModalBody, CModalHeader, CModalTitle, } from '@coreui/react';
+import { DataTableCustomStyles } from '../../styles';
 
 const Jobs = () => {
     const [selectedViewRow, setSelectedViewRow] = useState({});
@@ -14,7 +15,7 @@ const Jobs = () => {
         setViewVisible(true);
     };
 
-    const data = [
+    const jobUploadData = [
         {
             id: 1,
             title: "Plumber",
@@ -31,7 +32,7 @@ const Jobs = () => {
         }
     ];
 
-    const columns = [
+    const jobUploadColumns = [
         {
             name: 'S.No',
             selector: (row, index) => index + 1,
@@ -40,58 +41,40 @@ const Jobs = () => {
         {
             name: 'Title',
             selector: row => row.title,
-            // maxWidth: '150px',
         },
         {
             name: 'Skills',
             selector: row => row.skills,
-            // maxWidth: '150px',
         },
         {
             name: 'Description',
             selector: row => row.description,
-            // minWidth: '900px',
             width: '180px'
         },
         {
             name: 'Status',
             selector: row => row.status,
-            // maxWidth: '150px',
         },
         {
             name: 'Action',
             cell: row => (
                 <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="xl" />
+                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
                 </div>
             ),
             width: '180px'
         },
     ];
 
-    const dataTableCustomStyles = {
-        headRow: {
-            style: {
-                backgroundColor: "#212631",
-                color: "#fff",
-            }
-        },
-        cells: {
-            style: {
-                whiteSpace: 'nowrap',
-            }
-        },
-    };
-
     return (
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeader title={'Job Uploaded'} data={data} />
+                <DataTableHeader title={'Job Uploaded'} data={jobUploadData} />
                 <DataTable
-                    columns={columns}
-                    data={data}
+                    columns={jobUploadColumns}
+                    data={jobUploadData}
                     pagination
-                    customStyles={dataTableCustomStyles}
+                    customStyles={DataTableCustomStyles}
                 />
             </div>
             {/* view modal */}
@@ -104,8 +87,6 @@ const Jobs = () => {
                 <CModalHeader>
                     <CModalTitle id="VerticallyCenteredExample">View Banner</CModalTitle>
                 </CModalHeader>
-                
-
                 <CModalBody>
                     <CForm className="row g-3 needs-validation">
                         <CCol md={12}>
@@ -129,9 +110,6 @@ const Jobs = () => {
                         </CCol>
                     </CForm>
                 </CModalBody>
-
-
-
             </CModal>
         </>
     )
