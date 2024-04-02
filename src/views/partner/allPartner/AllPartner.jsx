@@ -252,7 +252,7 @@ const AllPartner = () => {
                                 </CCol>
                             </CRow>
                         </CCol>
-                        <CCol md={12}>
+                        {/* <CCol md={12}>
                             <div>Aadhar card</div>
                             <CRow className='align-items-center'>
                                 <CCol xs={2}>
@@ -271,7 +271,7 @@ const AllPartner = () => {
                                     />
                                 </CCol>
                             </CRow>
-                        </CCol>
+                        </CCol> */}
                         <CCol xs={12}>
                             <CButton type="submit" style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
                                 Edit Partner
