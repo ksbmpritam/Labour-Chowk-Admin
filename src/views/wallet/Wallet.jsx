@@ -1,12 +1,13 @@
-import CIcon from '@coreui/icons-react';
 import React from 'react'
 import DataTable from 'react-data-table-component';
+import CIcon from '@coreui/icons-react';
 import * as icon from '@coreui/icons';
 import DataTableHeader from '../../components/common/DataTableHeader';
+import { DataTableCustomStyles } from '../../styles';
 
 const Wallet = () => {
 
-    const data = [
+    const walletData = [
         {
             id: 1,
             user: "Pramod Mishra ",
@@ -23,7 +24,7 @@ const Wallet = () => {
         }
     ]
 
-    const columns = [
+    const walletColumns = [
         {
             name: 'S.No',
             selector: (row, index) => index + 1,
@@ -46,42 +47,15 @@ const Wallet = () => {
         },
     ];
 
-    const dataTableCustomStyles = {
-        cells: {
-            style: {
-                textAlign: "center",
-                color: "rgba(0, 0, 0, 0.6)", whiteSpace: "nowrap",
-            },
-        },
-        rows: {
-            style: {
-                minHeight: '65px',
-                backgroundColor: "#fff"
-            },
-        },
-        headRow: {
-            style: {
-                whiteSpace: 'nowrap',
-                fontSize: "14px",
-                fontWeight: "600", color: "#fff",
-                backgroundColor: "#212631"
-            }
-        }
-    };
-
-    const handleView = () => {
-        console.log("Clicked")
-    }
-
     return (
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeader title={'Wallet'} data={data} />
+                <DataTableHeader title={'Wallet'} data={walletData} />
                 <DataTable
-                    columns={columns}
-                    data={data}
+                    columns={walletColumns}
+                    data={walletData}
                     pagination
-                    customStyles={dataTableCustomStyles}
+                    customStyles={DataTableCustomStyles}
                 />
             </div>
         </>

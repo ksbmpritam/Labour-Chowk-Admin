@@ -3,8 +3,9 @@ import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import DataTableHeader from '../../components/common/DataTableHeader';
+import { DataTableCustomStyles } from '../../styles';
 
-const columns = [
+const bookingColumns = [
     {
         name: 'S.No',
         selector: (row, index) => index + 1,
@@ -23,7 +24,7 @@ const columns = [
     },
 ];
 
-const data = [
+const bookingData = [
     {
         id: 1,
         name: 'Beetlejuice',
@@ -37,44 +38,18 @@ const data = [
         status: 'active'
     },
 ]
-const dataTableCustomStyles = {
-    cells: {
-        style: {
-            // fontSize: '14px',
-            // padding: "10px 0",
-            textAlign: "center",
-            color: "rgba(0, 0, 0, 0.6)", whiteSpace: "nowrap",
-        },
-    },
-    rows: {
-        style: {
-            // minHeight: '72px', // override the row height,
-            backgroundColor: "#fff"
-        },
-    },
-    headRow: {
-        style: {
-            whiteSpace: 'nowrap',
-            fontSize: "14px",
-            fontWeight: "600", color: "#fff",
-            backgroundColor: "#212631"
-        }
-    }
-
-};
-
 
 const Booking = () => {
     return (
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
 
-                <DataTableHeader title={'Booking'} data={data} />
+                <DataTableHeader title={'Booking'} data={bookingData} />
                 <DataTable
-                    columns={columns}
-                    data={data}
+                    columns={bookingColumns}
+                    data={bookingData}
                     pagination
-                    customStyles={dataTableCustomStyles}
+                    customStyles={DataTableCustomStyles}
                 />
             </div>
         </>
