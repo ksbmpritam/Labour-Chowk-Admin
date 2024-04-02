@@ -29,7 +29,7 @@ const AddPartnerNotification = () => {
     return (
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-            <DataTableButton title={'Add'} url={'partnerNotifications'} />
+            <DataTableButton title={'Add'} url={'partner-notification'} />
                
                 <CForm
                         className="row g-3 needs-validation"
