@@ -30,6 +30,11 @@ const AddUserNotification = React.lazy(() => import('./views/notification/users/
 const PartnerNotifications = React.lazy(() => import('./views/notification/partners/displayNotification/PartnerNotifications'))
 const AddPartnerNotification = React.lazy(() => import('./views/notification/partners/addNotification/AddPartnerNotification'))
 
+//! Complaint
+const UserComplaint = React.lazy(() => import('./views/complaint/user/UserComplaint'))
+const PartnerComplaint = React.lazy(() => import('./views/complaint/partner/PartnerComplaint'))
+
+
 //! Banner 
 const Banner = React.lazy(() => import('./views/banner/bannerDeatils/Banner'))
 const AddBanner = React.lazy(() => import('./views/banner/addBanner/AddBanner'))
@@ -82,6 +87,10 @@ const routes = [
   { path: '/add-user-notification', name: 'AddUserNotification', element: AddUserNotification },
   { path: '/partner-notification', name: 'PartnerNotifications', element: PartnerNotifications },
   { path: '/add-partner-notification', name: 'AddPartnerNotification', element: AddPartnerNotification },
+
+  //! complaint
+  { path: '/user-complaint', name: 'UserComplaint', element: UserComplaint },
+  { path: '/partner-complaint', name: 'PartnerComplaint', element: PartnerComplaint },
 
   //! Banner 
   { path: '/banner', name: 'Banner', element: Banner },

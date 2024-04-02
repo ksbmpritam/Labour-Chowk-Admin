@@ -18,6 +18,7 @@ import {
   cilSpeedometer,
   cilStar,
   cilWallet,
+  cilWarning,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -153,6 +154,23 @@ const _nav = [
     name: 'Wallet',
     to: '/wallet',
     icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavGroup,
+    name: 'Complaint',
+    icon: <CIcon icon={cilWarning} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'User',
+        to: '/user-complaint',
+      },
+      {
+        component: CNavItem,
+        name: 'Partner',
+        to: '/partner-complaint',
+      },
+    ],
   },
   // {
   //   component: CNavItem,
