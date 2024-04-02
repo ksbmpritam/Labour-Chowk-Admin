@@ -52,7 +52,7 @@ const AddSubSkill = () => {
 
           <CCol xs={12}>
             <CButton type="submit" style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
-              Add Skill
+              Add Sub Skill
             </CButton>
           </CCol>
         </CForm>
