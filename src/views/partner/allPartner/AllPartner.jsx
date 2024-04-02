@@ -110,7 +110,6 @@ const AllPartner = () => {
 
     const navigate = useNavigate();
     const [visible, setVisible] = useState(false)
-
     const [validated, setValidated] = useState(false)
     const [partnerDetail, setPartnerDetail] = useState({ name: '', email: '', contact: '' });
     const [profileImage, setProfileImage] = useState({ file: null, bytes: "" });
