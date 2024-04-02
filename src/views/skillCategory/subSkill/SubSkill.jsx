@@ -10,11 +10,18 @@ const SubSkill = () => {
     const subSkillData = [
         {
             id: 1,
-            subSkill: "One",
+            skill: "Skill One",
+            subSkill: "One"
         },
         {
             id: 2,
-            subSkill: "Two",
+            skill: "Skill One",
+            subSkill: "Two"
+        },
+        {
+            id: 3,
+            skill: "Skill Two",
+            subSkill: "One"
         }
     ]
 
@@ -24,7 +31,11 @@ const SubSkill = () => {
             selector: (row, index) => index + 1,
         },
         {
-            name: 'Name',
+            name: 'Skill',
+            selector: row => row?.skill,
+        },
+        {
+            name: 'Sub SKill',
             selector: row => row?.subSkill,
         },
         {

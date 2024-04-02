@@ -24,7 +24,7 @@ const Skill = () => {
             selector: (row, index) => index + 1,
         },
         {
-            name: 'Name',
+            name: 'Skill',
             selector: row => row?.skill,
         },
         {

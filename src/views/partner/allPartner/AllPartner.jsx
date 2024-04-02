@@ -17,6 +17,8 @@ const AllPartner = () => {
             name: "Partner One",
             email: "partnerone@gmail.com",
             contact: "8757858745",
+            status: "Active",
+            isverfied: "Verified",
             profileImage: pictureIcon,
             aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
         },
@@ -25,6 +27,18 @@ const AllPartner = () => {
             name: "Partner Two",
             email: "partnertwo@gmail.com",
             contact: "8709858745",
+            status: "In Active",
+            isverfied: "Not Verified",
+            profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
+            aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
+        },
+        {
+            id: 3,
+            name: "Partner Three",
+            email: "partnerthree@gmail.com",
+            contact: "8709858745",
+            status: "Active",
+            isverfied: "Not Verified",
             profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
             aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
         }
@@ -39,10 +53,10 @@ const AllPartner = () => {
             name: 'Name',
             selector: row => row.name,
         },
-        {
-            name: 'Email',
-            selector: row => row.email,
-        },
+        // {
+        //     name: 'Email',
+        //     selector: row => row.email,
+        // },
         {
             name: 'Profile Image',
             cell: row => <img src={row.profileImage} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
@@ -56,12 +70,20 @@ const AllPartner = () => {
             selector: row => row.contact,
         },
         {
+            name: 'Status',
+            selector: row => row.status,
+        },
+        {
+            name: 'Is Verified',
+            selector: row => row.isverfied,
+        },
+        {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} style={{ cursor: "pointer" }} size="sm" onClick={() => handleEdit(row)} />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} size="sm" />
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Ban-Unban" icon={icon.cilBan} size="sm" />
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Verify" icon={icon.cilCheckCircle} size="sm" />
+                {/* <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Ban-Unban" icon={icon.cilBan} size="sm" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Verify" icon={icon.cilCheckCircle} size="sm" /> */}
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" icon={icon.cilTouchApp} size="sm" style={{ cursor: "pointer" }} onClick={() => handleView(row)} />
             </div>,
             width: '180px'
