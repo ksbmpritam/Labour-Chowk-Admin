@@ -285,3 +285,4 @@ const AllPartner = () => {
 }
 
 export default AllPartner
+
