@@ -82,7 +82,7 @@ const PartnerComplaint = () => {
                     <CModalBody>
                         <CForm className="row g-3 needs-validation">
                             <CCol md={12}>
-                                <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Complaints:</span> {selectedViewRow.complaints} </p>
+                                <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Complaint:</span> {selectedViewRow.complaint} </p>
                             </CCol>
                             <CCol md={12}>
                                 <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Sent by:</span> {selectedViewRow.Sentby} </p>

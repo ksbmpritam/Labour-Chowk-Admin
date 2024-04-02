@@ -27,8 +27,8 @@ const UserComplaint = () => {
             selector: (row, index) => index + 1,
         },
         {
-            name: 'Complaints',
-            selector: row => row.complaints,
+            name: 'Complaint',
+            selector: row => row.complaint,
         },
         {
             name: 'Sent by',
@@ -48,12 +48,12 @@ const UserComplaint = () => {
     const userComplaintData = [
         {
             id: 1,
-            complaints: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
+            complaint: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
             Sentby: 'User one'
         },
         {
             id: 2,
-            complaints: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
+            complaint: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
             Sentby: 'User two'
         },
     ]
@@ -82,7 +82,7 @@ const UserComplaint = () => {
                     <CModalBody>
                         <CForm className="row g-3 needs-validation">
                             <CCol md={12}>
-                                <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Complaints:</span> {selectedViewRow.complaints} </p>
+                                <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Complaint:</span> {selectedViewRow.complaint} </p>
                             </CCol>
                             <CCol md={12}>
                                 <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Sent by:</span> {selectedViewRow.Sentby} </p>
