@@ -58,7 +58,7 @@ const ActivePartner = () => {
         {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }}  onClick={() => handleView(row)} icon={icon.cilTouchApp} size="lg" />
             </div>,
         },
     ]
