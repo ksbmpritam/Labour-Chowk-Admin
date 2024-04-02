@@ -80,7 +80,7 @@ const Banner = () => {
         },
         {
             name: 'Banners',
-            cell: row => <img src={row.banner} alt="Banner" style={{ width: '50px', height: '50px' }} />,
+            cell: row => <img src={row.banner} alt="Banner" style={{ width: '50px', height: '50px' }} onClick={() => handleView(row)}  />,
         },
         {
             name: 'Action',
