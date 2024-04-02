@@ -82,7 +82,7 @@ const _nav = [
     ],
   },
   //! User End 
-  //! Category Start 
+  //! Skill Category Start 
   {
     component: CNavGroup,
     name: 'Skill Category',
@@ -100,7 +100,7 @@ const _nav = [
       },
     ],
   },
-  //! Category End 
+  //! Skill Category End 
   {
     component: CNavItem,
     name: 'Booking',
@@ -109,18 +109,18 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: 'Notifications',
+    name: 'Notification',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'User',
-        to: '/userNotification',
+        to: '/user-notification',
       },
       {
         component: CNavItem,
         name: 'Partner',
-        to: '/partnerNotifications',
+        to: '/partner-notification',
       },
     ],
   },

@@ -56,7 +56,7 @@ const PartnerNotifications = () => {
         <>
            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
                
-                <DataTableHeaderWithAdd title={'Partner Notifications'} data={data} url={'add-partnet-notification'}/>
+                <DataTableHeaderWithAdd title={'Partner Notifications'} data={data} url={'add-partner-notification'}/>
                 <DataTable
                     columns={columns}
                     data={data}
