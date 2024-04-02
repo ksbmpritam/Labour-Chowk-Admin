@@ -10,257 +10,257 @@ import DataTableHeader from '../../../components/common/DataTableHeader';
 import pictureIcon from "../../../assets/images/avatars/4.jpg";
 
 const AllUser = () => {
-   //! Partner Start
-   const userData = [
-    {
-        id: 1,
-        name: "User One",
-        email: "userone@gmail.com",
-        contact: "8757858745",
-        profileImage: pictureIcon,
-        aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
-    },
-    {
-        id: 2,
-        name: "User Two",
-        email: "usertwo@gmail.com",
-        contact: "8709858745",
-        profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
-        aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
+    //! Partner Start
+    const userData = [
+        {
+            id: 1,
+            name: "User One",
+            email: "userone@gmail.com",
+            contact: "8757858745",
+            profileImage: pictureIcon,
+            aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
+        },
+        {
+            id: 2,
+            name: "User Two",
+            email: "usertwo@gmail.com",
+            contact: "8709858745",
+            profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
+            aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
+        }
+    ]
+
+    const userColumns = [
+        {
+            name: 'S.No',
+            selector: (row, index) => index + 1,
+        },
+        {
+            name: 'Name',
+            selector: row => row.name,
+        },
+        {
+            name: 'Email',
+            selector: row => row.email,
+        },
+        {
+            name: 'Profile Image',
+            cell: row => <img src={row.profileImage} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
+        },
+        {
+            name: 'Aadhar',
+            cell: row => <img src={row.aadhar} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
+        },
+        {
+            name: 'Mobile',
+            selector: row => row.contact,
+        },
+        {
+            name: 'Action',
+            cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="sm" onClick={() => handleEdit(row)} />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} size="sm" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Ban-Unban" icon={icon.cilBan} size="sm" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Verify" icon={icon.cilCheckCircle} size="sm" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
+            </div>,
+            width: '180px'
+        },
+    ]
+    //! partner End
+    const handleView = (data) => {
+        console.log("View Data ::: ", data)
+        navigate(`/user/${data?.id}`);
     }
-]
 
-const userColumns = [
-    {
-        name: 'S.No',
-        selector: (row, index) => index + 1,
-    },
-    {
-        name: 'Name',
-        selector: row => row.name,
-    },
-    {
-        name: 'Email',
-        selector: row => row.email,
-    },
-    {
-        name: 'Profile Image',
-        cell: row => <img src={row.profileImage} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
-    },
-    {
-        name: 'Aadhar',
-        cell: row => <img src={row.aadhar} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
-    },
-    {
-        name: 'Mobile',
-        selector: row => row.contact,
-    },
-    {
-        name: 'Action',
-        cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-            <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="sm" onClick={() => handleEdit(row)} />
-            <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} size="sm" />
-            <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Ban-Unban" icon={icon.cilBan} size="sm" />
-            <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Verify" icon={icon.cilCheckCircle} size="sm" />
-            <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
-        </div>,
-        width: '180px'
-    },
-]
-//! partner End
-const handleView = (data) => {
-    console.log("View Data ::: ", data)
-    navigate(`/user/${data?.id}`);
-}
+    const handleEdit = (data) => {
+        setVisible(!visible)
+        console.log("Edit Data ::: ", data)
 
-const handleEdit = (data) => {
-    setVisible(!visible)
-    console.log("Edit Data ::: ", data)
-
-    setPartnerDetail({
-        name: data.name || '',
-        email: data.email || '',
-        contact: data.contact || '',
-    });
-    setProfileImage({ file: data?.profileImage, bytes: '' })
-    setAadharCard({ file: data?.aadhar, bytes: '' })
-}
-
-const navigate = useNavigate();
-const [visible, setVisible] = useState(false)
-
-const [validated, setValidated] = useState(false)
-const [partnerDetail, setPartnerDetail] = useState({ name: '', email: '', contact: '' });
-const [profileImage, setProfileImage] = useState({ file: null, bytes: "" });
-const [aadharCard, setAadharCard] = useState({ file: null, bytes: "" });
-const [error, setError] = useState({ name: "Please Provide Name", email: "Please Provide Email" })
-
-const handleError = (input, value) => {
-    setError((prev) => ({ ...prev, [input]: value }))
-}
-
-const handleInputField = (e) => {
-    const { name, value } = e.target;
-    setPartnerDetail({ ...partnerDetail, [name]: value });
-};
-
-const handleProfileImage = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-        setProfileImage({
-            file: URL.createObjectURL(e.target.files[0]),
-            bytes: e.target.files[0],
+        setUserDetail({
+            name: data.name || '',
+            email: data.email || '',
+            contact: data.contact || '',
         });
+        setProfileImage({ file: data?.profileImage, bytes: '' })
+        setAadharCard({ file: data?.aadhar, bytes: '' })
     }
-};
 
-const handleAadharcard = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-        setAadharCard({
-            file: URL.createObjectURL(e.target.files[0]),
-            bytes: e.target.files[0],
-        });
+    const navigate = useNavigate();
+    const [visible, setVisible] = useState(false)
+
+    const [validated, setValidated] = useState(false)
+    const [userDetail, setUserDetail] = useState({ name: '', email: '', contact: '' });
+    const [profileImage, setProfileImage] = useState({ file: null, bytes: "" });
+    const [aadharCard, setAadharCard] = useState({ file: null, bytes: "" });
+    const [error, setError] = useState({ name: "Please Provide Name", email: "Please Provide Email" })
+
+    const handleError = (input, value) => {
+        setError((prev) => ({ ...prev, [input]: value }))
     }
-};
 
-const handleSubmit = (event) => {
-    event.preventDefault()
-    const form = event.currentTarget
-    if (form.checkValidity() === false) {
-        event.stopPropagation()
-    } else {
-        var formData = new FormData()
+    const handleInputField = (e) => {
+        const { name, value } = e.target;
+        setUserDetail({ ...userDetail, [name]: value });
+    };
 
-        formData.append("name", partnerDetail?.name)
-        formData.append("email", partnerDetail?.email)
-        formData.append("conact", partnerDetail?.contact)
-        formData.append("profileImage", profileImage.bytes);
-        formData.append("aadharCard", aadharCard.bytes);
+    const handleProfileImage = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setProfileImage({
+                file: URL.createObjectURL(e.target.files[0]),
+                bytes: e.target.files[0],
+            });
+        }
+    };
 
-        console.log({ name: partnerDetail?.name, email: partnerDetail?.email, contact: partnerDetail?.contact, profileImage: profileImage?.bytes, aadharCard: aadharCard?.bytes })
+    const handleAadharcard = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setAadharCard({
+                file: URL.createObjectURL(e.target.files[0]),
+                bytes: e.target.files[0],
+            });
+        }
+    };
 
-        console.log('Form data:', formData);
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const form = event.currentTarget
+        if (form.checkValidity() === false) {
+            event.stopPropagation()
+        } else {
+            var formData = new FormData()
+
+            formData.append("name", userDetail?.name)
+            formData.append("email", userDetail?.email)
+            formData.append("conact", userDetail?.contact)
+            formData.append("profileImage", profileImage.bytes);
+            formData.append("aadharCard", aadharCard.bytes);
+
+            console.log({ name: userDetail?.name, email: userDetail?.email, contact: userDetail?.contact, profileImage: profileImage?.bytes, aadharCard: aadharCard?.bytes })
+
+            console.log('Form data:', formData);
+        }
+        setValidated(true)
     }
-    setValidated(true)
-}
 
-  return (
-    <>
-    <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-        <DataTableHeader title={'All Users'} data={userData} />
-        <DataTable
-            columns={userColumns}
-            data={userData}
-            pagination
-            customStyles={DataTableCustomStyles}
-        />
-    </div>
+    return (
+        <>
+            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
+                <DataTableHeader title={'All Users'} data={userData} />
+                <DataTable
+                    columns={userColumns}
+                    data={userData}
+                    pagination
+                    customStyles={DataTableCustomStyles}
+                />
+            </div>
 
-    {/* Edit Modal */}
-    <CModal
-        backdrop="static"
-        visible={visible}
-        onClose={() => setVisible(false)}
-        aria-labelledby="LiveDemoExampleLabel"
-    >
-        <CModalHeader onClose={() => setVisible(false)}>
-            <CModalTitle id="LiveDemoExampleLabel">Edit Partner</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-            <CForm
-                className="row g-3 needs-validation"
-                noValidate
-                validated={validated}
-                onSubmit={handleSubmit}
+            {/* Edit Modal */}
+            <CModal
+                backdrop="static"
+                visible={visible}
+                onClose={() => setVisible(false)}
+                aria-labelledby="LiveDemoExampleLabel"
             >
-                <CCol md={6}>
-                    <CFormInput
-                        label="Name"
-                        type="text"
-                        name="name"
-                        value={partnerDetail.name}
-                        id="validationCustom01"
-                        required
-                        feedbackValid="Looks good!"
-                        feedbackInvalid={error?.name}
-                        onChange={handleInputField}
-                    />
-                </CCol>
-                <CCol md={6}>
-                    <CFormInput
-                        label="Email"
-                        type="text"
-                        name="email"
-                        value={partnerDetail.email}
-                        id="validationCustom02"
-                        required
-                        feedbackValid="Looks good!"
-                        feedbackInvalid={error?.email}
-                        onChange={handleInputField}
-                    />
-                </CCol>
-                <CCol md={12}>
-                    <CFormInput
-                        label="Mobile No."
-                        type="text"
-                        name="contact"
-                        value={partnerDetail.contact}
-                        id="validationCustom03"
-                        required
-                        feedbackValid="Looks good!"
-                        feedbackInvalid="Please Provide Contact Number"
-                        onChange={handleInputField}
-                    />
-                </CCol>
-                <CCol md={12}>
-                    <div>Profile Image</div>
-                    <CRow className='align-items-center'>
-                        <CCol xs={2}>
-                            <img src={profileImage?.file} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-                        </CCol>
-                        <CCol xs={10}>
+                <CModalHeader onClose={() => setVisible(false)}>
+                    <CModalTitle id="LiveDemoExampleLabel">Edit User</CModalTitle>
+                </CModalHeader>
+                <CModalBody>
+                    <CForm
+                        className="row g-3 needs-validation"
+                        noValidate
+                        validated={validated}
+                        onSubmit={handleSubmit}
+                    >
+                        <CCol md={6}>
                             <CFormInput
-                                type="file"
-                                name="profileImage"
-                                id="validationCustom04"
+                                label="Name"
+                                type="text"
+                                name="name"
+                                value={userDetail.name}
+                                id="validationCustom01"
                                 required
                                 feedbackValid="Looks good!"
-                                feedbackInvalid="Please Provide Profile Image"
-                                aria-label="file example"
-                                onChange={handleProfileImage}
+                                feedbackInvalid={error?.name}
+                                onChange={handleInputField}
                             />
                         </CCol>
-                    </CRow>
-                </CCol>
-                <CCol md={12}>
-                    <div>Aadhar card</div>
-                    <CRow className='align-items-center'>
-                        <CCol xs={2}>
-                            <img src={aadharCard?.file} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-                        </CCol>
-                        <CCol xs={10}>
+                        <CCol md={6}>
                             <CFormInput
-                                type="file"
-                                name="aadharCard"
-                                id="validationCustom05"
+                                label="Email"
+                                type="text"
+                                name="email"
+                                value={userDetail.email}
+                                id="validationCustom02"
                                 required
                                 feedbackValid="Looks good!"
-                                feedbackInvalid="Please Provide Aadhar Card"
-                                aria-label="file example"
-                                onChange={handleAadharcard}
+                                feedbackInvalid={error?.email}
+                                onChange={handleInputField}
                             />
                         </CCol>
-                    </CRow>
-                </CCol>
-                <CCol xs={12}>
-                    <CButton color="primary" type="submit">
-                        Submit
-                    </CButton>
-                </CCol>
-            </CForm>
-        </CModalBody>
-    </CModal>
-</>
-  )
+                        <CCol md={12}>
+                            <CFormInput
+                                label="Mobile No."
+                                type="text"
+                                name="contact"
+                                value={userDetail.contact}
+                                id="validationCustom03"
+                                required
+                                feedbackValid="Looks good!"
+                                feedbackInvalid="Please Provide Contact Number"
+                                onChange={handleInputField}
+                            />
+                        </CCol>
+                        <CCol md={12}>
+                            <div>Profile Image</div>
+                            <CRow className='align-items-center'>
+                                <CCol xs={2}>
+                                    <img src={profileImage?.file} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                                </CCol>
+                                <CCol xs={10}>
+                                    <CFormInput
+                                        type="file"
+                                        name="profileImage"
+                                        id="validationCustom04"
+                                        required
+                                        feedbackValid="Looks good!"
+                                        feedbackInvalid="Please Provide Profile Image"
+                                        aria-label="file example"
+                                        onChange={handleProfileImage}
+                                    />
+                                </CCol>
+                            </CRow>
+                        </CCol>
+                        <CCol md={12}>
+                            <div>Aadhar card</div>
+                            <CRow className='align-items-center'>
+                                <CCol xs={2}>
+                                    <img src={aadharCard?.file} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                                </CCol>
+                                <CCol xs={10}>
+                                    <CFormInput
+                                        type="file"
+                                        name="aadharCard"
+                                        id="validationCustom05"
+                                        required
+                                        feedbackValid="Looks good!"
+                                        feedbackInvalid="Please Provide Aadhar Card"
+                                        aria-label="file example"
+                                        onChange={handleAadharcard}
+                                    />
+                                </CCol>
+                            </CRow>
+                        </CCol>
+                        <CCol xs={12}>
+                            <CButton type="submit" style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
+                                Edit User
+                            </CButton>
+                        </CCol>
+                    </CForm>
+                </CModalBody>
+            </CModal>
+        </>
+    )
 }
 
 export default AllUser
