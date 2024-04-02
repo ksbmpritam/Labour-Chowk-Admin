@@ -35,27 +35,28 @@ const Jobs = () => {
         {
             name: 'S.No',
             selector: (row, index) => index + 1,
-            maxWidth: '150px',
+            // maxWidth: '150px',
         },
         {
             name: 'Title',
             selector: row => row.title,
-            maxWidth: '150px',
+            // maxWidth: '150px',
         },
         {
             name: 'Skills',
             selector: row => row.skills,
-            maxWidth: '150px',
+            // maxWidth: '150px',
         },
         {
             name: 'Description',
             selector: row => row.description,
-            minWidth: '900px',
+            // minWidth: '900px',
+            width: '180px'
         },
         {
             name: 'Status',
             selector: row => row.status,
-            maxWidth: '150px',
+            // maxWidth: '150px',
         },
         {
             name: 'Action',

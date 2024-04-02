@@ -6,6 +6,10 @@ import DataTableHeaderWithAdd from '../../../../components/common/DataTableHeade
 
 const columns = [
     {
+        name: 'S.No',
+        selector: (row, index) => index + 1,
+    },
+    {
         name: 'Notification',
         selector: row => row.notification,
     },
@@ -13,7 +17,6 @@ const columns = [
         name: 'Sent to',
         selector: row => row.Sentto,
     },
-    
 ];
 
 const data = [
@@ -23,7 +26,7 @@ const data = [
         Sentto: 'All'
     },
     {
-        id: 1,
+        id: 2,
         notification: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
         Sentto: 'All Users'
     },
@@ -54,9 +57,9 @@ const dataTableCustomStyles = {
 const PartnerNotifications = () => {
     return (
         <>
-           <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-               
-                <DataTableHeaderWithAdd title={'Partner Notifications'} data={data} url={'add-partner-notification'}/>
+            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
+
+                <DataTableHeaderWithAdd title={'Partner Notifications'} data={data} url={'add-partner-notification'} />
                 <DataTable
                     columns={columns}
                     data={data}

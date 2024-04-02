@@ -6,24 +6,21 @@ import DataTableHeader from '../../components/common/DataTableHeader';
 
 const columns = [
     {
+        name: 'S.No',
+        selector: (row, index) => index + 1,
+    },
+    {
         name: 'Partner',
         selector: row => row.name,
-
-
     },
     {
         name: 'Job',
         selector: row => row.job,
-
     },
     {
         name: 'Status',
         selector: row => row.status,
-
     },
-    
-
-
 ];
 
 const data = [
@@ -34,7 +31,7 @@ const data = [
         status: 'active'
     },
     {
-        id: 1,
+        id: 2,
         name: 'Gautam',
         job: "This page was last edited on 9 January 2024, at 23:54 (UTC).",
         status: 'active'
@@ -70,8 +67,8 @@ const dataTableCustomStyles = {
 const Booking = () => {
     return (
         <>
-             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                
+            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
+
                 <DataTableHeader title={'Booking'} data={data} />
                 <DataTable
                     columns={columns}

@@ -15,7 +15,7 @@ const Wallet = () => {
             createdat: "31-03-2024 7:54 AM",
         },
         {
-            id: 1,
+            id: 2,
             user: "Ankita Lokhandey",
             paymentType: "Banking",
             Aamount: "50.00",
@@ -55,7 +55,7 @@ const Wallet = () => {
         },
         rows: {
             style: {
-                minHeight: '65px', 
+                minHeight: '65px',
                 backgroundColor: "#fff"
             },
         },
