@@ -9,7 +9,7 @@ const ViewPartner = () => {
     contact: "8757858745",
     email: "partnerone@gmail.com",
     name: "Partner One",
-    profileImage: "/src/assets/images/avatars/4.jpg"
+    profileImage: "/src/assets/images/avatars/8.jpg"
   }
 
   const { name, id, contact, email, profileImage, aadharLogo } = data;

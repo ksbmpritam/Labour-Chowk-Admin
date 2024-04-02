@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { CButton, CCol, CForm, CFormCheck, CFormFeedback, CFormInput, CFormLabel, CFormSelect, CInputGroup, CInputGroupText, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow } from '@coreui/react';
 import DataTableHeader from '../../../components/common/DataTableHeader';
 // import logo_icon from "../../assets/images/logo_icon.png";
-import pictureIcon from "../../../assets/images/avatars/4.jpg";
+import pictureIcon from "../../../assets/images/avatars/8.jpg";
 
 const AllPartner = () => {
     //! Partner Start
@@ -39,7 +39,7 @@ const AllPartner = () => {
             contact: "8709858745",
             status: "Active",
             isverfied: "Not Verified",
-            profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
+            profileImage: pictureIcon,
             aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
         }
     ]
