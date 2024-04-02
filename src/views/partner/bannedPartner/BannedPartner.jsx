@@ -17,6 +17,8 @@ const BannedPartner = () => {
             name: "Partner One",
             email: "partnerone@gmail.com",
             contact: "8757858745",
+            status: " Active",
+            isverfied: " Verified",
             profileImage: pictureIcon,
             aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
         },
@@ -25,6 +27,8 @@ const BannedPartner = () => {
             name: "Partner Two",
             email: "partnertwo@gmail.com",
             contact: "8709858745",
+            status: "In Active",
+            isverfied: "Not Verified",
             profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
             aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
         }
@@ -39,10 +43,10 @@ const BannedPartner = () => {
             name: 'Name',
             selector: row => row.name,
         },
-        {
-            name: 'Email',
-            selector: row => row.email,
-        },
+        // {
+        //     name: 'Email',
+        //     selector: row => row.email,
+        // },
         {
             name: 'Profile Image',
             cell: row => <img src={row.profileImage} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
@@ -54,6 +58,14 @@ const BannedPartner = () => {
         {
             name: 'Mobile',
             selector: row => row.contact,
+        },
+        {
+            name: 'Status',
+            selector: row => row.status,
+        },
+        {
+            name: 'Is Verified',
+            selector: row => row.isverfied,
         },
         {
             name: 'Action',
