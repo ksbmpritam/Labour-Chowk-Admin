@@ -4,11 +4,12 @@ import * as icon from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import DataTableHeaderWithAdd from '../../../../components/common/DataTableHeaderWithAdd';
 import { CButton, CCol, CForm, CModal, CModalBody, CModalHeader, CModalTitle } from '@coreui/react';
+import { DataTableCustomStyles } from '../../../../styles';
 
 
 
 const UserNotification = () => {
-     
+
 
     const [selectedViewRow, setSelectedViewRow] = useState({});
     const [viewVisible, setViewVisible] = useState(false); // Define viewVisible state
@@ -20,7 +21,7 @@ const UserNotification = () => {
 
 
 
-    const columns = [
+    const userNotificationColumns = [
         {
             name: 'S.No',
             selector: (row, index) => index + 1,
@@ -37,14 +38,14 @@ const UserNotification = () => {
             name: 'Action',
             cell: row => (
                 <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="xl" />
+                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
                 </div>
             ),
             width: '180px'
         },
     ];
-    
-    const data = [
+
+    const userNotificationData = [
         {
             id: 1,
             notification: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
@@ -56,41 +57,20 @@ const UserNotification = () => {
             Sentto: 'All Users'
         },
     ]
-    const dataTableCustomStyles = {
-        cells: {
-            style: {
-                textAlign: "center",
-                color: "rgba(0, 0, 0, 0.6)", whiteSpace: "nowrap",
-            },
-        },
-        rows: {
-            style: {
-                backgroundColor: "#fff"
-            },
-        },
-        headRow: {
-            style: {
-                whiteSpace: 'nowrap',
-                fontSize: "14px",
-                fontWeight: "600", color: "#fff",
-                backgroundColor: "#212631"
-            }
-        }
-    };
-    
+
     return (
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeaderWithAdd title={'User Notifications'} data={data} url={'add-user-notification'} />
+                <DataTableHeaderWithAdd title={'User Notifications'} data={userNotificationData} url={'add-user-notification'} />
                 <DataTable
-                    columns={columns}
-                    data={data}
+                    columns={userNotificationColumns}
+                    data={userNotificationData}
                     pagination
-                    customStyles={dataTableCustomStyles}
+                    customStyles={DataTableCustomStyles}
                 />
 
-                  {/* view modal */}
-                  <CModal
+                {/* view modal */}
+                <CModal
                     alignment="center"
                     visible={viewVisible}
                     onClose={() => setViewVisible(false)}

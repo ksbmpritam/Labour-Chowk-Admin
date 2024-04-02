@@ -4,6 +4,7 @@ import * as icon from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import DataTableHeaderWithAdd from '../../../../components/common/DataTableHeaderWithAdd';
 import { CButton, CCol, CForm, CModal, CModalBody, CModalHeader, CModalTitle } from '@coreui/react';
+import { DataTableCustomStyles } from '../../../../styles';
 
 
 const PartnerNotifications = () => {
@@ -15,7 +16,7 @@ const PartnerNotifications = () => {
         setViewVisible(true);
     };
 
-    const columns = [
+    const partnerNotificationColumns = [
         {
             name: 'S.No',
             selector: (row, index) => index + 1,
@@ -32,14 +33,14 @@ const PartnerNotifications = () => {
             name: 'Action',
             cell: row => (
                 <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="xl" />
+                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
                 </div>
             ),
             width: '180px'
         },
     ];
-    
-    const data = [
+
+    const partnerNotificationData = [
         {
             id: 1,
             notification: 'This page was last edited on 9 January 2024, at 23:54 (UTC).',
@@ -51,39 +52,16 @@ const PartnerNotifications = () => {
             Sentto: 'All Users'
         },
     ];
-    
-    const dataTableCustomStyles = {
-        cells: {
-            style: {
-                textAlign: "center",
-                color: "rgba(0, 0, 0, 0.6)", whiteSpace: "nowrap",
-            },
-        },
-        rows: {
-            style: {
-                backgroundColor: "#fff"
-            },
-        },
-        headRow: {
-            style: {
-                whiteSpace: 'nowrap',
-                fontSize: "14px",
-                fontWeight: "600", color: "#fff",
-                backgroundColor: "#212631"
-            }
-        }
-    };
-    
 
     return (
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeaderWithAdd title={'Partner Notifications'} data={data} url={'add-partner-notification'} />
+                <DataTableHeaderWithAdd title={'Partner Notifications'} data={partnerNotificationData} url={'add-partner-notification'} />
                 <DataTable
-                    columns={columns}
-                    data={data}
+                    columns={partnerNotificationColumns}
+                    data={partnerNotificationData}
                     pagination
-                    customStyles={dataTableCustomStyles}
+                    customStyles={DataTableCustomStyles}
                 />
 
                 {/* view modal */}
