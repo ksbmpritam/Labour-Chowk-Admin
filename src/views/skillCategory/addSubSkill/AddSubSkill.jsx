@@ -20,7 +20,16 @@ const AddSubSkill = () => {
     setValidated(true)
   }
 
-  const options = ['Skill 1', 'Skill 2', 'Skill 3'];
+  const options = [
+    {
+      id: 1,
+      name: "Tech"
+    },
+    {
+      id: 2,
+      name: "Pecas"
+    }
+  ]
 
   return (
     <>
@@ -45,8 +54,8 @@ const AddSubSkill = () => {
             >
               <option value="">Select...</option>
               {options.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
+                <option key={index} value={option?.id}>
+                  {option?.name}
                 </option>
               ))}
             </CFormSelect>
