@@ -24,3 +24,28 @@ export const deleteSkill = payload => ({
     type: actionTypes.DELETE_SKILL,
     payload
 })
+
+export const getSubSkill = payload => ({
+    type: actionTypes?.GET_SKILL,
+    payload
+})
+
+export const setSubSkill = payload => ({
+    type: actionTypes.SET_SKILL,
+    payload
+})
+
+export const createSubSkill = payload => ({
+    type: actionTypes.CREATE_SKILL,
+    payload
+})
+
+export const updateSubSkill = payload => ({
+    type: actionTypes.UPDATE_SKILL,
+    payload
+})
+
+export const deleteSubSkill = payload => ({
+    type: actionTypes.DELETE_SKILL,
+    payload
+})

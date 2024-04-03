@@ -2,6 +2,7 @@ import * as actionTypes from "../actionTypes";
 
 const initialState = {
     skillData: null,
+    subSkillData: null,
 };
 
 const skillReducer = (state = initialState, actions) => {
@@ -14,7 +15,12 @@ const skillReducer = (state = initialState, actions) => {
                 skillData: payload,
             };
         }
-
+        case actionTypes.SET_SUB_SKILL: {
+            return {
+                ...state,
+                skillData: payload,
+            };
+        }
         default: {
             return state;
         }
