@@ -1,8 +1,12 @@
 import { CButton, CCol, CForm, CFormInput } from '@coreui/react'
 import React, { useState } from 'react'
 import DataTableButton from '../../../components/common/DataTableButton'
+import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as SkillActions from '../../../redux/actions/skillAction';
 
-const AddSkill = () => {
+const AddSkill = ({ dispatch }) => {
+  const navigate = useNavigate();
   const [validated, setValidated] = useState(false)
   const [skillName, setSkillName] = useState('')
 
@@ -12,8 +16,15 @@ const AddSkill = () => {
     if (form.checkValidity() === false) {
       event.stopPropagation()
     } else {
-      var formData = new FormData()
       console.log("Skill Name ::: ", { skillName })
+
+      const payload = {
+        data: { skill: skillName },
+        onComplete: () => navigate("/skill")
+      }
+
+      //! Dispatching API for Creating Gift
+      dispatch(SkillActions.createSkill(payload))
     }
     setValidated(true)
   }
@@ -53,4 +64,6 @@ const AddSkill = () => {
   )
 }
 
-export default AddSkill
+const mapDispatchToProps = dispatch => ({ dispatch })
+
+export default connect(null, mapDispatchToProps)(AddSkill);

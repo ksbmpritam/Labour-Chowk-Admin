@@ -8,9 +8,8 @@ import { CButton, CCol, CForm, CFormInput, CModal, CModalBody, CModalHeader, CMo
 import { connect } from 'react-redux';
 import * as SkillActions from '../../../redux/actions/skillAction';
 
-const Skill = ({ dispatch, stateData, skillData }) => {
-    // console.log("Data Redux State ::: ", stateData)
-    console.log("Skill Data Redux State ::: ", skillData)
+const Skill = ({ dispatch, skillData }) => {
+    // console.log("Skill Data Redux State ::: ", skillData)
 
     useEffect(function () {
         //! Dispatching API for Getting SKill
@@ -41,11 +40,13 @@ const Skill = ({ dispatch, stateData, skillData }) => {
     const [visible, setVisible] = useState(false)
     const [validated, setValidated] = useState(false)
     const [skill, setSkill] = useState("")
+    const [skillID, setSkillID] = useState("")
 
     const handleEdit = (data) => {
         setVisible(!visible)
         console.log("Edit Data ::: ", data)
         setSkill(data?.skill)
+        setSkillID(data?._id)
     }
 
     const handleInputChange = (e) => {
@@ -59,9 +60,24 @@ const Skill = ({ dispatch, stateData, skillData }) => {
         if (form.checkValidity() === false) {
             event.stopPropagation()
         } else {
-            var formData = new FormData()
-            console.log("Skill ::: ", skill)
-            console.log('Form data:', formData);
+            console.log("Skill Update Data ::: ", { skillID, skill })
+
+            const payload = {
+                data: { skill_ID: skillID, skill: skill },
+                onComplete: () => setVisible(!visible)
+            }
+
+            //! Dispatching API for Creating Gift
+            dispatch(SkillActions.updateSkill(payload))
+
+
+            // const payload = {
+            //     data: { skill: skill },
+            //     onComplete: () => navigate("/skill")
+            // }
+
+            // //! Dispatching API for Creating Gift
+            // dispatch(SkillActions.createSkill(payload))
         }
         setValidated(true)
     }

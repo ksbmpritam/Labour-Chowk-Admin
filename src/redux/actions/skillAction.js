@@ -10,6 +10,16 @@ export const setSkill = payload => ({
     payload
 })
 
+export const createSkill = payload => ({
+    type: actionTypes.CREATE_SKILL,
+    payload
+})
+
+export const updateSkill = payload => ({
+    type: actionTypes.UPDATE_SKILL,
+    payload
+})
+
 export const deleteSkill = payload => ({
     type: actionTypes.DELETE_SKILL,
     payload
