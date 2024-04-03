@@ -21,7 +21,7 @@ const DataTableHeaderWithAdd = ({ title, data, url }) => {
             <CIcon icon={icon.cilDataTransferDown} size="sm" />
           </CSVLink>
 
-          <div onClick={() => handleNavigate()} style={{ fontWeight: "600", backgroundColor: "#212631", color: "#fff", padding: "2px 5px", borderRadius: "5px", display: "flex", alignItems: "center", gap: "5px", cursor: "pointer" }}>
+          <div onClick={() => handleNavigate()} style={{ fontWeight: "600", backgroundColor: "#2A9BAA", color: "#fff", padding: "2px 5px", borderRadius: "5px", display: "flex", alignItems: "center", gap: "5px", cursor: "pointer" }}>
             <div style={{ fontSize: "15px" }}>Add</div>
             <div style={{ fontWeight: "bold", fontSize: "18px" }}>+</div>
           </div>

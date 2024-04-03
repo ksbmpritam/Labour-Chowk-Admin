@@ -22,13 +22,15 @@ const AppSidebar = () => {
   return (
     <CSidebar
       className="border-end"
-      colorScheme="dark"
+      // colorScheme="dark"
       position="fixed"
       unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
         dispatch(setAppState({ sidebarShow: visible }))
       }}
+
+      style={{backgroundColor: '#2A9BAA'}}
     >
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand to="/">

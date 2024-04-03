@@ -67,7 +67,7 @@ const AddPartnerNotification = () => {
                         </CCol>
 
                         <CCol xs={12}>
-                            <CButton type="submit" style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
+                            <CButton type="submit" style={{ backgroundColor: "#2A9BAA", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
                                 Add Banner
                             </CButton>
                         </CCol>

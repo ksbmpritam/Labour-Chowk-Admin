@@ -69,7 +69,7 @@ const ViewPartner = () => {
           <CRow xs={{ gutterY: 3 }}>
             <CCol xs='12'>
               <CCard>
-                <CCardHeader style={{ backgroundColor: "#212631" }}>
+                <CCardHeader style={{ backgroundColor: "#2A9BAA" }}>
                   <div style={{ color: "#fff", fontWeight: "600" }}>Aadhar Information</div>
                 </CCardHeader>
                 <CCardBody>
@@ -77,7 +77,7 @@ const ViewPartner = () => {
                     <CImage src={'https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg'} alt="Profile" fluid style={{ height: "200px" }} />
                     {/* <CImage src={'https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg'} alt="Profile" fluid style={{ height: "200px" }} /> */}
                   </CRow>
-                  <div style={{ backgroundColor: "#212631", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer", marginTop: " 10px", width: " 115px" }} onClick={() => handleEdit('https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg')}  >Edit Adharcard</div>
+                  <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer", marginTop: " 10px", width: " 115px" }} onClick={() => handleEdit('https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg')}  >Edit Adharcard</div>
                 </CCardBody>
               </CCard>
             </CCol>
@@ -90,7 +90,7 @@ const ViewPartner = () => {
                       <div>Active</div>
                     </div>
 
-                    <div style={{ backgroundColor: "#212631", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
+                    <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
                   </div>
                 </CCardBody>
               </CCard>
@@ -100,7 +100,7 @@ const ViewPartner = () => {
 
         <CCol xs="12" md="8">
           <CCard>
-            <CCardHeader style={{ backgroundColor: "#212631" }}>
+            <CCardHeader style={{ backgroundColor: "#2A9BAA" }}>
               <div style={{ color: "#fff", fontWeight: "600" }}>Profile Information</div>
             </CCardHeader>
             <CCardBody>
@@ -118,7 +118,7 @@ const ViewPartner = () => {
 
         <CCol xs="12">
           <CCard>
-            <CCardHeader style={{ backgroundColor: "#212631" }}>
+            <CCardHeader style={{ backgroundColor: "#2A9BAA" }}>
               <div style={{ color: "#fff", fontWeight: "600" }}>My Previous Work</div>
             </CCardHeader>
             <CCardBody>
@@ -201,7 +201,7 @@ const ViewPartner = () => {
             </CCol>
 
             <CCol xs={12}>
-              <CButton type="submit" style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
+              <CButton type="submit" style={{ backgroundColor: "#2A9BAA", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
                 Edit Partner
               </CButton>
             </CCol>

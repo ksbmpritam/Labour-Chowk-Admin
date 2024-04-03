@@ -18,7 +18,8 @@ export const DataTableCustomStyles = {
             whiteSpace: 'nowrap',
             fontSize: "14px",
             fontWeight: "600", color: "#fff",
-            backgroundColor: "#212631"
+            backgroundColor:'#2A9BAA',
+            // backgroundColor: "#212631"
         }
     }
 };
