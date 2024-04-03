@@ -6,28 +6,18 @@ import { DataTableCustomStyles } from '../../../styles';
 import DataTableHeaderWithAdd from '../../../components/common/DataTableHeaderWithAdd';
 import { CButton, CCol, CForm, CFormInput, CModal, CModalBody, CModalHeader, CModalTitle } from '@coreui/react';
 import { connect } from 'react-redux';
-import { fetchCategoriesRequest } from '../../../redux/actions/exampleAction';
+import * as SkillActions from '../../../redux/actions/skillAction';
 
-const Skill = ({ dispatch, stateData, skillDataRedux }) => {
-    // console.log("Skill Data Redux State ::: ", skillDataRedux)
+const Skill = ({ dispatch, stateData, skillData }) => {
+    // console.log("Data Redux State ::: ", stateData)
+    console.log("Skill Data Redux State ::: ", skillData)
 
     useEffect(function () {
         //! Dispatching API for Getting SKill
-        dispatch(fetchCategoriesRequest());
+        dispatch(SkillActions.getSkill())
     }, []);
 
-    //! Skill Start
-    const skillData = [
-        {
-            id: 1,
-            skill: "One",
-        },
-        {
-            id: 2,
-            skill: "Two",
-        }
-    ]
-
+    //! Skill Column Start
     const skillColumns = [
         {
             name: 'S.No',
@@ -41,12 +31,13 @@ const Skill = ({ dispatch, stateData, skillDataRedux }) => {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} style={{ cursor: "pointer" }} size="sm" onClick={() => handleEdit(row)} />
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} style={{ cursor: "pointer" }} size="sm" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} style={{ cursor: "pointer" }} size="sm" onClick={() => dispatch(SkillActions.deleteSkill({ skill_ID: row?._id }))} />
             </div>,
             width: '180px'
         },
     ]
-    //! Skill End
+    //! Skill Column End
+
     const [visible, setVisible] = useState(false)
     const [validated, setValidated] = useState(false)
     const [skill, setSkill] = useState("")
@@ -77,23 +68,17 @@ const Skill = ({ dispatch, stateData, skillDataRedux }) => {
 
     return (
         <>
-            <div>
-                <ul>
-                    {skillDataRedux?.categories?.result && skillDataRedux?.categories.result.map((category, index) => (
-                        <li key={index}>{category.categoryName}</li>
-                    ))}
-                </ul>
-            </div>
-
-            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeaderWithAdd title={'Skill'} data={skillData} url={'add-skill'} />
-                <DataTable
-                    columns={skillColumns}
-                    data={skillData}
-                    pagination
-                    customStyles={DataTableCustomStyles}
-                />
-            </div>
+            {
+                skillData && <div style={{ padding: "20px", backgroundColor: "#fff" }}>
+                    <DataTableHeaderWithAdd title={'Skill'} data={skillData} url={'add-skill'} />
+                    <DataTable
+                        columns={skillColumns}
+                        data={skillData}
+                        pagination
+                        customStyles={DataTableCustomStyles}
+                    />
+                </div>
+            }
 
             {/* Edit Modal */}
             <CModal
@@ -139,7 +124,7 @@ const Skill = ({ dispatch, stateData, skillDataRedux }) => {
 
 const mapStateToProps = (state) => ({
     stateData: state,
-    skillDataRedux: state?.exampleReducer
+    skillData: state?.skillReducer?.skillData
 });
 
 const mapDispatchToProps = (dispatch) => ({ dispatch });
