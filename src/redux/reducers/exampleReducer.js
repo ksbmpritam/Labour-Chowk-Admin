@@ -1,6 +1,4 @@
-// reducer.js
-
-import { FETCH_CATEGORIES_REQUEST, FETCH_CATEGORIES_SUCCESS, FETCH_CATEGORIES_FAILURE } from './action';
+import { FETCH_CATEGORIES_FAILURE, FETCH_CATEGORIES_REQUEST, FETCH_CATEGORIES_SUCCESS } from "../actionTypes";
 
 const initialState = {
     categories: [],
@@ -8,7 +6,7 @@ const initialState = {
     error: null,
 };
 
-const reducer = (state = initialState, action) => {
+const exampleReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_CATEGORIES_REQUEST:
             return {
@@ -33,4 +31,4 @@ const reducer = (state = initialState, action) => {
     }
 };
 
-export default reducer;
+export default exampleReducer;

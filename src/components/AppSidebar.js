@@ -20,11 +20,13 @@ import { sygnet } from 'src/assets/brand/sygnet'
 
 // sidebar nav config
 import navigation from '../_nav'
+import { setAppState } from '../redux/actions/changeStateAction'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
-  const unfoldable = useSelector((state) => state.sidebarUnfoldable)
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+  const unfoldable = useSelector((state) => state.changeStateReducer.sidebarUnfoldable)
+  const sidebarShow = useSelector((state) => state.changeStateReducer.sidebarShow);
+  console.log("Side bar Show - App Sidebar :: ", sidebarShow)
 
   return (
     <CSidebar
@@ -34,7 +36,7 @@ const AppSidebar = () => {
       unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
-        dispatch({ type: 'set', sidebarShow: visible })
+        dispatch(setAppState({ sidebarShow: visible }))
       }}
     >
       <CSidebarHeader className="border-bottom">
@@ -49,15 +51,15 @@ const AppSidebar = () => {
         <CCloseButton
           className="d-lg-none"
           dark
-          onClick={() => dispatch({ type: 'set', sidebarShow: false })}
+          onClick={() => dispatch(setAppState({ sidebarShow: false }))}
         />
       </CSidebarHeader>
       <AppSidebarNav items={navigation} />
-      {/* <CSidebarFooter className="border-top d-none d-lg-flex">
+      <CSidebarFooter className="border-top d-none d-lg-flex">
         <CSidebarToggler
-          onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
+          onClick={() => dispatch(setAppState({ sidebarUnfoldable: !unfoldable }))}
         />
-      </CSidebarFooter> */}
+      </CSidebarFooter>
     </CSidebar>
   )
 }
