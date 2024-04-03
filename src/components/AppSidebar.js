@@ -1,15 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import {
-  CCloseButton,
-  CRow,
-  CSidebar,
-  CSidebarBrand,
-  CSidebarFooter,
-  CSidebarHeader,
-  CSidebarToggler,
-} from '@coreui/react'
+import { CCloseButton, CRow, CSidebar, CSidebarBrand, CSidebarFooter, CSidebarHeader, CSidebarToggler } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 
 import { AppSidebarNav } from './AppSidebarNav'
@@ -26,7 +18,6 @@ const AppSidebar = () => {
   const dispatch = useDispatch()
   const unfoldable = useSelector((state) => state.changeStateReducer.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.changeStateReducer.sidebarShow);
-  console.log("Side bar Show - App Sidebar :: ", sidebarShow)
 
   return (
     <CSidebar
@@ -42,11 +33,10 @@ const AppSidebar = () => {
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand to="/">
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "10px" }}>
-            <img src={labourChowkLogo} height="50px" />
-            <div height={32}>LABOUR CHOWK</div>
+            <img className="sidebar-brand-full" src={labourChowkLogo} height="50px" />
+            <img className="sidebar-brand-narrow" src={labourChowkLogo} height="40px" />
+            <div className="sidebar-brand-full">LABOUR CHOWK</div>
           </div>
-          {/* <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} /> */}
-          <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} />
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"
