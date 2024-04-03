@@ -1,12 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CIcon from '@coreui/icons-react';
 import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 import { DataTableCustomStyles } from '../../../styles';
 import DataTableHeaderWithAdd from '../../../components/common/DataTableHeaderWithAdd';
 import { CButton, CCol, CForm, CFormInput, CModal, CModalBody, CModalHeader, CModalTitle } from '@coreui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategoriesRequest } from '../../../saga/action';
 
 const Skill = () => {
+    const dispatch = useDispatch();
+    const { categories, loading, error } = useSelector(state => state);
+    console.log("Category", categories)
+    useEffect(() => {
+        dispatch(fetchCategoriesRequest());
+    }, [dispatch]);
+
     //! Skill Start
     const skillData = [
         {
@@ -68,6 +77,17 @@ const Skill = () => {
 
     return (
         <>
+            <div>
+                {loading && <p>Loading...</p>}
+                {error && <p>Error: {error.message}</p>}
+                <ul>
+                    {categories?.result && categories.result.map(category => (
+                        <li key={category.id}>{category.categoryName}</li>
+                    ))}
+                </ul>
+            </div>
+            <div>khjkh</div>
+
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
                 <DataTableHeaderWithAdd title={'Skill'} data={skillData} url={'add-skill'} />
                 <DataTable
