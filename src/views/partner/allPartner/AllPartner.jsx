@@ -15,7 +15,6 @@ const AllPartner = () => {
         {
             id: 1,
             name: "Partner One",
-            email: "partnerone@gmail.com",
             contact: "8757858745",
             status: "Active",
             isverfied: "Verified",
@@ -25,7 +24,6 @@ const AllPartner = () => {
         {
             id: 2,
             name: "Partner Two",
-            email: "partnertwo@gmail.com",
             contact: "8709858745",
             status: "In Active",
             isverfied: "Not Verified",
@@ -35,7 +33,6 @@ const AllPartner = () => {
         {
             id: 3,
             name: "Partner Three",
-            email: "partnerthree@gmail.com",
             contact: "8709858745",
             status: "Active",
             isverfied: "Not Verified",
@@ -53,10 +50,10 @@ const AllPartner = () => {
             name: 'Name',
             selector: row => row.name,
         },
-        // {
-        //     name: 'Email',
-        //     selector: row => row.email,
-        // },
+        {
+            name: 'Mobile',
+            selector: row => row.contact,
+        },
         {
             name: 'Profile Image',
             cell: row => <img src={row.profileImage} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
@@ -64,10 +61,6 @@ const AllPartner = () => {
         {
             name: 'Aadhar',
             cell: row => <img src={row.aadhar} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
-        },
-        {
-            name: 'Mobile',
-            selector: row => row.contact,
         },
         {
             name: 'Status',
@@ -101,7 +94,6 @@ const AllPartner = () => {
 
         setPartnerDetail({
             name: data.name || '',
-            email: data.email || '',
             contact: data.contact || '',
         });
         setProfileImage({ file: data?.profileImage, bytes: '' })
@@ -111,7 +103,7 @@ const AllPartner = () => {
     const navigate = useNavigate();
     const [visible, setVisible] = useState(false)
     const [validated, setValidated] = useState(false)
-    const [partnerDetail, setPartnerDetail] = useState({ name: '', email: '', contact: '' });
+    const [partnerDetail, setPartnerDetail] = useState({ name: '', contact: '' });
     const [profileImage, setProfileImage] = useState({ file: null, bytes: "" });
     const [aadharCard, setAadharCard] = useState({ file: null, bytes: "" });
     const [error, setError] = useState({ name: "Please Provide Name", email: "Please Provide Email" })
@@ -152,12 +144,10 @@ const AllPartner = () => {
             var formData = new FormData()
 
             formData.append("name", partnerDetail?.name)
-            formData.append("email", partnerDetail?.email)
-            formData.append("conact", partnerDetail?.contact)
+            formData.append("contact", partnerDetail?.contact)
             formData.append("profileImage", profileImage.bytes);
-            formData.append("aadharCard", aadharCard.bytes);
 
-            console.log({ name: partnerDetail?.name, email: partnerDetail?.email, contact: partnerDetail?.contact, profileImage: profileImage?.bytes, aadharCard: aadharCard?.bytes })
+            console.log({ name: partnerDetail?.name, contact: partnerDetail?.contact, profileImage: profileImage?.bytes })
 
             console.log('Form data:', formData);
         }
@@ -206,7 +196,7 @@ const AllPartner = () => {
                                 onChange={handleInputField}
                             />
                         </CCol>
-                        <CCol md={6}>
+                        {/* <CCol md={6}>
                             <CFormInput
                                 label="Email"
                                 type="text"
@@ -218,8 +208,8 @@ const AllPartner = () => {
                                 feedbackInvalid={error?.email}
                                 onChange={handleInputField}
                             />
-                        </CCol>
-                        <CCol md={12}>
+                        </CCol> */}
+                        <CCol md={6}>
                             <CFormInput
                                 label="Mobile No."
                                 type="text"
