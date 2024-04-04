@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, call, takeLeading } from 'redux-saga/effects';
 import * as actionTypes from '../actionTypes';
 import { api_urls } from '../../utils/apiUrls';
-import { get_active_partner, get_all_partner, get_banned_partner, get_partner_by_id } from '../../utils/apiRoutes';
+import { change_partner_status, get_active_partner, get_all_partner, get_banned_partner, get_partner_by_id } from '../../utils/apiRoutes';
 import Swal from "sweetalert2";
 
 function* getAllPartner() {
@@ -65,9 +65,28 @@ function* getPartnerById(action) {
     }
 }
 
+function* changePartnerStatus(action) {
+    try {
+        const { payload } = action;
+        console.log("Payload ::: ", payload)
+        console.log("Payload ID ::: ", payload?.labourID)
+
+        const { data } = yield call(axios.post, `${api_urls + change_partner_status}`, payload);
+        console.log("Change Partner Status Saga Response ::: ", data)
+
+        if (data?.success) {
+            yield put({ type: actionTypes.GET_PARTNER_BY_ID, payload: { labourID: payload?.labourID } })
+        }
+
+    } catch (error) {
+        console.log("Change Partner Status Saga Error ::: ", error)
+    }
+}
+
 export default function* partnerSaga() {
     yield takeLeading(actionTypes?.GET_ALL_PARTNER, getAllPartner);
     yield takeLeading(actionTypes?.GET_ACTIVE_PARTNER, getActivePartner);
     yield takeLeading(actionTypes?.GET_BANNED_PARTNER, getBannedPartner);
     yield takeLeading(actionTypes?.GET_PARTNER_BY_ID, getPartnerById);
+    yield takeLeading(actionTypes?.CHANGE_PARTNER_STATUS, changePartnerStatus);
 }

@@ -9,14 +9,26 @@ import { useParams } from 'react-router-dom';
 
 const ViewPartner = () => {
   const dispatch = useDispatch()
-  const { id } = useParams()
+  const { id: partnerId } = useParams()
   const { singlePartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
   console.log("Single Partner Data :: ", partnerData)
 
   useEffect(function () {
     //! Dispatching API for Getting All partner
-    dispatch(PartnerActions.getPartnerById({ labourID: id }))
+    dispatch(PartnerActions.getPartnerById({ labourID: partnerId }))
   }, []);
+
+  const handleActiveBannedStatus = (status) => {
+    console.log("Active-Banned", status)
+    if (status === 'active') {
+      console.log("active")
+      dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "inActive" }))
+    }
+    if (status === 'inActive') {
+      console.log("inActive")
+      dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "active" }))
+    }
+  }
 
   const [editVisible, setEditVisible] = useState(false);
   const [front, setFront] = useState({ file: null, bytes: "" });
@@ -62,18 +74,6 @@ const ViewPartner = () => {
     }
   };
 
-  const data = {
-    _id: 1,
-    aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
-    contact: "8757858745",
-    email: "partnerone@gmail.com",
-    name: "Partner One",
-    profileImage: "/src/assets/images/avatars/8.jpg"
-  }
-
-  const { name, _id, contact, email, profileImage, aadharLogo } = data;
-
-
   return (
     <>
       <CRow xs={{ gutterY: 3 }} className='mb-4'>
@@ -92,7 +92,7 @@ const ViewPartner = () => {
                     <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
                       <div style={{ display: "flex", gap: "10px" }}>
                         <div style={{ color: "#000", fontWeight: "600" }}>Kyc Status : </div>
-                        <div style={{ textTransform: "capitalize" }}>{partnerData?.isVerified}</div>
+                        <div style={{ textTransform: "capitalize" }}>{partnerData?.isVerified?.toLowerCase()}</div>
                         <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
                       </div>
                     </div>
@@ -121,9 +121,9 @@ const ViewPartner = () => {
                       <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start", marginTop: "20px" }}>
                         <div style={{ display: "flex", gap: "10px" }}>
                           <div style={{ color: "#000", fontWeight: "600" }}>Status : </div>
-                          <div style={{ textTransform: "capitalize" }}>{partnerData?.isActive}</div>
+                          <div style={{ textTransform: "capitalize" }}>{partnerData?.isActive?.toLowerCase()}</div>
                         </div>
-                        <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
+                        <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }} onClick={() => handleActiveBannedStatus(partnerData?.isActive)}>Change Status</div>
                       </div>
                     </CCol>
                   </CRow>

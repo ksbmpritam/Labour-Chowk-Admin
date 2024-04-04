@@ -39,3 +39,8 @@ export const setPartnerById = payload => ({
     type: actionTypes.SET_PARTNER_BY_ID,
     payload
 })
+
+export const changePartnerStatus = payload => ({
+    type: actionTypes.CHANGE_PARTNER_STATUS,
+    payload
+})
