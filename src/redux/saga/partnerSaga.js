@@ -76,6 +76,7 @@ function* changePartnerStatus(action) {
 
         if (data?.success) {
             yield put({ type: actionTypes.GET_PARTNER_BY_ID, payload: { labourID: payload?.labourID } })
+            yield put({ type: actionTypes.GET_ALL_PARTNER, payload: null })
         }
 
     } catch (error) {

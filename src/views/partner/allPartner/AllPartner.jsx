@@ -13,7 +13,7 @@ import { api_urls } from '../../../utils/apiUrls';
 const AllPartner = () => {
     const dispatch = useDispatch()
     const { allPartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
-    console.log("Partner Data :: ", partnerData)
+    // console.log("Partner Data :: ", partnerData)
 
     useEffect(function () {
         //! Dispatching API for Getting All partner
@@ -44,11 +44,11 @@ const AllPartner = () => {
         },
         {
             name: 'Kyc Status',
-            selector: row => row?.isVerified,
+            selector: row => <div style={{ cursor: "pointer" }}>{row?.isVerified}</div>,
         },
         {
             name: 'Status',
-            selector: row => row?.isActive,
+            selector: row => <div style={{ cursor: "pointer" }} onClick={() => handleActiveBannedStatus(row)}>{row?.isActive}</div>,
         },
         {
             name: 'Action',
@@ -60,6 +60,21 @@ const AllPartner = () => {
             width: '180px'
         },
     ]
+
+
+    const handleActiveBannedStatus = (data) => {
+        const { _id: partnerId, isActive: status } = data
+        console.log("Active-Banned", { partnerId, status })
+
+        if (status === 'active') {
+            console.log("active")
+            dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "inActive" }))
+        }
+        if (status === 'inActive') {
+            console.log("inActive")
+            dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "active" }))
+        }
+    }
 
     const handleEdit = (data) => {
         setVisible(!visible)
