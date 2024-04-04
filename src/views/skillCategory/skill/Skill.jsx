@@ -85,13 +85,17 @@ const Skill = ({ dispatch, skillData }) => {
     return (
         <>
             {
-                skillData && <div style={{ padding: "20px", backgroundColor: "#fff" }}>
+                skillData &&
+                <div style={{ padding: "20px", backgroundColor: "#fff", marginBottom: "20px" }}>
                     <DataTableHeaderWithAdd title={'Skill'} data={skillData} url={'add-skill'} />
                     <DataTable
                         columns={skillColumns}
                         data={skillData}
                         pagination
                         customStyles={DataTableCustomStyles}
+                        paginationPerPage={5}
+                        paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                        paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :', }}
                     />
                 </div>
             }
