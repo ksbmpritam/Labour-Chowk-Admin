@@ -1,31 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CIcon from '@coreui/icons-react';
 import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
 import { DataTableCustomStyles } from '../../../styles';
 import DataTableHeaderWithAdd from '../../../components/common/DataTableHeaderWithAdd';
 import { CButton, CCol, CForm, CFormInput, CModal, CModalBody, CModalHeader, CModalTitle } from '@coreui/react';
+import { connect } from 'react-redux';
+import * as SkillActions from '../../../redux/actions/skillAction';
 
-const SubSkill = () => {
-    //! Sub Skill Start
-    const subSkillData = [
-        {
-            id: 1,
-            skill: "Skill One",
-            subSkill: "One"
-        },
-        {
-            id: 2,
-            skill: "Skill One",
-            subSkill: "Two"
-        },
-        {
-            id: 3,
-            skill: "Skill Two",
-            subSkill: "One"
-        }
-    ]
+const SubSkill = ({ dispatch, subSkillData }) => {
+    // console.log("Sub Skill Data ::: ", subSkillData)
 
+    useEffect(function () {
+        //! Dispatching API for Getting Sub SKill
+        dispatch(SkillActions.getSubSkill())
+    }, []);
+
+    //! Sub-Skill DataTable Columns
     const subSkillColumns = [
         {
             name: 'S.No',
@@ -43,28 +34,29 @@ const SubSkill = () => {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} style={{ cursor: "pointer" }} size="sm" onClick={() => handleEdit(row)} />
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} style={{ cursor: "pointer" }} size="sm" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} style={{ cursor: "pointer" }} size="sm" onClick={() => {
+                    console.log("Deleted ID :: ", row?._id)
+                    dispatch(SkillActions.deleteSubSkill({ subSkill_ID: row?._id }))
+                }
+                } />
             </div>,
             width: '180px'
         },
     ]
-    //! Sub Skill End
+
     const [visible, setVisible] = useState(false)
     const [validated, setValidated] = useState(false)
     const [skill, setSkill] = useState("")
     const [subSkill, setSubSkill] = useState("")
+    const [subSkillId, setSubSkillId] = useState("")
 
     const handleEdit = (data) => {
         setVisible(!visible)
         console.log("Edit Data ::: ", data)
         setSkill(data?.skill)
         setSubSkill(data?.subSkill)
+        setSubSkillId(data?._id)
     }
-
-    // const handleInputChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setPartnerDetail({ ...partnerDetail, [name]: value });
-    // }
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -72,25 +64,32 @@ const SubSkill = () => {
         if (form.checkValidity() === false) {
             event.stopPropagation()
         } else {
-            var formData = new FormData()
-            console.log("Skill ::: ", skill)
-            console.log("Sub Skill ::: ", subSkill)
-            console.log('Form data:', formData);
+            console.log("Sub Skill Data For Edit ::: ", { subSkill_ID: subSkillId, skill, subSkill })
+
+            const payload = {
+                data: { subSkill_ID: subSkillId, subSkill },
+                onComplete: () => setVisible(!visible)
+            }
+
+            //! Dispatching API for Updating Sub SKill
+            dispatch(SkillActions.updateSubSkill(payload))
         }
         setValidated(true)
     }
 
     return (
         <>
-            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeaderWithAdd title={'Sub Skill'} data={subSkillData} url={'add-sub-skill'} />
-                <DataTable
-                    columns={subSkillColumns}
-                    data={subSkillData}
-                    pagination
-                    customStyles={DataTableCustomStyles}
-                />
-            </div>
+            {
+                subSkillData && <div style={{ padding: "20px", backgroundColor: "#fff" }}>
+                    <DataTableHeaderWithAdd title={'Sub Skill'} data={subSkillData} url={'add-sub-skill'} />
+                    <DataTable
+                        columns={subSkillColumns}
+                        data={subSkillData}
+                        pagination
+                        customStyles={DataTableCustomStyles}
+                    />
+                </div>
+            }
 
             {/* Edit Modal */}
             <CModal
@@ -143,4 +142,10 @@ const SubSkill = () => {
     )
 }
 
-export default SubSkill
+const mapStateToProps = (state) => ({
+    subSkillData: state?.skillReducer?.subSkillData
+});
+
+const mapDispatchToProps = (dispatch) => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubSkill);

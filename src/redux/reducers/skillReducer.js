@@ -18,7 +18,7 @@ const skillReducer = (state = initialState, actions) => {
         case actionTypes.SET_SUB_SKILL: {
             return {
                 ...state,
-                skillData: payload,
+                subSkillData: payload,
             };
         }
         default: {

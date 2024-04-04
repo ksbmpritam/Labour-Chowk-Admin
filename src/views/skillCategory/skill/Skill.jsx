@@ -16,7 +16,7 @@ const Skill = ({ dispatch, skillData }) => {
         dispatch(SkillActions.getSkill())
     }, []);
 
-    //! Skill Column Start
+    //! Skill DataTable Columns
     const skillColumns = [
         {
             name: 'S.No',
@@ -35,7 +35,6 @@ const Skill = ({ dispatch, skillData }) => {
             width: '180px'
         },
     ]
-    //! Skill Column End
 
     const [visible, setVisible] = useState(false)
     const [validated, setValidated] = useState(false)
@@ -67,17 +66,8 @@ const Skill = ({ dispatch, skillData }) => {
                 onComplete: () => setVisible(!visible)
             }
 
-            //! Dispatching API for Creating Gift
+            //! Dispatching API for Updating Skill
             dispatch(SkillActions.updateSkill(payload))
-
-
-            // const payload = {
-            //     data: { skill: skill },
-            //     onComplete: () => navigate("/skill")
-            // }
-
-            // //! Dispatching API for Creating Gift
-            // dispatch(SkillActions.createSkill(payload))
         }
         setValidated(true)
     }
