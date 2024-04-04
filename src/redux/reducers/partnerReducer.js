@@ -4,6 +4,7 @@ const initialState = {
     allPartnerData: [],
     activePartnerData: [],
     bannedPartnerData: [],
+    singlePartnerData: null,
 };
 
 const partnerReducer = (state = initialState, actions) => {
@@ -26,6 +27,12 @@ const partnerReducer = (state = initialState, actions) => {
             return {
                 ...state,
                 bannedPartnerData: payload,
+            };
+        }
+        case actionTypes.SET_PARTNER_BY_ID: {
+            return {
+                ...state,
+                singlePartnerData: payload,
             };
         }
         default: {

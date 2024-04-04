@@ -29,3 +29,13 @@ export const setBannedPartner = payload => ({
     type: actionTypes.SET_BANNED_PARTNER,
     payload
 })
+
+export const getPartnerById = payload => ({
+    type: actionTypes?.GET_PARTNER_BY_ID,
+    payload
+})
+
+export const setPartnerById = payload => ({
+    type: actionTypes.SET_PARTNER_BY_ID,
+    payload
+})

@@ -14,3 +14,4 @@ export const delete_sub_skill = "api/admin/delete_subskill_byID";
 export const get_all_partner = "api/admin/get_all_labour";
 export const get_active_partner = "api/admin/all_active_labour";
 export const get_banned_partner = "api/admin/all_inactive_labour";
+export const get_partner_by_id = "api/admin/get_labour_byID";

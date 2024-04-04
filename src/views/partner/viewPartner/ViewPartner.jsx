@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CCard, CCardBody, CCardHeader, CCol, CListGroup, CListGroupItem, CImage } from '@coreui/react';
 import { CButton, CForm, CFormInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow } from '@coreui/react';
 import * as icon from '@coreui/icons';
+import * as PartnerActions from '../../../redux/actions/partnerAction';
+import { api_urls } from '../../../utils/apiUrls';
+import { useParams } from 'react-router-dom';
 
 const ViewPartner = () => {
+  const dispatch = useDispatch()
+  const { id } = useParams()
+  const { singlePartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
+  console.log("Single Partner Data :: ", partnerData)
+
+  useEffect(function () {
+    //! Dispatching API for Getting All partner
+    dispatch(PartnerActions.getPartnerById({ labourID: id }))
+  }, []);
+
   const [editVisible, setEditVisible] = useState(false);
   const [front, setFront] = useState({ file: null, bytes: "" });
   const [back, setBack] = useState({ file: null, bytes: "" });
@@ -48,10 +62,8 @@ const ViewPartner = () => {
     }
   };
 
-
-
   const data = {
-    id: 1,
+    _id: 1,
     aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
     contact: "8757858745",
     email: "partnerone@gmail.com",
@@ -59,7 +71,7 @@ const ViewPartner = () => {
     profileImage: "/src/assets/images/avatars/8.jpg"
   }
 
-  const { name, id, contact, email, profileImage, aadharLogo } = data;
+  const { name, _id, contact, email, profileImage, aadharLogo } = data;
 
 
   return (
@@ -74,24 +86,18 @@ const ViewPartner = () => {
                 </CCardHeader>
                 <CCardBody>
                   <CRow xs={{ gutterY: 3 }}>
-                    <CImage src={'https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg'} alt="Profile" fluid style={{ height: "200px" }} />
-                    {/* <CImage src={'https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg'} alt="Profile" fluid style={{ height: "200px" }} /> */}
-                  </CRow>
-                  <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer", marginTop: " 10px", width: " 115px" }} onClick={() => handleEdit('https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg')}  >Edit Adharcard</div>
-                </CCardBody>
-              </CCard>
-            </CCol>
-            <CCol xs='12'>
-              <CCard>
-                <CCardBody>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <div style={{ color: "#000", fontWeight: "600" }}>Status : </div>
-                      <div>Active</div>
-                    </div>
+                    <CImage src={api_urls + partnerData?.aadharFront} alt="Profile" fluid style={{ height: "150px" }} />
+                    <CImage src={api_urls + partnerData?.aadharBack} alt="Profile" fluid style={{ height: "150px" }} />
 
-                    <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
-                  </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
+                      <div style={{ display: "flex", gap: "10px" }}>
+                        <div style={{ color: "#000", fontWeight: "600" }}>Kyc Status : </div>
+                        <div style={{ textTransform: "capitalize" }}>{partnerData?.isVerified}</div>
+                        <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
+                      </div>
+                    </div>
+                  </CRow>
+                  {/* <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer", marginTop: " 10px", width: " 115px" }} onClick={() => handleEdit('https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg')}  >Edit Adharcard</div> */}
                 </CCardBody>
               </CCard>
             </CCol>
@@ -104,14 +110,36 @@ const ViewPartner = () => {
               <div style={{ color: "#fff", fontWeight: "600" }}>Profile Information</div>
             </CCardHeader>
             <CCardBody>
-              <CListGroup flush className='mb-4'>
-                <CListGroupItem>ID : {id}</CListGroupItem>
-                <CListGroupItem>Name : {name}</CListGroupItem>
-                <CListGroupItem>Contact : {contact}</CListGroupItem>
-                <CListGroupItem>Email : {email}</CListGroupItem>
-                <CListGroupItem>Joining Date : 20-12-202</CListGroupItem>
-              </CListGroup>
-              <CImage src={profileImage} alt="Profile" fluid />
+              <CRow xs={{ gutterY: 4 }}>
+                <CCol xs='12' sm='3'>
+                  <CRow className='align-items-end'>
+                    <CCol xs='4' sm='12'>
+                      <CImage src={api_urls + partnerData?.aadharBack} alt="Profile" fluid style={{ height: "120px" }} />
+                    </CCol>
+
+                    <CCol xs='8' sm='12'>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start", marginTop: "20px" }}>
+                        <div style={{ display: "flex", gap: "10px" }}>
+                          <div style={{ color: "#000", fontWeight: "600" }}>Status : </div>
+                          <div style={{ textTransform: "capitalize" }}>{partnerData?.isActive}</div>
+                        </div>
+                        <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
+                      </div>
+                    </CCol>
+                  </CRow>
+                </CCol>
+
+                <CCol xs='12' sm='9'>
+                  <CListGroup flush className='mb-4'>
+                    <CListGroupItem>ID : {partnerData?._id}</CListGroupItem>
+                    <CListGroupItem style={{ textTransform: "capitalize" }}>Name : {partnerData?.labourName}</CListGroupItem>
+                    <CListGroupItem>Contact : {partnerData?.phoneNo}</CListGroupItem>
+                    <CListGroupItem>Joining Date : 20-12-202</CListGroupItem>
+                  </CListGroup>
+                </CCol>
+              </CRow>
+
+
             </CCardBody>
           </CCard>
         </CCol>

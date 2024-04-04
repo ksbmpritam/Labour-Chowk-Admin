@@ -123,7 +123,7 @@ const Dashboard = () => {
     <>
       <CRow xs={{ gutter: 4 }}>
         <CCol className=" mb-4" xs={6} xl={3} xxl={3}>
-          <div className="card p-2 position-relative" style={{
+          <div className="card card-dashboard p-2 position-relative" style={{
             backgroundColor: '#00BCD4',
             border: '1px solid #00BCD4',
             boxShadow: '0 0 10px 5px rgba(255, 255, 255, 0.5)',
@@ -154,7 +154,7 @@ const Dashboard = () => {
         </CCol>
 
         <CCol className=" mb-4" xs={6} xl={3} xxl={3}>
-          <div className="card p-2 position-relative" style={{
+          <div className="card card-dashboard p-2 position-relative" style={{
             backgroundColor: '#b11f67',
             border: '1px solid #b11f67',
             boxShadow: '0 0 10px 5px rgba(255, 255, 255, 0.5)',
@@ -187,7 +187,7 @@ const Dashboard = () => {
         </CCol>
 
         <CCol className=" mb-4" xs={6} xl={3} xxl={3}>
-          <div className="card p-2 position-relative" style={{
+          <div className="card card-dashboard p-2 position-relative" style={{
             backgroundColor: '#2A9BAA',
             border: '1px solid #2A9BAA',
             boxShadow: '0 0 10px 5px rgba(255, 255, 255, 0.5)',
@@ -218,7 +218,7 @@ const Dashboard = () => {
         </CCol>
 
         <CCol className=" mb-4" xs={6} xl={3} xxl={3}>
-          <div className="card p-2 position-relative" style={{
+          <div className="card card-dashboard p-2 position-relative" style={{
             backgroundColor: '#D48300',
             border: '1px solid #D48300',
             boxShadow: '0 0 10px 5px rgba(255, 255, 255, 0.5)',
@@ -250,35 +250,35 @@ const Dashboard = () => {
       </CRow>
 
       <CRow className='justify-content-center mb-5' xs={{ gutter: 4 }}>
-          <div style={{ fontSize: "20px", fontWeight: "600" }}>Yearly Earnings</div>
-          <CChart
-            type="bar"
-            data={{
-              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-              datasets: [
-                {
-                  label: 'Earnings',
-                  backgroundColor: '#3D24FF',
-                  data: [1000, 1500, 2000, 1800, 2200, 2500, 2300, 2600, 2800, 3000, 3200, 3500], // Sample earnings data for each month
-                  barThickness: 20,
-                },
-              ],
-            }}
-            options={{
-              plugins: {
-                legend: {
-                  labels: {
-                    color: getStyle('--cui-body-color'),
-                  }
-                }
+        <div style={{ fontSize: "20px", fontWeight: "600" }}>Yearly Earnings</div>
+        <CChart
+          type="bar"
+          data={{
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [
+              {
+                label: 'Earnings',
+                backgroundColor: '#3D24FF',
+                data: [1000, 1500, 2000, 1800, 2200, 2500, 2300, 2600, 2800, 3000, 3200, 3500], // Sample earnings data for each month
+                barThickness: 20,
               },
-            }}
-            style={{ width: "800px", height: "400px" }} // Adjust width and height as needed
-          />
+            ],
+          }}
+          options={{
+            plugins: {
+              legend: {
+                labels: {
+                  color: getStyle('--cui-body-color'),
+                }
+              }
+            },
+          }}
+          style={{ width: "800px", height: "400px" }} // Adjust width and height as needed
+        />
       </CRow>
 
       <CRow className='justify-content-between px-3 mb-4' xs={{ gutter: 2 }} >
-        <CCol  xs={4} xl={4} xxl={4} className='bg-white p-3' style={{ borderRadius: "6px" }}>
+        <CCol xs={4} xl={4} xxl={4} className='bg-white p-3' style={{ borderRadius: "6px" }}>
           <CRow className='justify-content-center' xl={{ gutter: 4 }}>
             <div style={{ fontSize: "20px", fontWeight: "600" }}>Today's Joining</div>
             <CChart
@@ -306,7 +306,7 @@ const Dashboard = () => {
           </CRow>
         </CCol>
 
-        <CCol xs={4} xl={4} xxl={4}  className='bg-white p-3' style={{ borderRadius: "6px" }}>
+        <CCol xs={4} xl={4} xxl={4} className='bg-white p-3' style={{ borderRadius: "6px" }}>
           <CRow className='justify-content-center' xl={{ gutter: 4 }} >
             <div style={{ fontSize: "20px", fontWeight: "600" }}>Total Joining</div>
             <CChart
@@ -333,11 +333,11 @@ const Dashboard = () => {
             />
           </CRow>
 
-          
+
 
         </CCol>
-        
-        <CCol xs={4} xl={4} xxl={4}  className='bg-white p-3' style={{ borderRadius: "6px" }}>
+
+        <CCol xs={4} xl={4} xxl={4} className='bg-white p-3' style={{ borderRadius: "6px" }}>
           <CRow className='justify-content-center' xl={{ gutter: 4 }} >
             <div style={{ fontSize: "20px", fontWeight: "600" }}>Today's Earning</div>
             <CChart
@@ -364,10 +364,10 @@ const Dashboard = () => {
             />
           </CRow>
 
-          
+
 
         </CCol>
-       
+
 
 
       </CRow>
