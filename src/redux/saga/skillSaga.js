@@ -43,7 +43,7 @@ function* createSkill(action) {
             title: error?.response?.data?.message.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
             text: "Failed To Create Skill",
             showConfirmButton: false,
-            timer: 10000,
+            timer: 2000,
         });
         console.log("Create Skill Saga Error ::: ", error?.response?.data)
         console.log("Create Skill Saga Error Message ::: ", error?.response?.data?.message)
@@ -155,7 +155,7 @@ function* createSubSkill(action) {
             title: error?.response?.data?.message.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
             text: "Failed To Create Sub Skill",
             showConfirmButton: false,
-            timer: 10000,
+            timer: 2000,
         });
         console.log("Create Sub Skill Saga Error ::: ", error?.response?.data)
         console.log("Create Sub Skill Saga Error  message ::: ", error?.response?.data?.message)

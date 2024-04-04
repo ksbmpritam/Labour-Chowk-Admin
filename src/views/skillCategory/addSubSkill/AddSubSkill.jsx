@@ -8,8 +8,7 @@ import * as SkillActions from '../../../redux/actions/skillAction';
 const AddSubSkill = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const optionsSkillData = useSelector((state) => state.skillReducer?.skillData);
-  // console.log("Skill Data for Options ::: ", optionsSkillData)
+  const { skillData: optionsSkillData } = useSelector((state) => state.skillReducer);
 
   useEffect(function () {
     //! Dispatching API for Getting Sub SKill
@@ -18,7 +17,7 @@ const AddSubSkill = () => {
 
   const [validated, setValidated] = useState(false)
   const [skill_ID, setSkill_ID] = useState('')
-  const [subSkillName, setSubSkillName] = useState('')
+  const [subSkill, setSubSkill] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -27,10 +26,10 @@ const AddSubSkill = () => {
     if (form.checkValidity() === false) {
       event.stopPropagation()
     } else {
-      console.log("Sub Skill Data ::: ", { skill_ID, subSkill: subSkillName })
+      console.log("Sub Skill Data ::: ", { skill_ID, subSkill })
 
       const payload = {
-        data: { skill_ID, subSkill: subSkillName },
+        data: { skill_ID, subSkill },
         onComplete: () => navigate("/sub-skill")
       }
 
@@ -45,20 +44,12 @@ const AddSubSkill = () => {
       <div style={{ padding: "20px", backgroundColor: "#fff" }}>
         <DataTableButton title={'Add Sub Skill'} url={'sub-skill'} />
 
-        <CForm
-          className="row g-3 needs-validation"
-          noValidate
-          validated={validated}
-          onSubmit={handleSubmit}
-        >
+        <CForm className="row g-3 needs-validation" noValidate validated={validated} onSubmit={handleSubmit}  >
           <CCol md={12}>
             <CFormSelect
-              id="validationCustom01"
-              label="Skill"
-              required
-              feedbackValid="Looks good!"
-              feedbackInvalid={'Please Select Skill'}
+              label="Skill" id="validationCustom01" required
               value={skill_ID}
+              feedbackValid="Looks good!" feedbackInvalid={'Please Select Skill'}
               onChange={(e) => setSkill_ID(e.target.value)}
             >
               <option value="">Select...</option>
@@ -71,16 +62,10 @@ const AddSubSkill = () => {
           </CCol>
 
           <CCol md={12}>
-            <CFormInput
-              label="Sub Skill"
-              type="text"
-              name="name"
-              id="validationCustom02"
-              required
-              value={subSkillName}
-              feedbackValid="Looks good!"
-              feedbackInvalid={'Please Enter Sub Skill'}
-              onChange={(e) => setSubSkillName(e.target.value)}
+            <CFormInput label="Sub Skill" name="subSkill" type="text" id="validationCustom02" required
+              value={subSkill}
+              feedbackValid="Looks good!" feedbackInvalid={'Please Enter Sub Skill'}
+              onChange={(e) => setSubSkill(e.target.value)}
             />
           </CCol>
 

@@ -5,11 +5,12 @@ import * as icon from '@coreui/icons';
 import { DataTableCustomStyles } from '../../../styles';
 import DataTableHeaderWithAdd from '../../../components/common/DataTableHeaderWithAdd';
 import { CButton, CCol, CForm, CFormInput, CModal, CModalBody, CModalHeader, CModalTitle } from '@coreui/react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as SkillActions from '../../../redux/actions/skillAction';
 
-const Skill = ({ dispatch, skillData }) => {
-    // console.log("Skill Data Redux State ::: ", skillData)
+const Skill = () => {
+    const dispatch = useDispatch()
+    const { skillData } = useSelector((state) => state.skillReducer);
 
     useEffect(function () {
         //! Dispatching API for Getting SKill
@@ -85,7 +86,7 @@ const Skill = ({ dispatch, skillData }) => {
                         customStyles={DataTableCustomStyles}
                         paginationPerPage={5}
                         paginationRowsPerPageOptions={[5, 10, 15, 20]}
-                        paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :', }}
+                        paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
                     />
                 </div>
             }
@@ -132,11 +133,4 @@ const Skill = ({ dispatch, skillData }) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    stateData: state,
-    skillData: state?.skillReducer?.skillData
-});
-
-const mapDispatchToProps = (dispatch) => ({ dispatch });
-
-export default connect(mapStateToProps, mapDispatchToProps)(Skill);
+export default Skill
