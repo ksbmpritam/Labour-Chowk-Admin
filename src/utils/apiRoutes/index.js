@@ -9,3 +9,8 @@ export const get_sub_skill = "api/admin/get_all_subSkill";
 export const create_sub_skill = "api/admin/add_subSkill";
 export const update_sub_skill = "api/admin/update_subskill_byID";
 export const delete_sub_skill = "api/admin/delete_subskill_byID";
+
+//! Partner
+export const get_all_partner = "api/admin/get_all_labour";
+export const get_active_partner = "api/admin/all_active_labour";
+export const get_banned_partner = "api/admin/all_inactive_labour";

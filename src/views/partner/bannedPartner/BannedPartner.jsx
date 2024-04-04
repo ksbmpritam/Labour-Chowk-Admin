@@ -1,39 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import CIcon from '@coreui/icons-react';
-import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
+import DataTable from 'react-data-table-component';
 import { DataTableCustomStyles } from '../../../styles';
-import { useNavigate } from 'react-router-dom';
 import DataTableHeader from '../../../components/common/DataTableHeader';
-import pictureIcon from "../../../assets/images/avatars/4.jpg";
+import { useNavigate } from 'react-router-dom';
+import * as PartnerActions from '../../../redux/actions/partnerAction';
+import { api_urls } from '../../../utils/apiUrls';
 
 const BannedPartner = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const { bannedPartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
+    console.log("Banned Partner Data :: ", partnerData)
 
-    //! Partner Start
-    const partnerData = [
-        {
-            id: 1,
-            name: "Partner One",
-            email: "partnerone@gmail.com",
-            contact: "8757858745",
-            status: " Active",
-            isverfied: " Verified",
-            profileImage: pictureIcon,
-            aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
-        },
-        {
-            id: 2,
-            name: "Partner Two",
-            email: "partnertwo@gmail.com",
-            contact: "8709858745",
-            status: "In Active",
-            isverfied: "Not Verified",
-            profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
-            aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
-        }
-    ]
+    useEffect(function () {
+        //! Dispatching API for Getting Banned partner
+        dispatch(PartnerActions.getBannedPartner())
+    }, []);
 
+    //! Banned Partner DataTable Columns
     const partnerColumns = [
         {
             name: 'S.No',
@@ -41,56 +28,52 @@ const BannedPartner = () => {
         },
         {
             name: 'Name',
-            selector: row => row.name,
-        },
-        // {
-        //     name: 'Email',
-        //     selector: row => row.email,
-        // },
-        {
-            name: 'Profile Image',
-            cell: row => <img src={row.profileImage} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
-        },
-        {
-            name: 'Aadhar',
-            cell: row => <img src={row.aadhar} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
+            selector: row => row.labourName,
         },
         {
             name: 'Mobile',
-            selector: row => row.contact,
+            selector: row => row.phoneNo,
+        },
+        {
+            name: 'Profile Image',
+            cell: row => <img src={api_urls + row.aadharBack} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
+        },
+        {
+            name: 'Aadhar',
+            cell: row => <img src={api_urls + row.aadharFront} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
+        },
+        {
+            name: 'Kyc Status',
+            selector: row => row.isVerified,
         },
         {
             name: 'Status',
-            selector: row => row.status,
-        },
-        {
-            name: 'Is Verified',
-            selector: row => row.isverfied,
+            selector: row => row.isActive,
         },
         {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="lg" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="lg" onClick={() => navigate(`/partner/${row?._id}`)} />
             </div>,
         },
     ]
-    //! partner End
-    const handleView = (data) => {
-        console.log("View Data ::: ", data)
-        navigate(`/partner/${data?.id}`);
-    }
 
     return (
         <>
-            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeader title={'Banned Partner'} data={partnerData} />
-                <DataTable
-                    columns={partnerColumns}
-                    data={partnerData}
-                    pagination
-                    customStyles={DataTableCustomStyles}
-                />
-            </div>
+            {partnerData &&
+                <div style={{ padding: "20px", backgroundColor: "#fff", marginBottom: "20px" }}>
+                    <DataTableHeader title={'Banned Partner'} data={partnerData} />
+                    <DataTable
+                        columns={partnerColumns}
+                        data={partnerData}
+                        pagination
+                        customStyles={DataTableCustomStyles}
+                        paginationPerPage={5}
+                        paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                        paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
+                    />
+                </div>
+            }
         </>
     )
 }

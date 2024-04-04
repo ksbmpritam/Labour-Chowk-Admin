@@ -1,46 +1,26 @@
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import CIcon from '@coreui/icons-react';
-import React, { useState } from 'react'
-import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
-import { DataTableCustomStyles } from '../../../styles';
-import { useNavigate } from 'react-router-dom';
 import { CButton, CCol, CForm, CFormCheck, CFormFeedback, CFormInput, CFormLabel, CFormSelect, CInputGroup, CInputGroupText, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow } from '@coreui/react';
+import DataTable from 'react-data-table-component';
+import { DataTableCustomStyles } from '../../../styles';
 import DataTableHeader from '../../../components/common/DataTableHeader';
-// import logo_icon from "../../assets/images/logo_icon.png";
-import pictureIcon from "../../../assets/images/avatars/8.jpg";
+import { useNavigate } from 'react-router-dom';
+import * as PartnerActions from '../../../redux/actions/partnerAction';
+import { api_urls } from '../../../utils/apiUrls';
 
 const AllPartner = () => {
-    //! Partner Start
-    const partnerData = [
-        {
-            id: 1,
-            name: "Partner One",
-            contact: "8757858745",
-            status: "Active",
-            isverfied: "Verified",
-            profileImage: pictureIcon,
-            aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
-        },
-        {
-            id: 2,
-            name: "Partner Two",
-            contact: "8709858745",
-            status: "In Active",
-            isverfied: "Not Verified",
-            profileImage: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
-            aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
-        },
-        {
-            id: 3,
-            name: "Partner Three",
-            contact: "8709858745",
-            status: "Active",
-            isverfied: "Not Verified",
-            profileImage: pictureIcon,
-            aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
-        }
-    ]
+    const dispatch = useDispatch()
+    const { allPartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
+    console.log("Partner Data :: ", partnerData)
 
+    useEffect(function () {
+        //! Dispatching API for Getting All partner
+        dispatch(PartnerActions.getAllPartner())
+    }, []);
+
+    //! Partner DataTable Columns
     const partnerColumns = [
         {
             name: 'S.No',
@@ -48,45 +28,38 @@ const AllPartner = () => {
         },
         {
             name: 'Name',
-            selector: row => row.name,
+            selector: row => row?.labourName,
         },
         {
             name: 'Mobile',
-            selector: row => row.contact,
+            selector: row => row?.phoneNo,
         },
         {
             name: 'Profile Image',
-            cell: row => <img src={row.profileImage} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
+            cell: row => <img src={api_urls + row?.aadharBack} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
         },
         {
             name: 'Aadhar',
-            cell: row => <img src={row.aadhar} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
+            cell: row => <img src={api_urls + row?.aadharFront} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
+        },
+        {
+            name: 'Kyc Status',
+            selector: row => row?.isVerified,
         },
         {
             name: 'Status',
-            selector: row => row.status,
-        },
-        {
-            name: 'Is Verified',
-            selector: row => row.isverfied,
+            selector: row => row?.isActive,
         },
         {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} style={{ cursor: "pointer" }} size="sm" onClick={() => handleEdit(row)} />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} size="sm" />
-                {/* <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Ban-Unban" icon={icon.cilBan} size="sm" />
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Verify" icon={icon.cilCheckCircle} size="sm" /> */}
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" icon={icon.cilTouchApp} size="sm" style={{ cursor: "pointer" }} onClick={() => handleView(row)} />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" icon={icon.cilTouchApp} size="sm" style={{ cursor: "pointer" }} onClick={() => navigate(`/partner/${row?._id}`)} />
             </div>,
             width: '180px'
         },
     ]
-    //! partner End
-    const handleView = (data) => {
-        console.log("View Data ::: ", data)
-        navigate(`/partner/${data?.id}`);
-    }
 
     const handleEdit = (data) => {
         setVisible(!visible)
@@ -156,15 +129,21 @@ const AllPartner = () => {
 
     return (
         <>
-            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeader title={'Partner'} data={partnerData} />
-                <DataTable
-                    columns={partnerColumns}
-                    data={partnerData}
-                    pagination
-                    customStyles={DataTableCustomStyles}
-                />
-            </div>
+            {
+                partnerData &&
+                <div style={{ padding: "20px", backgroundColor: "#fff", marginBottom: "20px" }}>
+                    <DataTableHeader title={'All Partner'} data={partnerData} />
+                    <DataTable
+                        columns={partnerColumns}
+                        data={partnerData}
+                        pagination
+                        customStyles={DataTableCustomStyles}
+                        paginationPerPage={5}
+                        paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                        paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
+                    />
+                </div>
+            }
 
             {/* Edit Modal */}
             <CModal
