@@ -73,7 +73,7 @@ const ViewPartner = () => {
       });
     }
   };
-
+  console.log("api_urls + partnerData?.aadharBack", api_urls + 'uploads/kyc/' + partnerData?.aadharBack)
   return (
     <>
       <CRow xs={{ gutterY: 3 }} className='mb-4'>
@@ -86,8 +86,8 @@ const ViewPartner = () => {
                 </CCardHeader>
                 <CCardBody>
                   <CRow xs={{ gutterY: 3 }}>
-                    <CImage src={api_urls + partnerData?.aadharFront} alt="Profile" fluid style={{ height: "150px" }} />
-                    <CImage src={api_urls + partnerData?.aadharBack} alt="Profile" fluid style={{ height: "150px" }} />
+                    <CImage src={api_urls + 'uploads/kyc/' + partnerData?.aadharFront} alt="Profile" fluid style={{ height: "150px" }} />
+                    <CImage src={api_urls + 'uploads/kyc/' + partnerData?.aadharBack} alt="Profile" fluid style={{ height: "150px" }} />
 
                     <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
                       <div style={{ display: "flex", gap: "10px" }}>
