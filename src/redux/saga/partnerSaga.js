@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, call, takeLeading } from 'redux-saga/effects';
 import * as actionTypes from '../actionTypes';
 import { api_urls } from '../../utils/apiUrls';
-import { change_partner_status, delete_partner, get_active_partner, get_all_partner, get_banned_partner, get_partner_by_id, update_partner } from '../../utils/apiRoutes';
+import { change_partner_kyc_status, change_partner_status, delete_partner, get_active_partner, get_all_partner, get_banned_partner, get_partner_by_id, update_partner } from '../../utils/apiRoutes';
 import Swal from "sweetalert2";
 
 function* getAllPartner() {
@@ -109,6 +109,50 @@ function* changePartnerStatus(action) {
     }
 }
 
+function* changePartnerKycStatus(action) {
+    try {
+        const { payload } = action;
+        console.log("Payload ::: ", payload)
+        console.log("Payload ID ::: ", payload?.labourID)
+
+        const result = yield Swal.fire({
+            title: `Are You Sure To Change Partner Kyc Status`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#2A9BAA",
+            cancelButtonColor: "red",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No"
+        })
+
+        if (result.isConfirmed) {
+            const { data } = yield call(axios.post, `${api_urls + change_partner_kyc_status}`, payload);
+            console.log("Change Partner Kyc Status Saga Response ::: ", data)
+
+            if (data.success) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Kyc Status Change Successfully",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                yield put({ type: actionTypes.GET_PARTNER_BY_ID, payload: { labourID: payload?.labourID } })
+                yield put({ type: actionTypes.GET_ALL_PARTNER, payload: null })
+            }
+        }
+
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Server Error",
+            text: "Failed To Change Kyc Status",
+            showConfirmButton: false,
+            timer: 2000,
+        });
+        console.log("Change Partner Kyc Status Saga Error ::: ", error)
+    }
+}
+
 function* updatePartner(action) {
     try {
         const { payload } = action;
@@ -187,6 +231,7 @@ export default function* partnerSaga() {
     yield takeLeading(actionTypes?.GET_BANNED_PARTNER, getBannedPartner);
     yield takeLeading(actionTypes?.GET_PARTNER_BY_ID, getPartnerById);
     yield takeLeading(actionTypes?.CHANGE_PARTNER_STATUS, changePartnerStatus);
+    yield takeLeading(actionTypes?.CHANGE_PARTNER_KYC_STATUS, changePartnerKycStatus);
     yield takeLeading(actionTypes?.UPDATE_PARTNER, updatePartner);
     yield takeLeading(actionTypes?.DELETE_PARTNER, deletePartner);
 }

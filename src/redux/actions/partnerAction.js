@@ -45,6 +45,11 @@ export const changePartnerStatus = payload => ({
     payload
 })
 
+export const changePartnerKycStatus = payload => ({
+    type: actionTypes.CHANGE_PARTNER_KYC_STATUS,
+    payload
+})
+
 export const updatePartner = payload => ({
     type: actionTypes.UPDATE_PARTNER,
     payload

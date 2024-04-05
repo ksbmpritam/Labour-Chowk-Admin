@@ -43,11 +43,11 @@ const AllPartner = () => {
         },
         {
             name: 'Kyc Status',
-            selector: row => <div style={{ cursor: "pointer" }}>{row?.isVerified}</div>,
+            selector: row => <div style={{ cursor: "pointer", textTransform: "capitalize", color: row?.isVerified == 'verified' ? 'green' : 'red' }} onClick={() => handleKycStatus(row)}>{row?.isVerified?.toLowerCase()}</div>,
         },
         {
             name: 'Status',
-            selector: row => <div style={{ cursor: "pointer" }} onClick={() => handleActiveBannedStatus(row)}>{row?.isActive}</div>,
+            selector: row => <div style={{ cursor: "pointer", textTransform: "capitalize", color: row?.isActive == 'active' ? 'green' : 'red' }} onClick={() => handleActiveBannedStatus(row)}>{row?.isActive?.toLowerCase()}</div>,
         },
         {
             name: 'Action',
@@ -60,6 +60,19 @@ const AllPartner = () => {
         },
     ]
 
+    const handleKycStatus = (data) => {
+        const { _id: partnerId, isVerified: status } = data
+        console.log("Kyc Status", { partnerId, status })
+
+        if (status === 'verified') {
+            console.log("verified")
+            dispatch(PartnerActions.changePartnerKycStatus({ labourID: partnerId, isVerified: "unVerified" }))
+        }
+        if (status === 'unVerified') {
+            console.log("unVerified")
+            dispatch(PartnerActions.changePartnerKycStatus({ labourID: partnerId, isVerified: "verified" }))
+        }
+    }
 
     const handleActiveBannedStatus = (data) => {
         const { _id: partnerId, isActive: status } = data
