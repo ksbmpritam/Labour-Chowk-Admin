@@ -35,7 +35,7 @@ const AllPartner = () => {
         },
         {
             name: 'Profile Image',
-            cell: row => <img src={api_urls + row?.aadharBack} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
+            cell: row => <img src={api_urls + row?.profileImage} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
         },
         {
             name: 'Aadhar',

@@ -12,14 +12,14 @@ const Wallet = () => {
             id: 1,
             user: "Pramod Mishra ",
             paymentType: "UPI ",
-            Aamount: "50.00",
+            Amount: "50.00",
             createdat: "31-03-2024 7:54 AM",
         },
         {
             id: 2,
             user: "Ankita Lokhandey",
             paymentType: "Banking",
-            Aamount: "50.00",
+            Amount: "50.00",
             createdat: "21-02-2024 10:34 AM",
         }
     ]
@@ -39,7 +39,7 @@ const Wallet = () => {
         },
         {
             name: 'Amount',
-            selector: row => row.Aamount,
+            selector: row => row.Amount,
         },
         {
             name: 'Created At',

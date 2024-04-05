@@ -114,7 +114,7 @@ const ViewPartner = () => {
                 <CCol xs='12' sm='3'>
                   <CRow className='align-items-end'>
                     <CCol xs='4' sm='12'>
-                      <CImage src={api_urls + partnerData?.aadharBack} alt="Profile" fluid style={{ height: "120px" }} />
+                      <CImage src={api_urls + partnerData?.profileImage} alt="Profile" fluid style={{ height: "150px" }} />
                     </CCol>
 
                     <CCol xs='8' sm='12'>
