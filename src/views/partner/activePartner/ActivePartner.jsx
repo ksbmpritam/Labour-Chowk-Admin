@@ -44,11 +44,11 @@ const ActivePartner = () => {
         },
         {
             name: 'Kyc Status',
-            selector: row => row.isVerified,
+            selector: row => <div style={{ textTransform: "capitalize", color: row?.isVerified == 'verified' ? 'green' : 'red' }}>{row?.isVerified?.toLowerCase()}</div>,
         },
         {
             name: 'Status',
-            selector: row => row.isActive,
+            selector: row => <div style={{ textTransform: "capitalize", color: row?.isActive == 'active' ? 'green' : 'red' }}>{row?.isActive?.toLowerCase()}</div>,
         },
         {
             name: 'Action',
