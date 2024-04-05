@@ -16,4 +16,5 @@ export const get_active_partner = "api/admin/all_active_labour";
 export const get_banned_partner = "api/admin/all_inactive_labour";
 export const get_partner_by_id = "api/admin/get_labour_byID";
 export const change_partner_status = "api/admin/labour_isActive";
-export const change_partner_kyc_status = "api/admin/labour_isActive";
+export const change_partner_kyc_status = "api/admin/labour_kyc_isVerified";
+export const update_partner = "api/admin/labour_update_byadmin";

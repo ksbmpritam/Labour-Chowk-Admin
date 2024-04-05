@@ -19,10 +19,7 @@ const Skill = () => {
 
     //! Skill DataTable Columns
     const skillColumns = [
-        {
-            name: 'S.No',
-            selector: (row, index) => index + 1,
-        },
+        { name: 'S.No.', selector: row => skillData.indexOf(row) + 1, style: { backGroundColor: "#000", paddingLeft: "20px" } },
         {
             name: 'Skill',
             selector: row => row?.skill,
@@ -81,7 +78,7 @@ const Skill = () => {
                     <DataTableHeaderWithAdd title={'Skill'} data={skillData} url={'add-skill'} />
                     <DataTable
                         columns={skillColumns}
-                        data={skillData}
+                        data={skillData?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))}
                         pagination
                         customStyles={DataTableCustomStyles}
                         paginationPerPage={5}

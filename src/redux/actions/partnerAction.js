@@ -44,3 +44,8 @@ export const changePartnerStatus = payload => ({
     type: actionTypes.CHANGE_PARTNER_STATUS,
     payload
 })
+
+export const updatePartner = payload => ({
+    type: actionTypes.UPDATE_PARTNER,
+    payload
+})
