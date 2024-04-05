@@ -114,7 +114,8 @@ function* updatePartner(action) {
         const { payload } = action;
         console.log("Payload ::: ", payload)
 
-        const { data } = yield call(axios.post, `${api_urls + update_partner}`, payload?.data);
+        const { data } = yield call(axios.post, `${api_urls + update_partner}`, payload?.data, { headers: { "Content-Type": "multipart/form-data" } })
+
         console.log("Update Partner Saga Response ::: ", data)
 
         if (data?.success) {
@@ -129,6 +130,13 @@ function* updatePartner(action) {
         }
 
     } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Server Error",
+            text: "Partner Update Failed",
+            showConfirmButton: false,
+            timer: 2000,
+        });
         console.log("Update Partner Saga Error ::: ", error)
     }
 }

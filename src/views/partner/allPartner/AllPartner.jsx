@@ -128,14 +128,22 @@ const AllPartner = () => {
         if (form.checkValidity() === false) {
             event.stopPropagation()
         } else {
-            console.log({ labourID: partnerDetail?.partnerID, labourName: partnerDetail?.name, phoneNo: partnerDetail?.contact })
+            console.log({ labourID: partnerDetail?.partnerID, labourName: partnerDetail?.name, phoneNo: partnerDetail?.contact, profile: profileImage?.bytes })
+
+            let formData = new FormData()
+            formData.append("labourID", partnerDetail?.partnerID)
+            formData.append("labourName", partnerDetail?.name)
+            formData.append("phoneNo", partnerDetail?.contact)
+            formData.append("profile", profileImage.bytes);
+
+            console.log("payload Data :: ", formData)
 
             const payload = {
-                data: { labourID: partnerDetail?.partnerID, labourLocation: "Delhi", labourName: partnerDetail?.name, phoneNo: partnerDetail?.contact },
+                data: formData,
                 onComplete: () => setVisible(!visible)
             }
 
-            //! Dispatching API for Updating Parter
+            // //! Dispatching API for Updating Parter
             dispatch(PartnerActions.updatePartner(payload))
         }
         setValidated(true)
@@ -215,7 +223,7 @@ const AllPartner = () => {
                                 onChange={handleInputField}
                             />
                         </CCol>
-                        {/* <CCol md={12}>
+                        <CCol md={12}>
                             <div>Profile Image</div>
                             <CRow className='align-items-center'>
                                 <CCol xs={2}>
@@ -234,7 +242,7 @@ const AllPartner = () => {
                                     />
                                 </CCol>
                             </CRow>
-                        </CCol> */}
+                        </CCol>
                         {/* <CCol md={12}>
                             <div>Aadhar card</div>
                             <CRow className='align-items-center'>
