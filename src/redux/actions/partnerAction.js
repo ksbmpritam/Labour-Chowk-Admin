@@ -49,3 +49,8 @@ export const updatePartner = payload => ({
     type: actionTypes.UPDATE_PARTNER,
     payload
 })
+
+export const deletePartner = payload => ({
+    type: actionTypes.DELETE_PARTNER,
+    payload
+})

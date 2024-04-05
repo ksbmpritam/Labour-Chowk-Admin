@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, call, takeLeading } from 'redux-saga/effects';
 import * as actionTypes from '../actionTypes';
 import { api_urls } from '../../utils/apiUrls';
-import { change_partner_status, get_active_partner, get_all_partner, get_banned_partner, get_partner_by_id, update_partner } from '../../utils/apiRoutes';
+import { change_partner_status, delete_partner, get_active_partner, get_all_partner, get_banned_partner, get_partner_by_id, update_partner } from '../../utils/apiRoutes';
 import Swal from "sweetalert2";
 
 function* getAllPartner() {
@@ -133,6 +133,46 @@ function* updatePartner(action) {
     }
 }
 
+function* deletePartner(action) {
+    try {
+        const { payload } = action;
+        console.log("Payload ::: ", payload)
+
+        const result = yield Swal.fire({
+            title: `Are You Sure To Delete Partner`,
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#2A9BAA",
+            cancelButtonColor: "red",
+            confirmButtonText: "Delete",
+        })
+
+        if (result.isConfirmed) {
+            const { data } = yield call(axios.post, `${api_urls + delete_partner}`, payload);
+            console.log("Delete Partner Saga Response ::: ", data)
+            if (data.success) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Partner Deleted Successfully",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                yield put({ type: actionTypes.GET_ALL_PARTNER, payload: null })
+            }
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Server Error",
+            text: "Failed To Delete Partner",
+            showConfirmButton: false,
+            timer: 2000,
+        });
+        console.log("Delete Partner Saga Error ::: ", error)
+    }
+}
+
 export default function* partnerSaga() {
     yield takeLeading(actionTypes?.GET_ALL_PARTNER, getAllPartner);
     yield takeLeading(actionTypes?.GET_ACTIVE_PARTNER, getActivePartner);
@@ -140,4 +180,5 @@ export default function* partnerSaga() {
     yield takeLeading(actionTypes?.GET_PARTNER_BY_ID, getPartnerById);
     yield takeLeading(actionTypes?.CHANGE_PARTNER_STATUS, changePartnerStatus);
     yield takeLeading(actionTypes?.UPDATE_PARTNER, updatePartner);
+    yield takeLeading(actionTypes?.DELETE_PARTNER, deletePartner);
 }
