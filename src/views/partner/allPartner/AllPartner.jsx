@@ -13,7 +13,6 @@ import { api_urls } from '../../../utils/apiUrls';
 const AllPartner = () => {
     const dispatch = useDispatch()
     const { allPartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
-    // console.log("Partner Data :: ", partnerData)
 
     useEffect(function () {
         //! Dispatching API for Getting All partner
@@ -81,17 +80,17 @@ const AllPartner = () => {
         console.log("Edit Data ::: ", data)
 
         setPartnerDetail({
-            name: data.name || '',
-            contact: data.contact || '',
+            name: data.labourName || '',
+            contact: data.phoneNo || '',
+            partnerID: data._id || ''
         });
         setProfileImage({ file: data?.profileImage, bytes: '' })
-        setAadharCard({ file: data?.aadhar, bytes: '' })
     }
 
     const navigate = useNavigate();
     const [visible, setVisible] = useState(false)
     const [validated, setValidated] = useState(false)
-    const [partnerDetail, setPartnerDetail] = useState({ name: '', contact: '' });
+    const [partnerDetail, setPartnerDetail] = useState({ name: '', contact: '', partnerID: "" });
     const [profileImage, setProfileImage] = useState({ file: null, bytes: "" });
     const [aadharCard, setAadharCard] = useState({ file: null, bytes: "" });
     const [error, setError] = useState({ name: "Please Provide Name", email: "Please Provide Email" })
@@ -129,15 +128,15 @@ const AllPartner = () => {
         if (form.checkValidity() === false) {
             event.stopPropagation()
         } else {
-            var formData = new FormData()
+            console.log({ labourID: partnerDetail?.partnerID, labourName: partnerDetail?.name, phoneNo: partnerDetail?.contact })
 
-            formData.append("name", partnerDetail?.name)
-            formData.append("contact", partnerDetail?.contact)
-            formData.append("profileImage", profileImage.bytes);
+            const payload = {
+                data: { labourID: partnerDetail?.partnerID, labourLocation: "Delhi", labourName: partnerDetail?.name, phoneNo: partnerDetail?.contact },
+                onComplete: () => setVisible(!visible)
+            }
 
-            console.log({ name: partnerDetail?.name, contact: partnerDetail?.contact, profileImage: profileImage?.bytes })
-
-            console.log('Form data:', formData);
+            //! Dispatching API for Updating Parter
+            dispatch(PartnerActions.updatePartner(payload))
         }
         setValidated(true)
     }
@@ -216,7 +215,7 @@ const AllPartner = () => {
                                 onChange={handleInputField}
                             />
                         </CCol>
-                        <CCol md={12}>
+                        {/* <CCol md={12}>
                             <div>Profile Image</div>
                             <CRow className='align-items-center'>
                                 <CCol xs={2}>
@@ -235,7 +234,7 @@ const AllPartner = () => {
                                     />
                                 </CCol>
                             </CRow>
-                        </CCol>
+                        </CCol> */}
                         {/* <CCol md={12}>
                             <div>Aadhar card</div>
                             <CRow className='align-items-center'>
