@@ -132,6 +132,7 @@ const AllUser = () => {
 
     return (
         <>
+            <MainLoader />
             {
                 userData &&
                 <div style={{ padding: "20px", backgroundColor: "#fff" }}>

@@ -53,7 +53,7 @@ const ActiveUser = () => {
 
     return (
         <>
-            {/* <MainLoader /> */}
+            <MainLoader />
             {
                 userData &&
                 <div style={{ padding: "20px", backgroundColor: "#fff" }}>
