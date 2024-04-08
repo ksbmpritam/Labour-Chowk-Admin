@@ -16,12 +16,7 @@ const BannedPartner = () => {
     const { bannedPartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
     console.log("Banned Partner Data :: ", partnerData)
 
-    useEffect(function () {
-        //! Dispatching API for Getting Banned partner
-        dispatch(PartnerActions.getBannedPartner())
-    }, []);
-
-    //! Banned Partner DataTable Columns
+    //* Banned Partner DataTable Columns
     const partnerColumns = [
         {
             name: 'S.No',
@@ -58,6 +53,11 @@ const BannedPartner = () => {
             </div>,
         },
     ]
+
+    useEffect(function () {
+        //! Dispatching API for Getting Banned partner
+        dispatch(PartnerActions.getBannedPartner())
+    }, []);
 
     return (
         <>

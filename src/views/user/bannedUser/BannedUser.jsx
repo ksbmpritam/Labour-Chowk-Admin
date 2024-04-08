@@ -16,7 +16,7 @@ const BannedUser = () => {
     const { bannedUserData: userData } = useSelector((state) => state?.userReducer);
     console.log("Banned User Data :: ", userData);
 
-    //! Banned User DataTable Columns
+    //* Banned User DataTable Columns
     const userColumns = [
         { name: 'S.No.', selector: row => userData.indexOf(row) + 1, style: { backGroundColor: "#000", paddingLeft: "20px" } },
         { name: 'Name', selector: row => row.userName },

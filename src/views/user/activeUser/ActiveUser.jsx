@@ -16,7 +16,7 @@ const ActiveUser = () => {
     const { activeUserData: userData } = useSelector((state) => state?.userReducer);
     console.log("Active User Data :: ", userData);
 
-    //! Active User DataTable Columns
+    //* Active User DataTable Columns
     const userColumns = [
         { name: 'S.No.', selector: row => userData.indexOf(row) + 1, style: { backGroundColor: "#000", paddingLeft: "20px" } },
         { name: 'Name', selector: row => row.userName },

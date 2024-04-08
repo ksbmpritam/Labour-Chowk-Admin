@@ -16,12 +16,7 @@ const ActivePartner = () => {
     const { activePartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
     console.log("Active Partner Data :: ", partnerData)
 
-    useEffect(function () {
-        //! Dispatching API for Getting Active partner
-        dispatch(PartnerActions.getActivePartner())
-    }, []);
-
-    //! Active Partner DataTable Columns
+    //* Active Partner DataTable Columns
     const activePartnerColumns = [
         {
             name: 'S.No',
@@ -58,6 +53,11 @@ const ActivePartner = () => {
             </div>,
         },
     ]
+
+    useEffect(function () {
+        //! Dispatching API for Getting Active partner
+        dispatch(PartnerActions.getActivePartner())
+    }, []);
 
     return (
         <>

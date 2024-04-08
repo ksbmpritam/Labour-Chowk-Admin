@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CIcon from '@coreui/icons-react';
 import * as icon from '@coreui/icons';
@@ -6,21 +7,125 @@ import { CButton, CCol, CForm, CFormCheck, CFormFeedback, CFormInput, CFormLabel
 import DataTable from 'react-data-table-component';
 import { DataTableCustomStyles } from '../../../styles';
 import DataTableHeader from '../../../components/common/DataTableHeader';
-import { useNavigate } from 'react-router-dom';
-import * as PartnerActions from '../../../redux/actions/partnerAction';
 import { api_urls } from '../../../utils/apiUrls';
+import * as PartnerActions from '../../../redux/actions/partnerAction';
 import MainLoader from '../../../components/loader/MainLoader';
 
 const AllPartner = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch()
     const { allPartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
 
-    useEffect(function () {
-        //! Dispatching API for Getting All partner
-        dispatch(PartnerActions.getAllPartner())
-    }, []);
+    const [partnerModalVisible, setPartnerModalVisible] = useState(false)
+    const [partnerDetail, setPartnerDetail] = useState({ partnerID: '', name: '', contact: '' });
+    const [profileImage, setProfileImage] = useState({ file: null, bytes: "" });
+    const [aadharCard, setAadharCard] = useState({ file: null, bytes: "" });
+    const [validated, setValidated] = useState(false)
+    const [inputFieldError, setInputFieldError] = useState({ name: "Please Provide Name", email: "Please Provide Email" })
 
-    //! Partner DataTable Columns
+    //* Handle Input Field : Error
+    const handleInputFieldError = (input, value) => {
+        setInputFieldError((prev) => ({ ...prev, [input]: value }))
+    }
+
+    //* Handle Input Field : Data
+    const handleInputField = (e) => {
+        const { name, value } = e.target;
+        setPartnerDetail({ ...partnerDetail, [name]: value });
+    };
+
+    //* Handle User Profile Image
+    const handleProfileImage = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setProfileImage({
+                file: URL.createObjectURL(e.target.files[0]),
+                bytes: e.target.files[0],
+            });
+        }
+    };
+
+    //* Handle User Aadhar Card
+    const handleAadharcard = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setAadharCard({
+                file: URL.createObjectURL(e.target.files[0]),
+                bytes: e.target.files[0],
+            });
+        }
+    };
+
+    //! Handle Status - Active/Banned : Partner
+    const handleActiveBannedStatus = (data) => {
+        const { _id: partnerId, isActive: status } = data
+        console.log("Active-Banned", { partnerId, status })
+
+        if (status === 'active') {
+            console.log("active")
+            dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "inActive" }))
+        }
+        if (status === 'inActive') {
+            console.log("inActive")
+            dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "active" }))
+        }
+    }
+
+    //! Handle Kyc Status : Partner 
+    const handleKycStatus = (data) => {
+        const { _id: partnerId, isVerified: status } = data
+        console.log("Kyc Status", { partnerId, status })
+
+        if (status === 'verified') {
+            console.log("verified")
+            dispatch(PartnerActions.changePartnerKycStatus({ labourID: partnerId, isVerified: "unVerified" }))
+        }
+        if (status === 'unVerified') {
+            console.log("unVerified")
+            dispatch(PartnerActions.changePartnerKycStatus({ labourID: partnerId, isVerified: "verified" }))
+        }
+    }
+
+    //! Handle Edit - Setting Partner Data To Field : User 
+    const handleEditPartner = (data) => {
+        setPartnerModalVisible(!partnerModalVisible)
+        console.log("Edit Data ::: ", data)
+
+        setPartnerDetail({
+            name: data.labourName || '',
+            contact: data.phoneNo || '',
+            partnerID: data._id || ''
+        });
+        setProfileImage({ file: api_urls + data?.profileImage, bytes: '' })
+    }
+
+    //! Handle Update : Partner
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const form = event.currentTarget
+        if (form.checkValidity() === false) {
+            event.stopPropagation()
+        } else {
+            console.log({ labourID: partnerDetail?.partnerID, labourName: partnerDetail?.name, phoneNo: partnerDetail?.contact, profile: profileImage?.bytes })
+
+            let formData = new FormData()
+            formData.append("labourID", partnerDetail?.partnerID)
+            formData.append("labourName", partnerDetail?.name)
+            formData.append("phoneNo", partnerDetail?.contact)
+            formData.append("profile", profileImage.bytes);
+
+            console.log("payload Data :: ", formData)
+
+            const payload = {
+                data: formData,
+                onComplete: () => setPartnerModalVisible(!partnerModalVisible)
+            }
+
+            // //! Dispatching API for Updating Parter
+            dispatch(PartnerActions.updatePartner(payload))
+        }
+        setValidated(true)
+    }
+
+    //* All Partner DataTable Columns
     const partnerColumns = [
         {
             name: 'S.No',
@@ -53,7 +158,7 @@ const AllPartner = () => {
         {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} style={{ cursor: "pointer" }} size="sm" onClick={() => handleEdit(row)} />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} style={{ cursor: "pointer" }} size="sm" onClick={() => handleEditPartner(row)} />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilDelete} size="sm" onClick={() => dispatch(PartnerActions.deletePartner({ labour_ID: row?._id }))} />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" icon={icon.cilTouchApp} size="sm" style={{ cursor: "pointer" }} onClick={() => navigate(`/partner/${row?._id}`)} />
             </div>,
@@ -61,107 +166,10 @@ const AllPartner = () => {
         },
     ]
 
-    const handleKycStatus = (data) => {
-        const { _id: partnerId, isVerified: status } = data
-        console.log("Kyc Status", { partnerId, status })
-
-        if (status === 'verified') {
-            console.log("verified")
-            dispatch(PartnerActions.changePartnerKycStatus({ labourID: partnerId, isVerified: "unVerified" }))
-        }
-        if (status === 'unVerified') {
-            console.log("unVerified")
-            dispatch(PartnerActions.changePartnerKycStatus({ labourID: partnerId, isVerified: "verified" }))
-        }
-    }
-
-    const handleActiveBannedStatus = (data) => {
-        const { _id: partnerId, isActive: status } = data
-        console.log("Active-Banned", { partnerId, status })
-
-        if (status === 'active') {
-            console.log("active")
-            dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "inActive" }))
-        }
-        if (status === 'inActive') {
-            console.log("inActive")
-            dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "active" }))
-        }
-    }
-
-    const handleEdit = (data) => {
-        setVisible(!visible)
-        console.log("Edit Data ::: ", data)
-
-        setPartnerDetail({
-            name: data.labourName || '',
-            contact: data.phoneNo || '',
-            partnerID: data._id || ''
-        });
-        setProfileImage({ file: data?.profileImage, bytes: '' })
-    }
-
-    const navigate = useNavigate();
-    const [visible, setVisible] = useState(false)
-    const [validated, setValidated] = useState(false)
-    const [partnerDetail, setPartnerDetail] = useState({ name: '', contact: '', partnerID: "" });
-    const [profileImage, setProfileImage] = useState({ file: null, bytes: "" });
-    const [aadharCard, setAadharCard] = useState({ file: null, bytes: "" });
-    const [error, setError] = useState({ name: "Please Provide Name", email: "Please Provide Email" })
-
-    const handleError = (input, value) => {
-        setError((prev) => ({ ...prev, [input]: value }))
-    }
-
-    const handleInputField = (e) => {
-        const { name, value } = e.target;
-        setPartnerDetail({ ...partnerDetail, [name]: value });
-    };
-
-    const handleProfileImage = (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-            setProfileImage({
-                file: URL.createObjectURL(e.target.files[0]),
-                bytes: e.target.files[0],
-            });
-        }
-    };
-
-    const handleAadharcard = (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-            setAadharCard({
-                file: URL.createObjectURL(e.target.files[0]),
-                bytes: e.target.files[0],
-            });
-        }
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        const form = event.currentTarget
-        if (form.checkValidity() === false) {
-            event.stopPropagation()
-        } else {
-            console.log({ labourID: partnerDetail?.partnerID, labourName: partnerDetail?.name, phoneNo: partnerDetail?.contact, profile: profileImage?.bytes })
-
-            let formData = new FormData()
-            formData.append("labourID", partnerDetail?.partnerID)
-            formData.append("labourName", partnerDetail?.name)
-            formData.append("phoneNo", partnerDetail?.contact)
-            formData.append("profile", profileImage.bytes);
-
-            console.log("payload Data :: ", formData)
-
-            const payload = {
-                data: formData,
-                onComplete: () => setVisible(!visible)
-            }
-
-            // //! Dispatching API for Updating Parter
-            dispatch(PartnerActions.updatePartner(payload))
-        }
-        setValidated(true)
-    }
+    useEffect(function () {
+        //! Dispatching API for Getting All Partner
+        dispatch(PartnerActions.getAllPartner())
+    }, []);
 
     return (
         <>
@@ -185,11 +193,11 @@ const AllPartner = () => {
             {/* Edit Modal */}
             <CModal
                 backdrop="static"
-                visible={visible}
-                onClose={() => setVisible(false)}
+                visible={partnerModalVisible}
+                onClose={() => setPartnerModalVisible(false)}
                 aria-labelledby="LiveDemoExampleLabel"
             >
-                <CModalHeader onClose={() => setVisible(false)}>
+                <CModalHeader onClose={() => setPartnerModalVisible(false)}>
                     <CModalTitle id="LiveDemoExampleLabel">Edit Partner</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
@@ -208,7 +216,7 @@ const AllPartner = () => {
                                 id="validationCustom01"
                                 required
                                 feedbackValid="Looks good!"
-                                feedbackInvalid={error?.name}
+                                feedbackInvalid={inputFieldError?.name}
                                 onChange={handleInputField}
                             />
                         </CCol>
@@ -221,7 +229,7 @@ const AllPartner = () => {
                                 id="validationCustom02"
                                 required
                                 feedbackValid="Looks good!"
-                                feedbackInvalid={error?.email}
+                                feedbackInvalid={inputFieldError?.email}
                                 onChange={handleInputField}
                             />
                         </CCol> */}

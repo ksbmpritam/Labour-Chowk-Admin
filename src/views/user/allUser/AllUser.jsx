@@ -11,7 +11,6 @@ import DataTableHeader from '../../../components/common/DataTableHeader';
 import { api_urls } from '../../../utils/apiUrls';
 import * as UserActions from '../../../redux/actions/userAction';
 import MainLoader from '../../../components/loader/MainLoader';
-import pictureIcon from "../../../assets/images/avatars/4.jpg";
 
 const AllUser = () => {
     const navigate = useNavigate();
@@ -19,7 +18,77 @@ const AllUser = () => {
     const { allUserData: userData } = useSelector((state) => state?.userReducer);
     console.log("All User Data :: ", userData);
 
-    //! All User DataTable Columns
+    const [userModalVisible, setUserModalVisible] = useState(false)
+    const [userDetail, setUserDetail] = useState({ userID: '', name: '', email: '', contact: '' });
+    const [profileImage, setProfileImage] = useState({ file: null, bytes: "" });
+    const [validated, setValidated] = useState(false)
+    const [inputFieldError, setInputFieldError] = useState({ name: "Please Provide Name", email: "Please Provide Email" })
+
+    //* Handle Input Field : Error
+    const handleInputFieldError = (input, value) => {
+        setInputFieldError((prev) => ({ ...prev, [input]: value }))
+    }
+
+    //* Handle Input Field : Data
+    const handleInputField = (e) => {
+        const { name, value } = e.target;
+        setUserDetail({ ...userDetail, [name]: value });
+    };
+
+    //* Handle User Profile Image
+    const handleProfileImage = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setProfileImage({
+                file: URL.createObjectURL(e.target.files[0]),
+                bytes: e.target.files[0],
+            });
+        }
+    };
+
+    //! Handle Edit - Setting User Data To Field : User 
+    const handleEditUser = (data) => {
+        setUserModalVisible(!userModalVisible)
+        console.log("Edit Data ::: ", data)
+
+        setUserDetail({
+            userID: data._id || '',
+            name: data.userName || '',
+            email: data.email || '',
+            contact: data.phoneNo || ''
+        });
+        setProfileImage({ file: api_urls + data?.profile, bytes: '' })
+    }
+
+    //! Handle Update : User
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const form = event.currentTarget
+        if (form.checkValidity() === false) {
+            event.stopPropagation()
+        } else {
+            console.log({ userID: userDetail?.userID, userName: userDetail?.name, email: userDetail?.email, phoneNo: userDetail?.contact, profile: profileImage })
+
+            let formData = new FormData()
+            formData.append("userID", userDetail?.userID)
+            formData.append("userName", userDetail?.name)
+            formData.append("email", userDetail?.name)
+            formData.append("phoneNo", userDetail?.contact)
+            formData.append("profile", profileImage?.bytes);
+
+            console.log("payload Data :: ", formData)
+
+            const payload = {
+                data: formData,
+                onComplete: () => setUserModalVisible(!userModalVisible)
+            }
+
+            //! Dispatching API for Updating User
+            dispatch(UserActions.updateUser(payload))
+        }
+        setValidated(true)
+    }
+
+    //* All User DataTable Columns
     const userColumns = [
         { name: 'S.No.', selector: row => userData.indexOf(row) + 1, style: { backGroundColor: "#000", paddingLeft: "20px" } },
         { name: 'Name', selector: row => row.userName },
@@ -44,7 +113,7 @@ const AllUser = () => {
         {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="sm" onClick={() => handleEdit(row)} />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="sm" onClick={() => handleEditUser(row)} />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilBan} size="sm" />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => navigate(`/user/${row?._id}`)} icon={icon.cilTouchApp} size="sm" />
             </div>,
@@ -53,82 +122,9 @@ const AllUser = () => {
     ]
 
     useEffect(function () {
-        //! Dispatching API for Getting Active user
+        //! Dispatching API for Getting All User
         dispatch(UserActions.getAllUser())
     }, []);
-
-
-
-
-
-    const handleEdit = (data) => {
-        setVisible(!visible)
-        console.log("Edit Data ::: ", data)
-
-        setUserDetail({
-            name: data.name || '',
-            email: data.email || '',
-            contact: data.contact || '',
-        });
-        setProfileImage({ file: data?.profileImage, bytes: '' })
-        setAadharCard({ file: data?.aadhar, bytes: '' })
-    }
-
-    const [visible, setVisible] = useState(false)
-
-    const [validated, setValidated] = useState(false)
-    const [userDetail, setUserDetail] = useState({ name: '', email: '', contact: '' });
-    const [profileImage, setProfileImage] = useState({ file: null, bytes: "" });
-    const [aadharCard, setAadharCard] = useState({ file: null, bytes: "" });
-    const [error, setError] = useState({ name: "Please Provide Name", email: "Please Provide Email" })
-
-    const handleError = (input, value) => {
-        setError((prev) => ({ ...prev, [input]: value }))
-    }
-
-    const handleInputField = (e) => {
-        const { name, value } = e.target;
-        setUserDetail({ ...userDetail, [name]: value });
-    };
-
-    const handleProfileImage = (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-            setProfileImage({
-                file: URL.createObjectURL(e.target.files[0]),
-                bytes: e.target.files[0],
-            });
-        }
-    };
-
-    const handleAadharcard = (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-            setAadharCard({
-                file: URL.createObjectURL(e.target.files[0]),
-                bytes: e.target.files[0],
-            });
-        }
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        const form = event.currentTarget
-        if (form.checkValidity() === false) {
-            event.stopPropagation()
-        } else {
-            var formData = new FormData()
-
-            formData.append("name", userDetail?.name)
-            formData.append("email", userDetail?.email)
-            formData.append("conact", userDetail?.contact)
-            formData.append("profileImage", profileImage.bytes);
-            formData.append("aadharCard", aadharCard.bytes);
-
-            console.log({ name: userDetail?.name, email: userDetail?.email, contact: userDetail?.contact, profileImage: profileImage?.bytes, aadharCard: aadharCard?.bytes })
-
-            console.log('Form data:', formData);
-        }
-        setValidated(true)
-    }
 
     return (
         <>
@@ -149,11 +145,11 @@ const AllUser = () => {
             {/* Edit Modal */}
             <CModal
                 backdrop="static"
-                visible={visible}
-                onClose={() => setVisible(false)}
+                visible={userModalVisible}
+                onClose={() => setUserModalVisible(false)}
                 aria-labelledby="LiveDemoExampleLabel"
             >
-                <CModalHeader onClose={() => setVisible(false)}>
+                <CModalHeader onClose={() => setUserModalVisible(false)}>
                     <CModalTitle id="LiveDemoExampleLabel">Edit User</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
@@ -172,7 +168,7 @@ const AllUser = () => {
                                 id="validationCustom01"
                                 required
                                 feedbackValid="Looks good!"
-                                feedbackInvalid={error?.name}
+                                feedbackInvalid={inputFieldError?.name}
                                 onChange={handleInputField}
                             />
                         </CCol>
@@ -185,7 +181,7 @@ const AllUser = () => {
                                 id="validationCustom02"
                                 required
                                 feedbackValid="Looks good!"
-                                feedbackInvalid={error?.email}
+                                feedbackInvalid={inputFieldError?.email}
                                 onChange={handleInputField}
                             />
                         </CCol>
@@ -218,26 +214,6 @@ const AllUser = () => {
                                         feedbackInvalid="Please Provide Profile Image"
                                         aria-label="file example"
                                         onChange={handleProfileImage}
-                                    />
-                                </CCol>
-                            </CRow>
-                        </CCol>
-                        <CCol md={12}>
-                            <div>Aadhar card</div>
-                            <CRow className='align-items-center'>
-                                <CCol xs={2}>
-                                    <img src={aadharCard?.file} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-                                </CCol>
-                                <CCol xs={10}>
-                                    <CFormInput
-                                        type="file"
-                                        name="aadharCard"
-                                        id="validationCustom05"
-                                        required
-                                        feedbackValid="Looks good!"
-                                        feedbackInvalid="Please Provide Aadhar Card"
-                                        aria-label="file example"
-                                        onChange={handleAadharcard}
                                     />
                                 </CCol>
                             </CRow>
