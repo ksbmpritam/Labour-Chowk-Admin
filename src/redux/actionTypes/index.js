@@ -1,25 +1,6 @@
 //! Loading 
 export const SET_IS_LOADING = "SET_IS_LOADING";
 
-//! Skill
-export const GET_SKILL = "GET_SKILL";
-export const SET_SKILL = "SET_SKILL";
-export const CREATE_SKILL = "CREATE_SKILL";
-export const UPDATE_SKILL = "UPDATE_SKILL";
-export const DELETE_SKILL = "DELETE_SKILL";
-
-//! Sub Skill
-export const GET_SUB_SKILL = "GET_SUB_SKILL";
-export const SET_SUB_SKILL = "SET_SUB_SKILL";
-export const CREATE_SUB_SKILL = "CREATE_SUB_SKILL";
-export const UPDATE_SUB_SKILL = "UPDATE_SUB_SKILL";
-export const DELETE_SUB_SKILL = "DELETE_SUB_SKILL";
-
-//! Example
-export const FETCH_CATEGORIES_REQUEST = 'FETCH_CATEGORIES_REQUEST';
-export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS';
-export const FETCH_CATEGORIES_FAILURE = 'FETCH_CATEGORIES_FAILURE';
-
 //! Partner
 export const GET_ALL_PARTNER = "GET_ALL_PARTNER";
 export const SET_ALL_PARTNER = "GET_ALL_PARTNER";
@@ -49,3 +30,17 @@ export const CHANGE_USER_STATUS = "CHANGE_USER_STATUS";
 export const CHANGE_USER_KYC_STATUS = "CHANGE_USER_KYC_STATUS";
 export const UPDATE_USER = "UPDATE_USER";
 export const DELETE_USER = "DELETE_USER";
+
+//! Skill
+export const GET_SKILL = "GET_SKILL";
+export const SET_SKILL = "SET_SKILL";
+export const CREATE_SKILL = "CREATE_SKILL";
+export const UPDATE_SKILL = "UPDATE_SKILL";
+export const DELETE_SKILL = "DELETE_SKILL";
+
+//! Sub Skill
+export const GET_SUB_SKILL = "GET_SUB_SKILL";
+export const SET_SUB_SKILL = "SET_SUB_SKILL";
+export const CREATE_SUB_SKILL = "CREATE_SUB_SKILL";
+export const UPDATE_SUB_SKILL = "UPDATE_SUB_SKILL";
+export const DELETE_SUB_SKILL = "DELETE_SUB_SKILL";
