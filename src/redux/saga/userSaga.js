@@ -26,7 +26,7 @@ function* getAllUser() {
         console.log("Get All User Saga Response ::: ", data)
 
         if (data?.success) {
-            yield delay(1000);
+            yield delay(500);
             yield put({ type: actionTypes.SET_ALL_USER, payload: data?.result });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
@@ -43,7 +43,7 @@ function* getActiveUser() {
         console.log("Get Active User Saga Response ::: ", data)
 
         if (data?.success) {
-            yield delay(1000);
+            yield delay(500);
             yield put({ type: actionTypes.SET_ACTIVE_USER, payload: data?.result });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
@@ -60,7 +60,7 @@ function* getBannedUser() {
         console.log("Get Banned User Saga Response ::: ", data)
 
         if (data?.success) {
-            yield delay(1000);
+            yield delay(500);
             yield put({ type: actionTypes.SET_BANNED_USER, payload: data?.result });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });

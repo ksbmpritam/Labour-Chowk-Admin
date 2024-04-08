@@ -8,6 +8,7 @@ import DataTableHeader from '../../../components/common/DataTableHeader';
 import { useNavigate } from 'react-router-dom';
 import * as PartnerActions from '../../../redux/actions/partnerAction';
 import { api_urls } from '../../../utils/apiUrls';
+import MainLoader from '../../../components/loader/MainLoader';
 
 const BannedPartner = () => {
     const navigate = useNavigate();
@@ -60,6 +61,7 @@ const BannedPartner = () => {
 
     return (
         <>
+            <MainLoader />
             {partnerData &&
                 <div style={{ padding: "20px", backgroundColor: "#fff", marginBottom: "20px" }}>
                     <DataTableHeader title={'Banned Partner'} data={partnerData} />
