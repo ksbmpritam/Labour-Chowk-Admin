@@ -5,17 +5,18 @@ import { api_urls } from '../../utils/apiUrls';
 import { get_active_user, get_all_user, get_banned_user } from '../../utils/apiRoutes';
 import Swal from "sweetalert2";
 
-function* showLoadingModal() {
+function* showLoadingModal(data = '') {
     Swal.fire({
         icon: 'info',
-        title: 'Data is Loading ...',
+        title: `Loading`,
+        text: `${data} Data is Loading ...`,
         showConfirmButton: false,
-        timer: 500,
+        timer: 1000,
         willOpen: () => {
             Swal.showLoading();
         }
     });
-    yield delay(500);
+    yield delay(1000);
 }
 
 function* getAllUser() {
@@ -25,7 +26,7 @@ function* getAllUser() {
         console.log("Get All User Saga Response ::: ", data)
 
         if (data?.success) {
-            yield call(showLoadingModal);
+            yield call(showLoadingModal, 'All User');
             yield put({ type: actionTypes.SET_ALL_USER, payload: data?.result });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
@@ -42,7 +43,7 @@ function* getActiveUser() {
         console.log("Get Active User Saga Response ::: ", data)
 
         if (data?.success) {
-            yield call(showLoadingModal);
+            yield call(showLoadingModal, 'Active User');
             yield put({ type: actionTypes.SET_ACTIVE_USER, payload: data?.result });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
@@ -59,7 +60,7 @@ function* getBannedUser() {
         console.log("Get Banned User Saga Response ::: ", data)
 
         if (data?.success) {
-            yield call(showLoadingModal);
+            yield call(showLoadingModal, 'Banned User');
             yield put({ type: actionTypes.SET_BANNED_USER, payload: data?.result });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
