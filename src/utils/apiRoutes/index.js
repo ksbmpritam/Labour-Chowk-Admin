@@ -19,3 +19,15 @@ export const change_partner_status = "api/admin/labour_isActive";
 export const change_partner_kyc_status = "api/admin/labour_kyc_isVerified";
 export const update_partner = "api/admin/labour_update_byadmin";
 export const delete_partner = "api/admin/delete_labour_byID";
+export const get_partner_work = "api/admin/get_labour_work_details";
+export const delete_partner_work_by_id = "api/admin/delete_work_details_by_id";
+
+//! User
+export const get_all_user = "api/admin/get_user_all";
+export const get_active_user = "api/admin/get_active_user_all";
+export const get_banned_user = "api/admin/get_inactive_user_all";
+export const get_user_by_id = "api/admin/get_user_byID";
+export const change_user_status = "api/admin/user_isActive";
+export const change_user_kyc_status = "api/admin/user_kyc_isVerified";
+export const update_user = "api/admin/user_update_byadmin";
+export const delete_user = "api/admin/delete_user_byID";
