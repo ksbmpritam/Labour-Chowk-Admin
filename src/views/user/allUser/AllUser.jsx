@@ -121,7 +121,7 @@ const AllUser = () => {
             name: 'Action',
             cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Edit" icon={icon.cilPencil} size="sm" onClick={() => handleEditUser(row)} />
-                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilBan} size="sm" />
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" icon={icon.cilBan} size="sm" onClick={() => dispatch(UserActions.deleteUser({ userID: row?._id }))} />
                 <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => navigate(`/user/${row?._id}`)} icon={icon.cilTouchApp} size="sm" />
             </div>,
             width: '180px'

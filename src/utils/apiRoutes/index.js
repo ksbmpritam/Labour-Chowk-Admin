@@ -18,7 +18,7 @@ export const get_user_by_id = "api/admin/get_user_byID";
 export const change_user_status = "api/admin/user_isActive";
 export const change_user_kyc_status = "api/admin/user_kyc_isVerified";
 export const update_user = "api/admin/user_update_byadmin";
-export const delete_user = "api/admin/delete_user_byID";
+export const delete_user = "api/admin/delete_user_by_id";
 
 //! Skill
 export const get_skill = "api/admin/get_all_skill";
