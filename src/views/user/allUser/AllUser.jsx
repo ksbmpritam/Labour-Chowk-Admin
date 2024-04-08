@@ -11,6 +11,7 @@ import DataTableHeader from '../../../components/common/DataTableHeader';
 import { api_urls } from '../../../utils/apiUrls';
 import * as UserActions from '../../../redux/actions/userAction';
 import MainLoader from '../../../components/loader/MainLoader';
+import { SwitchOffSvg, SwitchOnSvg } from '../../../utils/svg';
 
 const AllUser = () => {
     const navigate = useNavigate();
@@ -106,9 +107,15 @@ const AllUser = () => {
             name: 'Kyc Status',
             selector: row => <div style={{ textTransform: "capitalize", color: row?.isVerified == 'verified' ? 'green' : 'red' }}>{row?.isVerified?.toLowerCase()}</div>,
         },
+        // {
+        //     name: 'Status',
+        //     selector: row => <div style={{ textTransform: "capitalize", color: row?.isActive == 'active' ? 'green' : 'red' }}>{row?.isActive?.toLowerCase()}</div>,
+        // },
         {
             name: 'Status',
-            selector: row => <div style={{ textTransform: "capitalize", color: row?.isActive == 'active' ? 'green' : 'red' }}>{row?.isActive?.toLowerCase()}</div>,
+            selector: row => <div style={{ cursor: "pointer", textTransform: "capitalize" }}>
+                {row?.isActive == 'active' ? <div data-tooltip-id="my-tooltip" data-tooltip-content="Active"><SwitchOnSvg /></div> : <div data-tooltip-id="my-tooltip" data-tooltip-content="Banned"><SwitchOffSvg /></div>}
+            </div>,
         },
         {
             name: 'Action',
