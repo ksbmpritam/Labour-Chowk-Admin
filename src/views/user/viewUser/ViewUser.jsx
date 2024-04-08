@@ -11,8 +11,7 @@ import { formatTimestampToDateString } from '../../../utils/commonFunction';
 const ViewUser = () => {
   const dispatch = useDispatch()
   const { id: userId } = useParams()
-  const { singleUserData: userDataArray } = useSelector((state) => state?.userReducer);
-  const userData = userDataArray && userDataArray[0]
+  const { singleUserData: userData } = useSelector((state) => state?.userReducer);
   console.log("Single User Data :: ", userData)
 
 
