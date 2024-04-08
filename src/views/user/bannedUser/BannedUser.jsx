@@ -63,6 +63,9 @@ const BannedUser = () => {
                         data={userData}
                         pagination
                         customStyles={DataTableCustomStyles}
+                        paginationPerPage={5}
+                        paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                        paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
                     />
                 </div>
             }

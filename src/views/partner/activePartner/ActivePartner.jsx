@@ -18,18 +18,9 @@ const ActivePartner = () => {
 
     //* Active Partner DataTable Columns
     const activePartnerColumns = [
-        {
-            name: 'S.No',
-            selector: (row, index) => index + 1,
-        },
-        {
-            name: 'Name',
-            selector: row => row.labourName,
-        },
-        {
-            name: 'Mobile',
-            selector: row => row.phoneNo,
-        },
+        { name: 'S.No.', selector: row => partnerData.indexOf(row) + 1, style: { backGroundColor: "#000", paddingLeft: "20px" } },
+        { name: 'Name', selector: row => row?.labourName, },
+        { name: 'Mobile', selector: row => row?.phoneNo, },
         {
             name: 'Profile Image',
             cell: row => <img src={api_urls + row?.profileImage} alt="Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />,
