@@ -1,9 +1,27 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { CCard, CCardBody, CCardHeader, CCol, CListGroup, CListGroupItem, CImage } from '@coreui/react';
 import { CButton, CForm, CFormInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow } from '@coreui/react';
+import * as UserActions from '../../../redux/actions/userAction';
+import { api_urls } from '../../../utils/apiUrls';
+import { formatTimestampToDateString } from '../../../utils/commonFunction';
 
 const ViewUser = () => {
+  const dispatch = useDispatch()
+  const { id: userId } = useParams()
+  const { singleUserData: userDataArray } = useSelector((state) => state?.userReducer);
+  const userData = userDataArray && userDataArray[0]
+  console.log("Single User Data :: ", userData)
+
+
+  useEffect(function () {
+    //! Dispatching API for Getting All partner
+    dispatch(UserActions.getUserById({ userID: userId }))
+  }, []);
+
+
 
   const [editVisible, setEditVisible] = useState(false);
   const [front, setFront] = useState({ file: null, bytes: "" });
@@ -16,51 +34,38 @@ const ViewUser = () => {
     // setSelectedEditRow(row);
     setEditVisible(true);
     // setBanner({ file: row?.banner })
-};
+  };
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-  const form = event.currentTarget
-  if (form.checkValidity() === false) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget
+    if (form.checkValidity() === false) {
       event.stopPropagation()
-  } else {
+    } else {
       var formData = new FormData()
       console.log("Adhar Front:", front);
       console.log("Adhar Back:", back);
 
-  }
-  setValidated(true)
-};
+    }
+    setValidated(true)
+  };
 
-const handlefront = (e) => {
-  if (e.target.files && e.target.files.length > 0) {
-    setFront({
-          file: URL.createObjectURL(e.target.files[0]),
-          bytes: e.target.files[0],
+  const handlefront = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFront({
+        file: URL.createObjectURL(e.target.files[0]),
+        bytes: e.target.files[0],
       });
-  }
-};
-const handleback = (e) => {
-  if (e.target.files && e.target.files.length > 0) {
-    setBack({
-          file: URL.createObjectURL(e.target.files[0]),
-          bytes: e.target.files[0],
+    }
+  };
+  const handleback = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setBack({
+        file: URL.createObjectURL(e.target.files[0]),
+        bytes: e.target.files[0],
       });
-  }
-};
-
-
-  const data = {
-    id: 1,
-    aadhar: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
-    contact: "8757858745",
-    email: "userone@gmail.com",
-    name: "User One",
-    profileImage: "/src/assets/images/avatars/4.jpg"
-  }
-
-  const { name, id, contact, email, profileImage, aadharLogo } = data;
-
+    }
+  };
 
   return (
     <>
@@ -69,29 +74,25 @@ const handleback = (e) => {
           <CRow xs={{ gutterY: 3 }}>
             <CCol xs='12'>
               <CCard>
-                <CCardHeader style={{ backgroundColor: "#212631" }}>
+                <CCardHeader style={{ backgroundColor: "#2A9BAA" }}>
                   <div style={{ color: "#fff", fontWeight: "600" }}>Aadhar Information</div>
                 </CCardHeader>
                 <CCardBody>
                   <CRow xs={{ gutterY: 3 }}>
-                    <CImage src={'https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg'} alt="Profile" fluid style={{ height: "200px" }} />
-                    {/* <CImage src={'https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg'} alt="Profile" fluid style={{ height: "200px" }} /> */}
-                  </CRow>
-                  <div style={{ backgroundColor: "#212631", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer", marginTop:" 10px", width:" 115px" }}  onClick={() => handleEdit('https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg')}  >Edit Adharcard</div>
-                </CCardBody>
-              </CCard>
-            </CCol>
-            <CCol xs='12'>
-              <CCard>
-                <CCardBody>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <div style={{ color: "#000", fontWeight: "600" }}>Status : </div>
-                      <div>Active</div>
+                    <CImage src={api_urls + userData?.aadharFront} alt="Profile" fluid style={{ height: "150px" }} />
+                    <CImage src={api_urls + userData?.aadharBack} alt="Profile" fluid style={{ height: "150px" }} />
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
+                      <div style={{ display: "flex", gap: "10px" }}>
+                        <div style={{ color: "#000", fontWeight: "600" }}>Kyc Status : </div>
+                        <div style={{ textTransform: "capitalize" }}>{userData?.isVerified?.toLowerCase()}</div>
+                        <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
+                      </div>
                     </div>
 
-                    <div style={{ backgroundColor: "#212631", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
-                  </div>
+                    {/* <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer", marginTop: " 10px", width: " 115px" }} onClick={() => handleEdit('https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg')}  >Edit Adharcard</div> */}
+
+                  </CRow>
                 </CCardBody>
               </CCard>
             </CCol>
@@ -100,92 +101,137 @@ const handleback = (e) => {
 
         <CCol xs="12" md="8">
           <CCard>
-            <CCardHeader style={{ backgroundColor: "#212631" }}>
+            <CCardHeader style={{ backgroundColor: "#2A9BAA" }}>
               <div style={{ color: "#fff", fontWeight: "600" }}>Profile Information</div>
             </CCardHeader>
             <CCardBody>
-              <CListGroup flush className='mb-4'>
-                <CListGroupItem>ID : {id}</CListGroupItem>
-                <CListGroupItem>Name : {name}</CListGroupItem>
-                <CListGroupItem>Contact : {contact}</CListGroupItem>
-                <CListGroupItem>Email : {email}</CListGroupItem>
-                <CListGroupItem>Joining Date : 20-12-202</CListGroupItem>
-              </CListGroup>
-              <CImage src={profileImage} alt="Profile" fluid />
+              <CRow xs={{ gutterY: 4 }}>
+                <CCol xs='12' sm='3'>
+                  <CRow className='align-items-end'>
+                    <CCol xs='4' sm='12'>
+                      <CImage src={api_urls + userData?.profile} alt="Profile" fluid style={{ height: "150px" }} />
+                    </CCol>
+
+                    <CCol xs='8' sm='12'>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start", marginTop: "20px" }}>
+                        <div style={{ display: "flex", gap: "10px" }}>
+                          <div style={{ color: "#000", fontWeight: "600" }}>Status : </div>
+                          <div style={{ textTransform: "capitalize" }}>{userData?.isActive?.toLowerCase()}</div>
+                        </div>
+                        <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }} onClick={() => handleActiveBannedStatus(userData?.isActive)}>Change Status</div>
+                      </div>
+                    </CCol>
+                  </CRow>
+                </CCol>
+
+                <CCol xs='12' sm='9'>
+                  <CListGroup flush className='mb-4'>
+                    <CListGroupItem>ID : {userData?._id}</CListGroupItem>
+                    <CListGroupItem style={{ textTransform: "capitalize" }}>Name : {userData?.userName}</CListGroupItem>
+                    <CListGroupItem>Email : {userData?.email}</CListGroupItem>
+                    <CListGroupItem>Contact : {userData?.phoneNo}</CListGroupItem>
+                    <CListGroupItem>Joining Date : {formatTimestampToDateString(userData?.updatedAt)}</CListGroupItem>
+                  </CListGroup>
+                </CCol>
+              </CRow>
+
+
             </CCardBody>
           </CCard>
         </CCol>
 
+        {/* <CCol xs="12">
+          <CCard>
+            <CCardHeader style={{ backgroundColor: "#2A9BAA" }}>
+              <div style={{ color: "#fff", fontWeight: "600" }}>My Previous Work</div>
+            </CCardHeader>
+            <CCardBody>
+              <CRow className='justify-content-center justify-content-sm-start' xs={{ gutter: 3 }}>
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
+              </CRow>
+            </CCardBody>
+          </CCard>
+        </CCol> */}
       </CRow>
 
 
-       {/* edit adhar Modal */}
-       <CModal
-                backdrop="static"
-                visible={editVisible}
-                onClose={() => setEditVisible(false)}
-                aria-labelledby="LiveDemoExampleLabel"
-            >
-                <CModalHeader onClose={() => setEditVisible(false)}>
-                    <CModalTitle id="LiveDemoExampleLabel">Edit Adharcard</CModalTitle>
-                </CModalHeader>
-                <CModalBody>
-                    <CForm
-                        className="row g-3 needs-validation"
-                        noValidate
-                        validated={validated}
-                        onSubmit={handleSubmit}
-                    >
-                        <CCol md={12}>
-                            <div>Adhar Front</div>
-                            <CRow className='align-items-center'>
-                                <CCol xs={2}>
-                                <img src={imageUrl} alt="Adhar Front" style={{ width: '70px', height: '50px',  }} />
-                                </CCol>
-                                <CCol xs={10}>
-                                    <CFormInput
-                                        type="file"
-                                        name="front"
-                                        id="validationCustom02"
-                                        required
-                                        feedbackValid="Looks good!"
-                                        feedbackInvalid="Please Provide Adhar Front Image "
-                                        aria-label="file example"
-                                        onChange={handlefront}
-                                    />
-                                </CCol>
-                            </CRow>
-                        </CCol>
+      {/* edit adhar Modal */}
+      <CModal
+        backdrop="static"
+        visible={editVisible}
+        onClose={() => setEditVisible(false)}
+        aria-labelledby="LiveDemoExampleLabel"
+      >
+        <CModalHeader onClose={() => setEditVisible(false)}>
+          <CModalTitle id="LiveDemoExampleLabel">Edit Adharcard</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <CForm
+            className="row g-3 needs-validation"
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmit}
+          >
+            <CCol md={12}>
+              <div>Adhar Front</div>
+              <CRow className='align-items-center'>
+                <CCol xs={2}>
+                  <img src={imageUrl} alt="Adhar Front" style={{ width: '70px', height: '50px', }} />
+                </CCol>
+                <CCol xs={10}>
+                  <CFormInput
+                    type="file"
+                    name="front"
+                    id="validationCustom02"
+                    required
+                    feedbackValid="Looks good!"
+                    feedbackInvalid="Please Provide Adhar Front Image "
+                    aria-label="file example"
+                    onChange={handlefront}
+                  />
+                </CCol>
+              </CRow>
+            </CCol>
 
-                        <CCol md={12}>
-                            <div>Adhar Back</div>
-                            <CRow className='align-items-center'>
-                                <CCol xs={2}>
-                                <img src={imageUrl} alt="Adhar Front" style={{ width: '70px', height: '50px',  }} />
-                                </CCol>
-                                <CCol xs={10}>
-                                    <CFormInput
-                                        type="file"
-                                        name="back"
-                                        id="validationCustom02"
-                                        required
-                                        feedbackValid="Looks good!"
-                                        feedbackInvalid="Please Provide Adhar Back Image "
-                                        aria-label="file example"
-                                        onChange={handleback}
-                                    />
-                                </CCol>
-                            </CRow>
-                        </CCol>
+            <CCol md={12}>
+              <div>Adhar Back</div>
+              <CRow className='align-items-center'>
+                <CCol xs={2}>
+                  <img src={imageUrl} alt="Adhar Front" style={{ width: '70px', height: '50px', }} />
+                </CCol>
+                <CCol xs={10}>
+                  <CFormInput
+                    type="file"
+                    name="back"
+                    id="validationCustom02"
+                    required
+                    feedbackValid="Looks good!"
+                    feedbackInvalid="Please Provide Adhar Back Image "
+                    aria-label="file example"
+                    onChange={handleback}
+                  />
+                </CCol>
+              </CRow>
+            </CCol>
 
-                        <CCol xs={12}>
-                            <CButton type="submit" style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
-                                Edit Partner
-                            </CButton>
-                        </CCol>
-                    </CForm>
-                </CModalBody>
-            </CModal>
+            <CCol xs={12}>
+              <CButton type="submit" style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
+                Edit Partner
+              </CButton>
+            </CCol>
+          </CForm>
+        </CModalBody>
+      </CModal>
     </>
   )
 }

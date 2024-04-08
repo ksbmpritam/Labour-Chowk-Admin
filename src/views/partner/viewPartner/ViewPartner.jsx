@@ -6,6 +6,7 @@ import * as icon from '@coreui/icons';
 import * as PartnerActions from '../../../redux/actions/partnerAction';
 import { api_urls } from '../../../utils/apiUrls';
 import { useParams } from 'react-router-dom';
+import { formatTimestampToDateString } from '../../../utils/commonFunction';
 
 const ViewPartner = () => {
   const dispatch = useDispatch()
@@ -134,12 +135,10 @@ const ViewPartner = () => {
                     <CListGroupItem>ID : {partnerData?._id}</CListGroupItem>
                     <CListGroupItem style={{ textTransform: "capitalize" }}>Name : {partnerData?.labourName}</CListGroupItem>
                     <CListGroupItem>Contact : {partnerData?.phoneNo}</CListGroupItem>
-                    <CListGroupItem>Joining Date : 20-12-202</CListGroupItem>
+                    <CListGroupItem>Joining Date : {formatTimestampToDateString(partnerData?.updatedAt)}</CListGroupItem>
                   </CListGroup>
                 </CCol>
               </CRow>
-
-
             </CCardBody>
           </CCard>
         </CCol>

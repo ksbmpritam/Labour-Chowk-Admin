@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, call, takeLeading, delay } from 'redux-saga/effects';
 import * as actionTypes from '../actionTypes';
 import { api_urls } from '../../utils/apiUrls';
-import { get_active_user, get_all_user, get_banned_user } from '../../utils/apiRoutes';
+import { get_active_user, get_all_user, get_banned_user, get_user_by_id } from '../../utils/apiRoutes';
 import Swal from "sweetalert2";
 
 function* showLoadingModal(data = '') {
@@ -70,8 +70,27 @@ function* getBannedUser() {
     }
 }
 
+function* getUserById(action) {
+    try {
+        const { payload } = action;
+        console.log("Payload ::: ", payload)
+
+        const { data } = yield call(axios.post, `${api_urls + get_user_by_id}`, payload);
+        console.log("Get User By Id Saga Response ::: ", data)
+
+        if (data?.success) {
+            console.log("Get User By Id Saga Response ::: ", data?.result)
+            yield put({ type: actionTypes.SET_USER_BY_ID, payload: data?.result });
+        }
+
+    } catch (error) {
+        console.log("Get User By Id Saga Error ::: ", error)
+    }
+}
+
 export default function* userSaga() {
     yield takeLeading(actionTypes?.GET_ALL_USER, getAllUser);
     yield takeLeading(actionTypes?.GET_ACTIVE_USER, getActiveUser);
     yield takeLeading(actionTypes?.GET_BANNED_USER, getBannedUser);
+    yield takeLeading(actionTypes?.GET_USER_BY_ID, getUserById);
 }
