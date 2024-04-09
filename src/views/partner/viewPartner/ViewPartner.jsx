@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { CCard, CCardBody, CCardHeader, CCol, CListGroup, CListGroupItem, CImage } from '@coreui/react';
-import { CButton, CForm, CFormInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow } from '@coreui/react';
-import * as icon from '@coreui/icons';
-import * as PartnerActions from '../../../redux/actions/partnerAction';
-import { api_urls } from '../../../utils/apiUrls';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import CIcon from '@coreui/icons-react';
+import * as icon from '@coreui/icons';
+import { CCard, CCardBody, CCardHeader, CCol, CListGroup, CListGroupItem, CImage, CRow, CButton, CForm, CFormInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, } from '@coreui/react';
+import DataTable from 'react-data-table-component';
+import { DataTableCustomStyles } from '../../../styles';
+import DataTableHeader from '../../../components/common/DataTableHeader';
+import { api_urls } from '../../../utils/apiUrls';
+import * as PartnerActions from '../../../redux/actions/partnerAction';
 import { formatTimestampToDateString } from '../../../utils/commonFunction';
 
 const ViewPartner = () => {
@@ -14,66 +17,82 @@ const ViewPartner = () => {
   const { singlePartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
   console.log("Single Partner Data :: ", partnerData)
 
-  useEffect(function () {
-    //! Dispatching API for Getting All partner
-    dispatch(PartnerActions.getPartnerById({ labourID: partnerId }))
-  }, []);
+  //* My Bidding DataTable Columns
+  const MyBiddingColumns = [
+    {
+      name: 'S.No',
+      selector: (row, index) => index + 1,
+    },
+    {
+      name: 'Job Title',
+      selector: row => row.job,
+    },
+    {
+      name: 'Partner',
+      selector: row => row.name,
+    },
+    {
+      name: 'Price',
+      selector: row => row.name,
+    },
+    {
+      name: 'Created Date',
+      selector: row => row.status,
+    },
+    {
+      name: 'Status',
+      selector: row => row.status,
+    },
+    {
+      name: 'Action',
+      cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
+        <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
+      </div>,
+    },
+  ];
 
-  const handleActiveBannedStatus = (status) => {
-    console.log("Active-Banned", status)
-    if (status === 'active') {
-      console.log("active")
-      dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "inActive" }))
+  const MyBiddingData = [{}, {}]
+
+  const myPreviousWorkData = [
+    {
+      id: 1,
+      title: "Plumber",
+      banner: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
+    },
+    {
+      id: 2,
+      title: "Carpainter",
+      banner: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
     }
-    if (status === 'inActive') {
-      console.log("inActive")
-      dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "active" }))
-    }
-  }
+  ]
 
-  const [editVisible, setEditVisible] = useState(false);
-  const [front, setFront] = useState({ file: null, bytes: "" });
-  const [back, setBack] = useState({ file: null, bytes: "" });
-  const [imageUrl, setImageUrl] = useState('https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg');
-  const [validated, setValidated] = useState(false)
-
-  const handleEdit = (row) => {
-    console.log("edit banner", row)
-    // setSelectedEditRow(row);
-    setEditVisible(true);
-    // setBanner({ file: row?.banner })
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.currentTarget
-    if (form.checkValidity() === false) {
-      event.stopPropagation()
-    } else {
-      var formData = new FormData()
-      console.log("Adhar Front:", front);
-      console.log("Adhar Back:", back);
-
-    }
-    setValidated(true)
-  };
-
-  const handlefront = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFront({
-        file: URL.createObjectURL(e.target.files[0]),
-        bytes: e.target.files[0],
-      });
-    }
-  };
-  const handleback = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setBack({
-        file: URL.createObjectURL(e.target.files[0]),
-        bytes: e.target.files[0],
-      });
-    }
-  };
+  //* My Previous Work DataTable Columns
+  const myPreviousWorkColumns = [
+    {
+      name: 'S.No',
+      selector: (row, index) => index + 1,
+    },
+    {
+      name: 'Title',
+      selector: row => row.title,
+    },
+    {
+      name: 'Description',
+      selector: row => row.title,
+    },
+    {
+      name: 'Image',
+      cell: row => <img src={row.banner} alt="Banner" style={{ width: '50px', height: '50px' }} onClick={() => handleView(row)} />,
+    },
+    {
+      name: 'Action',
+      cell: row => (
+        <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
+          <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
+        </div>
+      ),
+    },
+  ];
 
   //! Handle Kyc Status : Partner 
   const handleKycStatus = (status) => {
@@ -88,6 +107,24 @@ const ViewPartner = () => {
       dispatch(PartnerActions.changePartnerKycStatus({ labourID: partnerId, isVerified: "verified" }))
     }
   }
+
+  //! Handle Status - Active/Banned : Partner
+  const handleActiveBannedStatus = (status) => {
+    console.log("Active-Banned", status)
+    if (status === 'active') {
+      console.log("active")
+      dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "inActive" }))
+    }
+    if (status === 'inActive') {
+      console.log("inActive")
+      dispatch(PartnerActions.changePartnerStatus({ labourID: partnerId, isActive: "active" }))
+    }
+  }
+
+  useEffect(function () {
+    //! Dispatching API for Getting All partner
+    dispatch(PartnerActions.getPartnerById({ labourID: partnerId }))
+  }, []);
 
   return (
     <>
@@ -113,7 +150,6 @@ const ViewPartner = () => {
                       </div>
                     </div>
                   </CRow>
-                  {/* <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer", marginTop: " 10px", width: " 115px" }} onClick={() => handleEdit('https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg')}  >Edit Adharcard</div> */}
                 </CCardBody>
               </CCard>
             </CCol>
@@ -159,97 +195,29 @@ const ViewPartner = () => {
         </CCol>
 
         <CCol xs="12">
-          <CCard>
-            <CCardHeader style={{ backgroundColor: "#2A9BAA" }}>
-              <div style={{ color: "#fff", fontWeight: "600" }}>My Previous Work</div>
-            </CCardHeader>
-            <CCardBody>
-              <CRow className='justify-content-center justify-content-sm-start' xs={{ gutter: 3 }}>
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-              </CRow>
-            </CCardBody>
+          <CCard style={{ padding: "20px", backgroundColor: "#fff" }}>
+            <DataTableHeader title={'My Previous Work'} data={MyBiddingData} />
+            <DataTable
+              columns={myPreviousWorkColumns}
+              data={myPreviousWorkData}
+              pagination
+              customStyles={DataTableCustomStyles}
+            />
+          </CCard>
+        </CCol>
+
+        <CCol xs="12">
+          <CCard style={{ padding: "20px", backgroundColor: "#fff" }}>
+            <DataTableHeader title={'My Bidding'} data={MyBiddingData} />
+            <DataTable
+              columns={MyBiddingColumns}
+              data={MyBiddingData}
+              pagination
+              customStyles={DataTableCustomStyles}
+            />
           </CCard>
         </CCol>
       </CRow>
-
-
-      {/* edit adhar Modal */}
-      <CModal
-        backdrop="static"
-        visible={editVisible}
-        onClose={() => setEditVisible(false)}
-        aria-labelledby="LiveDemoExampleLabel"
-      >
-        <CModalHeader onClose={() => setEditVisible(false)}>
-          <CModalTitle id="LiveDemoExampleLabel">Edit Adharcard</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <CForm
-            className="row g-3 needs-validation"
-            noValidate
-            validated={validated}
-            onSubmit={handleSubmit}
-          >
-            <CCol md={12}>
-              <div>Adhar Front</div>
-              <CRow className='align-items-center'>
-                <CCol xs={2}>
-                  <img src={imageUrl} alt="Adhar Front" style={{ width: '70px', height: '50px', }} />
-                </CCol>
-                <CCol xs={10}>
-                  <CFormInput
-                    type="file"
-                    name="front"
-                    id="validationCustom02"
-                    required
-                    feedbackValid="Looks good!"
-                    feedbackInvalid="Please Provide Adhar Front Image "
-                    aria-label="file example"
-                    onChange={handlefront}
-                  />
-                </CCol>
-              </CRow>
-            </CCol>
-
-            <CCol md={12}>
-              <div>Adhar Back</div>
-              <CRow className='align-items-center'>
-                <CCol xs={2}>
-                  <img src={imageUrl} alt="Adhar Front" style={{ width: '70px', height: '50px', }} />
-                </CCol>
-                <CCol xs={10}>
-                  <CFormInput
-                    type="file"
-                    name="back"
-                    id="validationCustom02"
-                    required
-                    feedbackValid="Looks good!"
-                    feedbackInvalid="Please Provide Adhar Back Image "
-                    aria-label="file example"
-                    onChange={handleback}
-                  />
-                </CCol>
-              </CRow>
-            </CCol>
-
-            <CCol xs={12}>
-              <CButton type="submit" style={{ backgroundColor: "#2A9BAA", color: "#fff", fontSize: "14px", padding: "5px 10px" }}>
-                Edit Partner
-              </CButton>
-            </CCol>
-          </CForm>
-        </CModalBody>
-      </CModal>
     </>
   )
 }

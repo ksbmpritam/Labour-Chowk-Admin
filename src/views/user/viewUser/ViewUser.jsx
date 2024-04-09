@@ -1,11 +1,15 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { CCard, CCardBody, CCardHeader, CCol, CListGroup, CListGroupItem, CImage } from '@coreui/react';
-import { CButton, CForm, CFormInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow } from '@coreui/react';
-import * as UserActions from '../../../redux/actions/userAction';
+import CIcon from '@coreui/icons-react';
+import * as icon from '@coreui/icons';
+import { CCard, CCardBody, CCardHeader, CCol, CListGroup, CListGroupItem, CImage, CRow, CButton, CForm, CFormInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, } from '@coreui/react';
+import DataTable from 'react-data-table-component';
+import { DataTableCustomStyles } from '../../../styles';
+import DataTableHeader from '../../../components/common/DataTableHeader';
 import { api_urls } from '../../../utils/apiUrls';
+import * as UserActions from '../../../redux/actions/userAction';
 import { formatTimestampToDateString } from '../../../utils/commonFunction';
 
 const ViewUser = () => {
@@ -14,26 +18,11 @@ const ViewUser = () => {
   const { singleUserData: userData } = useSelector((state) => state?.userReducer);
   console.log("Single User Data :: ", userData)
 
-
-  useEffect(function () {
-    //! Dispatching API for Getting All partner
-    dispatch(UserActions.getUserById({ userID: userId }))
-  }, []);
-
-
-
   const [editVisible, setEditVisible] = useState(false);
   const [front, setFront] = useState({ file: null, bytes: "" });
   const [back, setBack] = useState({ file: null, bytes: "" });
   const [imageUrl, setImageUrl] = useState('https://englishtribuneimages.blob.core.windows.net/gallary-content/2020/11/2020_11$largeimg_1346769636.jpg');
   const [validated, setValidated] = useState(false)
-
-  const handleEdit = (row) => {
-    console.log("edit banner", row)
-    // setSelectedEditRow(row);
-    setEditVisible(true);
-    // setBanner({ file: row?.banner })
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -65,6 +54,47 @@ const ViewUser = () => {
       });
     }
   };
+
+  //* My Job DataTable Columns
+  const MyJobColumns = [
+    {
+      name: 'S.No',
+      selector: (row, index) => index + 1,
+    },
+    {
+      name: 'Job Title',
+      selector: row => row.job,
+    },
+    {
+      name: 'Skill',
+      selector: row => row.name,
+    },
+    {
+      name: 'Description',
+      selector: row => row.name,
+    },
+    {
+      name: 'Created Date',
+      selector: row => row.status,
+    },
+    {
+      name: 'Status',
+      selector: row => row.status,
+    },
+    {
+      name: 'Action',
+      cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
+        <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
+      </div>,
+    },
+  ];
+
+  const MyJobData = [{}, {}]
+
+  useEffect(function () {
+    //! Dispatching API for Getting All User
+    dispatch(UserActions.getUserById({ userID: userId }))
+  }, []);
 
   return (
     <>
@@ -133,34 +163,21 @@ const ViewUser = () => {
                   </CListGroup>
                 </CCol>
               </CRow>
-
-
             </CCardBody>
           </CCard>
         </CCol>
 
-        {/* <CCol xs="12">
-          <CCard>
-            <CCardHeader style={{ backgroundColor: "#2A9BAA" }}>
-              <div style={{ color: "#fff", fontWeight: "600" }}>My Previous Work</div>
-            </CCardHeader>
-            <CCardBody>
-              <CRow className='justify-content-center justify-content-sm-start' xs={{ gutter: 3 }}>
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-                <CImage style={{ width: "150px" }} src={'https://i0.wp.com/curiositygym.com/wp-content/uploads/2022/05/portfolio1.jpg?fit=1024%2C576&ssl=1'} alt="Profile" fluid />
-              </CRow>
-            </CCardBody>
+        <CCol xs="12">
+          <CCard style={{ padding: "20px", backgroundColor: "#fff" }}>
+            <DataTableHeader title={'My Job'} data={MyJobData} />
+            <DataTable
+              columns={MyJobColumns}
+              data={MyJobData}
+              pagination
+              customStyles={DataTableCustomStyles}
+            />
           </CCard>
-        </CCol> */}
+        </CCol>
       </CRow>
 
 
