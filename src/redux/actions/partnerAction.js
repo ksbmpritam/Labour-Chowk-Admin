@@ -59,3 +59,28 @@ export const deletePartner = payload => ({
     type: actionTypes.DELETE_PARTNER,
     payload
 })
+
+export const getPartnerWorkByPartnerId = payload => ({
+    type: actionTypes.GET_PARTNER_WORK_BY_PARTNER_ID,
+    payload
+})
+
+export const setPartnerWorkByPartnerId = payload => ({
+    type: actionTypes.SET_PARTNER_WORK_BY_PARTNER_ID,
+    payload
+})
+
+export const deletePartnerWorkByWorkId = payload => ({
+    type: actionTypes.DELETE_PARTNER_WORK_BY_WORK_ID,
+    payload
+})
+
+export const getBiddingListByPartnerId = payload => ({
+    type: actionTypes.GET_BIDDING_LIST_BY_PARTNER_ID,
+    payload
+})
+
+export const setBiddingListByPartnerId = payload => ({
+    type: actionTypes.SET_BIDDING_LIST_BY_PARTNER_ID,
+    payload
+})

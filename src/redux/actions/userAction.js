@@ -59,3 +59,13 @@ export const deleteUser = payload => ({
     type: actionTypes.DELETE_USER,
     payload
 })
+
+export const getJobListByUserId = payload => ({
+    type: actionTypes.GET_JOB_LIST_BY_USER_ID,
+    payload
+})
+
+export const setJobListByUserId = payload => ({
+    type: actionTypes.SET_JOB_LIST_BY_USER_ID,
+    payload
+})
