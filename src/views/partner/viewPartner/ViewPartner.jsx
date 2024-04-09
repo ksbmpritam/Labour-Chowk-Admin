@@ -10,10 +10,12 @@ import DataTableHeader from '../../../components/common/DataTableHeader';
 import { api_urls } from '../../../utils/apiUrls';
 import * as PartnerActions from '../../../redux/actions/partnerAction';
 import { formatTimestampToDateString } from '../../../utils/commonFunction';
+import MainLoader from '../../../components/loader/MainLoader';
 
 const ViewPartner = () => {
   const dispatch = useDispatch()
   const { id: partnerId } = useParams()
+  const { isLoading } = useSelector(state => state?.commonReducer)
   const { singlePartnerData: partnerData, partnerWorkData: myPreviousWorkData, partnerBiddingData: MyBiddingData } = useSelector((state) => state?.partnerReducer);
   console.log("Single Partner Data :: ", partnerData)
 
@@ -41,6 +43,7 @@ const ViewPartner = () => {
       cell: row => (
         <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
           <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
+          <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" style={{ cursor: "pointer" }} icon={icon.cilBan} size="sm" onClick={() => dispatch(PartnerActions.deletePartnerWorkByWorkId({ workId: row?._id, labourID: partnerId }))} />
         </div>
       ),
     },
@@ -69,12 +72,12 @@ const ViewPartner = () => {
       name: 'Status',
       selector: row => row?.jobId?.isActive,
     },
-    {
-      name: 'Action',
-      cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-        <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
-      </div>,
-    },
+    // {
+    //   name: 'Action',
+    //   cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
+    //     <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
+    //   </div>,
+    // },
   ];
 
   //! Handle Kyc Status : Partner 
@@ -107,7 +110,9 @@ const ViewPartner = () => {
   useEffect(function () {
     //! Dispatching API for Getting All partner
     dispatch(PartnerActions.getPartnerById({ labourID: partnerId }))
+    //! Dispatching API for Getting Work Detail
     dispatch(PartnerActions.getPartnerWorkByPartnerId({ labourID: partnerId }))
+    //! Dispatching API for Getting Bidding List
     dispatch(PartnerActions.getBiddingListByPartnerId({ labourID: partnerId }))
   }, []);
 
@@ -179,35 +184,39 @@ const ViewPartner = () => {
           </CCard>
         </CCol>
 
-        <CCol xs="12">
-          <CCard style={{ padding: "20px", backgroundColor: "#fff" }}>
-            <DataTableHeader title={'My Previous Work'} data={MyBiddingData} />
-            <DataTable
-              columns={myPreviousWorkColumns}
-              data={myPreviousWorkData}
-              pagination
-              customStyles={DataTableCustomStyles}
-              paginationPerPage={5}
-              paginationRowsPerPageOptions={[5, 10, 15, 20]}
-              paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
-            />
-          </CCard>
-        </CCol>
+        {isLoading ? <MainLoader /> :
+          <CCol xs="12">
+            <CCard style={{ padding: "20px", backgroundColor: "#fff" }}>
+              <DataTableHeader title={'My Previous Work'} data={MyBiddingData} />
+              <DataTable
+                columns={myPreviousWorkColumns}
+                data={myPreviousWorkData}
+                pagination
+                customStyles={DataTableCustomStyles}
+                paginationPerPage={5}
+                paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
+              />
+            </CCard>
+          </CCol>
+        }
 
-        <CCol xs="12">
-          <CCard style={{ padding: "20px", backgroundColor: "#fff" }}>
-            <DataTableHeader title={'My Bidding'} data={MyBiddingData} />
-            <DataTable
-              columns={MyBiddingColumns}
-              data={MyBiddingData}
-              pagination
-              customStyles={DataTableCustomStyles}
-              paginationPerPage={5}
-              paginationRowsPerPageOptions={[5, 10, 15, 20]}
-              paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
-            />
-          </CCard>
-        </CCol>
+        {isLoading ? <MainLoader /> :
+          <CCol xs="12">
+            <CCard style={{ padding: "20px", backgroundColor: "#fff" }}>
+              <DataTableHeader title={'My Bidding'} data={MyBiddingData} />
+              <DataTable
+                columns={MyBiddingColumns}
+                data={MyBiddingData}
+                pagination
+                customStyles={DataTableCustomStyles}
+                paginationPerPage={5}
+                paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
+              />
+            </CCard>
+          </CCol>
+        }
       </CRow>
     </>
   )

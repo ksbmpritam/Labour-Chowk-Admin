@@ -63,7 +63,7 @@ const ViewUser = () => {
     },
     {
       name: 'Job Title',
-      selector: row => row.job,
+      selector: row => row.jobTitle,
     },
     {
       name: 'Skill',
@@ -71,11 +71,11 @@ const ViewUser = () => {
     },
     {
       name: 'Description',
-      selector: row => row.name,
+      selector: row => row.jobDescription,
     },
     {
       name: 'Created Date',
-      selector: row => row.status,
+      selector: row => formatTimestampToDateString(row.createdAt),
     },
     {
       name: 'Status',
@@ -92,6 +92,8 @@ const ViewUser = () => {
   useEffect(function () {
     //! Dispatching API for Getting All User
     dispatch(UserActions.getUserById({ userID: userId }))
+     //! Dispatching API for Getting Job List
+     dispatch(UserActions.getJobListByUserId({ userID: userId }))
   }, []);
 
   return (

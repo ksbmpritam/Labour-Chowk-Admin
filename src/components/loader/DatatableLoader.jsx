@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 
-const MainLoader = () => {
-    const { isLoading } = useSelector(state => state?.commonReducer)
-    // console.log("Loader State ::: ", isLoading)
-
+const DatatableLoader = ({ isLoading }) => {
     const [width, setWidth] = useState(200); // Initial width
 
     useEffect(() => {
@@ -47,4 +43,4 @@ const MainLoader = () => {
     )
 }
 
-export default MainLoader
+export default DatatableLoader

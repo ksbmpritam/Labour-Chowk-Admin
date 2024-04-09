@@ -46,6 +46,36 @@ const AllUser = () => {
         }
     };
 
+    //! Handle Status - Active/Banned : User
+    const handleActiveBannedStatus = (data) => {
+        const { _id: userId, isActive: status } = data
+        console.log("Active-Banned", { userId, status })
+
+        if (status === 'active') {
+            console.log("active")
+            dispatch(UserActions.changeUserStatus({ userID: userId, isActive: "inActive" }))
+        }
+        if (status === 'inActive') {
+            console.log("inActive")
+            dispatch(UserActions.changeUserStatus({ userID: userId, isActive: "active" }))
+        }
+    }
+
+    //! Handle Kyc Status : User 
+    const handleKycStatus = (data) => {
+        const { _id: userId, isVerified: status } = data
+        console.log("Kyc Status", { userId, status })
+
+        if (status === 'verified') {
+            console.log("verified")
+            dispatch(UserActions.changeUserKycStatus({ userID: userId, isVerified: "unVerified" }))
+        }
+        if (status === 'unVerified') {
+            console.log("unVerified")
+            dispatch(UserActions.changeUserKycStatus({ userID: userId, isVerified: "verified" }))
+        }
+    }
+
     //! Handle Edit - Setting User Data To Field : User 
     const handleEditUser = (data) => {
         setUserModalVisible(!userModalVisible)
@@ -105,15 +135,11 @@ const AllUser = () => {
         },
         {
             name: 'Kyc Status',
-            selector: row => <div style={{ textTransform: "capitalize", color: row?.isVerified == 'verified' ? 'green' : 'red' }}>{row?.isVerified?.toLowerCase()}</div>,
+            selector: row => <div style={{ cursor: "pointer", textTransform: "capitalize", color: row?.isVerified == 'verified' ? 'green' : 'red' }} onClick={() => handleKycStatus(row)}>{row?.isVerified?.toLowerCase()}</div>,
         },
-        // {
-        //     name: 'Status',
-        //     selector: row => <div style={{ textTransform: "capitalize", color: row?.isActive == 'active' ? 'green' : 'red' }}>{row?.isActive?.toLowerCase()}</div>,
-        // },
         {
             name: 'Status',
-            selector: row => <div style={{ cursor: "pointer", textTransform: "capitalize" }}>
+            selector: row => <div style={{ cursor: "pointer", textTransform: "capitalize" }} onClick={() => handleActiveBannedStatus(row)}>
                 {row?.isActive == 'active' ? <div data-tooltip-id="my-tooltip" data-tooltip-content="Active"><SwitchOnSvg /></div> : <div data-tooltip-id="my-tooltip" data-tooltip-content="Banned"><SwitchOffSvg /></div>}
             </div>,
         },

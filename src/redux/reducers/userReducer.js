@@ -36,6 +36,12 @@ const userReducer = (state = initialState, actions) => {
                 singleUserData: payload,
             };
         }
+        case actionTypes.SET_JOB_LIST_BY_USER_ID: {
+            return {
+                ...state,
+                userJobData: payload,
+            };
+        }
         default: {
             return state;
         }
