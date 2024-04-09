@@ -52,6 +52,10 @@ const Jobs = () => {
             width: '180px'
         },
         {
+            name: 'Created Date',
+            selector: row => row.status,
+        },
+        {
             name: 'Status',
             selector: row => row.status,
         },
@@ -62,7 +66,6 @@ const Jobs = () => {
                     <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
                 </div>
             ),
-            width: '180px'
         },
     ];
 

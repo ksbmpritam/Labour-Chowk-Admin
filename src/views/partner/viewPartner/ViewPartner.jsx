@@ -75,6 +75,20 @@ const ViewPartner = () => {
     }
   };
 
+  //! Handle Kyc Status : Partner 
+  const handleKycStatus = (status) => {
+    console.log("Kyc Status", status)
+
+    if (status === 'verified') {
+      console.log("verified")
+      dispatch(PartnerActions.changePartnerKycStatus({ labourID: partnerId, isVerified: "unVerified" }))
+    }
+    if (status === 'unVerified') {
+      console.log("unVerified")
+      dispatch(PartnerActions.changePartnerKycStatus({ labourID: partnerId, isVerified: "verified" }))
+    }
+  }
+
   return (
     <>
       <CRow xs={{ gutterY: 3 }} className='mb-4'>
@@ -93,8 +107,9 @@ const ViewPartner = () => {
                     <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
                       <div style={{ display: "flex", gap: "10px" }}>
                         <div style={{ color: "#000", fontWeight: "600" }}>Kyc Status : </div>
-                        <div style={{ textTransform: "capitalize" }}>{partnerData?.isVerified?.toLowerCase()}</div>
-                        <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
+                        <div style={{ textTransform: "capitalize", color: partnerData?.isVerified == 'verified' ? 'green' : 'red' }}>{partnerData?.isVerified?.toLowerCase()}</div>
+
+                        <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }} onClick={() => handleKycStatus(partnerData?.isVerified)}>Change Status</div>
                       </div>
                     </div>
                   </CRow>
@@ -122,7 +137,7 @@ const ViewPartner = () => {
                       <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start", marginTop: "20px" }}>
                         <div style={{ display: "flex", gap: "10px" }}>
                           <div style={{ color: "#000", fontWeight: "600" }}>Status : </div>
-                          <div style={{ textTransform: "capitalize" }}>{partnerData?.isActive?.toLowerCase()}</div>
+                          <div style={{ textTransform: "capitalize", color: partnerData?.isActive == 'active' ? 'green' : 'red' }}>{partnerData?.isActive?.toLowerCase()}</div>
                         </div>
                         <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }} onClick={() => handleActiveBannedStatus(partnerData?.isActive)}>Change Status</div>
                       </div>

@@ -11,16 +11,30 @@ const bookingColumns = [
         selector: (row, index) => index + 1,
     },
     {
+        name: 'Job Title',
+        selector: row => row.job,
+    },
+    {
         name: 'Partner',
         selector: row => row.name,
     },
     {
-        name: 'Job',
-        selector: row => row.job,
+        name: 'Price',
+        selector: row => row.name,
+    },
+    {
+        name: 'Created Date',
+        selector: row => row.status,
     },
     {
         name: 'Status',
         selector: row => row.status,
+    },
+    {
+        name: 'Action',
+        cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
+            <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
+        </div>,
     },
 ];
 
@@ -44,7 +58,7 @@ const Booking = () => {
         <>
             <div style={{ padding: "20px", backgroundColor: "#fff" }}>
 
-                <DataTableHeader title={'Booking'} data={bookingData} />
+                <DataTableHeader title={'Bidding'} data={bookingData} />
                 <DataTable
                     columns={bookingColumns}
                     data={bookingData}

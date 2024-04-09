@@ -200,7 +200,7 @@ const Dashboard = () => {
               <CCol xs={6} xl={6} xxl={6}>
                 <div style={{ color: "white" }}>
                   <h4> 85k </h4>
-                  <p> Total Rejections </p>
+                  <p> Total Job </p>
 
                 </div>
               </CCol>
@@ -211,7 +211,7 @@ const Dashboard = () => {
               </CCol>
             </CRow>
             <div style={{ backgroundColor: 'white', padding: '4px', borderRadius: "4px", width: '75px', height: '30px', boxShadow: '0 0 10px 5px rgba(128, 128, 128, 0.1)' }}>
-              <h6 style={{ cursor: "pointer" }} onClick={() => handleMoreInfo('Total Partner')}> View All </h6>
+              <h6 style={{ cursor: "pointer" }} onClick={() => handleMoreInfo('job-uploaded')}> View All </h6>
             </div>
           </div>
 
@@ -242,7 +242,7 @@ const Dashboard = () => {
               </CCol>
             </CRow>
             <div style={{ backgroundColor: 'white', padding: '4px', borderRadius: "4px", width: '75px', height: '30px', boxShadow: '0 0 10px 5px rgba(128, 128, 128, 0.1)' }}>
-              <h6 style={{ cursor: "pointer" }} onClick={() => handleMoreInfo('Total Partner')}> View All </h6>
+              <h6 style={{ cursor: "pointer" }} onClick={() => handleMoreInfo('booking')}> View All </h6>
             </div>
           </div>
 
@@ -343,11 +343,11 @@ const Dashboard = () => {
             <CChart
               type="doughnut"
               data={{
-                labels: ['UPI', 'Net Banking', 'Rejected'],
+                labels: ['UPI', 'Rejected'],
                 datasets: [
                   {
                     backgroundColor: ['#D980FA', '#FF7675', "#FFA62B"],
-                    data: [40, 10, 10],
+                    data: [50, 10],
                   },
                 ],
               }}

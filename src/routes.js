@@ -80,7 +80,7 @@ const routes = [
   { path: '/add-sub-skill', name: 'Colors', element: AddSubSkill },
 
   //! Booking
-  { path: '/booking', name: 'Booking', element: Booking },
+  { path: '/bidding', name: 'Bidding', element: Booking },
 
   //! Notification
   { path: '/user-notification', name: 'UserNotification', element: UserNotification },

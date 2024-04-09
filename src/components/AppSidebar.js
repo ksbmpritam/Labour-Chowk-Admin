@@ -30,14 +30,14 @@ const AppSidebar = () => {
         dispatch(setAppState({ sidebarShow: visible }))
       }}
 
-      style={{backgroundColor: '#2A9BAA'}}
+      style={{ backgroundColor: '#2A9BAA' }}
     >
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand to="/">
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "10px" }}>
             <img className="sidebar-brand-full" src={labourChowkLogo} height="50px" />
             <img className="sidebar-brand-narrow" src={labourChowkLogo} height="40px" />
-            <div className="sidebar-brand-full">LABOUR CHOWK</div>
+            <div className="sidebar-brand-full" style={{ color: "#fff", border: "none !important", fontWeight: "bold" }}>LABOUR CHOWK</div>
           </div>
         </CSidebarBrand>
         <CCloseButton

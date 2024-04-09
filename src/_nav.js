@@ -110,8 +110,14 @@ const _nav = [
   //! Skill Category End 
   {
     component: CNavItem,
-    name: 'Booking',
-    to: '/booking',
+    name: 'Job Uploaded',
+    to: '/job-uploaded',
+    icon: <CIcon icon={cilPaperPlane} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Bidding',
+    to: '/bidding',
     icon: <CIcon icon={cilBookmark} customClassName="nav-icon" />,
   },
   {
@@ -145,12 +151,6 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Job Uploaded',
-    to: '/job-uploaded',
-    icon: <CIcon icon={cilPaperPlane} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
     name: 'Wallet',
     to: '/wallet',
     icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
@@ -168,6 +168,23 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Partner',
+        to: '/partner-complaint',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Settings',
+    icon: <CIcon icon={cilWarning} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Charges',
+        to: '/user-complaint',
+      },
+      {
+        component: CNavItem,
+        name: 'Features',
         to: '/partner-complaint',
       },
     ],
