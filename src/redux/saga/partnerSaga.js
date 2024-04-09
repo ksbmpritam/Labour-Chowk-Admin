@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, call, takeLeading, delay } from 'redux-saga/effects';
 import * as actionTypes from '../actionTypes';
 import { api_urls } from '../../utils/apiUrls';
-import { change_partner_kyc_status, change_partner_status, delete_partner, get_active_partner, get_all_partner, get_banned_partner, get_partner_by_id, update_partner } from '../../utils/apiRoutes';
+import { change_partner_kyc_status, change_partner_status, delete_partner, get_active_partner, get_all_partner, get_banned_partner, get_bidding_list_by_partner_id, get_partner_by_id, get_partner_work_by_partner_id, update_partner } from '../../utils/apiRoutes';
 import Swal from "sweetalert2";
 
 function* getAllPartner() {
@@ -234,6 +234,42 @@ function* deletePartner(action) {
     }
 }
 
+function* getPartnerWorkByPartnerId(action) {
+    try {
+        const { payload } = action;
+        console.log("Payload ::: ", payload)
+
+        const { data } = yield call(axios.post, `${api_urls + get_partner_work_by_partner_id}`, payload);
+        console.log("Get Partner Work By Partner Id Saga Response ::: ", data)
+
+        if (data?.success) {
+            console.log("Get Partner Work By Partner Id Saga Response ::: ", data?.result)
+            yield put({ type: actionTypes.SET_PARTNER_WORK_BY_PARTNER_ID, payload: data?.result });
+        }
+
+    } catch (error) {
+        console.log("Get Partner Work By Partner Id Saga Error ::: ", error)
+    }
+}
+
+function* getBiddingListByPartnerId(action) {
+    try {
+        const { payload } = action;
+        console.log("Payload ::: ", payload)
+
+        const { data } = yield call(axios.post, `${api_urls + get_bidding_list_by_partner_id}`, payload);
+        console.log("Get Bidding List By Partner Id Saga Response ::: ", data)
+
+        if (data?.success) {
+            console.log("Get Bidding List By Partner Id Saga Response ::: ", data?.result)
+            yield put({ type: actionTypes.SET_BIDDING_LIST_BY_PARTNER_ID, payload: data?.result });
+        }
+
+    } catch (error) {
+        console.log("Get Bidding List By Partner Id Saga Error ::: ", error)
+    }
+}
+
 export default function* partnerSaga() {
     yield takeLeading(actionTypes?.GET_ALL_PARTNER, getAllPartner);
     yield takeLeading(actionTypes?.GET_ACTIVE_PARTNER, getActivePartner);
@@ -243,4 +279,6 @@ export default function* partnerSaga() {
     yield takeLeading(actionTypes?.CHANGE_PARTNER_KYC_STATUS, changePartnerKycStatus);
     yield takeLeading(actionTypes?.UPDATE_PARTNER, updatePartner);
     yield takeLeading(actionTypes?.DELETE_PARTNER, deletePartner);
+    yield takeLeading(actionTypes?.GET_PARTNER_WORK_BY_PARTNER_ID, getPartnerWorkByPartnerId);
+    yield takeLeading(actionTypes?.GET_BIDDING_LIST_BY_PARTNER_ID, getBiddingListByPartnerId);
 }

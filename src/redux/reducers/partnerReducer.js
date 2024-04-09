@@ -5,6 +5,8 @@ const initialState = {
     activePartnerData: [],
     bannedPartnerData: [],
     singlePartnerData: null,
+    partnerWorkData: [],
+    partnerBiddingData: [],
 };
 
 const partnerReducer = (state = initialState, actions) => {
@@ -33,6 +35,18 @@ const partnerReducer = (state = initialState, actions) => {
             return {
                 ...state,
                 singlePartnerData: payload,
+            };
+        }
+        case actionTypes.SET_PARTNER_WORK_BY_PARTNER_ID: {
+            return {
+                ...state,
+                partnerWorkData: payload,
+            };
+        }
+        case actionTypes.SET_BIDDING_LIST_BY_PARTNER_ID: {
+            return {
+                ...state,
+                partnerBiddingData: payload,
             };
         }
         default: {

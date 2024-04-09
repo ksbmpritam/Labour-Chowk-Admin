@@ -9,10 +9,10 @@ export const update_partner = "api/admin/labour_update_byadmin";
 export const delete_partner = "api/admin/delete_labour_byID";
 export const get_partner_work_by_partner_id = "api/admin/get_labour_work_details"; //* Partner Work 
 export const delete_partner_work_by_work_id = "api/admin/delete_work_details_by_id";
-export const get_bidding_list_by_partner_id = "api/admin/"; //* Bidding - Single - Partner
+export const get_bidding_list_by_partner_id = "api/admin/get_all_bits_by_labour_Id"; //* Bidding - Single - Partner
 
 //! Bidding 
-export const get_all_bidding_list = "api/admin/";
+export const get_all_bidding_list = "api/admin/get_all_bits";
 
 //! User
 export const get_all_user = "api/admin/get_user_all";
@@ -23,10 +23,10 @@ export const change_user_status = "api/admin/user_isActive";
 export const change_user_kyc_status = "api/admin/user_kyc_isVerified";
 export const update_user = "api/admin/user_update_byadmin";
 export const delete_user = "api/admin/delete_user_by_id";
-export const get_job_list_by_partner_id = "api/admin/"; //* Job - Single - User
+export const get_job_list_by_user_id = "api/admin/get_all_jobs_by_user_Id"; //* Job - Single - User
 
 //! Job
-export const get_all_job_list = "api/admin/";
+export const get_all_job_list = "api/admin/get_all_jobs";
 
 //! Skill
 export const get_skill = "api/admin/get_all_skill";

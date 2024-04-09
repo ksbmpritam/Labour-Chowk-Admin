@@ -14,83 +14,66 @@ import { formatTimestampToDateString } from '../../../utils/commonFunction';
 const ViewPartner = () => {
   const dispatch = useDispatch()
   const { id: partnerId } = useParams()
-  const { singlePartnerData: partnerData } = useSelector((state) => state?.partnerReducer);
+  const { singlePartnerData: partnerData, partnerWorkData: myPreviousWorkData, partnerBiddingData: MyBiddingData } = useSelector((state) => state?.partnerReducer);
   console.log("Single Partner Data :: ", partnerData)
-
-  //* My Bidding DataTable Columns
-  const MyBiddingColumns = [
-    {
-      name: 'S.No',
-      selector: (row, index) => index + 1,
-    },
-    {
-      name: 'Job Title',
-      selector: row => row.job,
-    },
-    {
-      name: 'Partner',
-      selector: row => row.name,
-    },
-    {
-      name: 'Price',
-      selector: row => row.name,
-    },
-    {
-      name: 'Created Date',
-      selector: row => row.status,
-    },
-    {
-      name: 'Status',
-      selector: row => row.status,
-    },
-    {
-      name: 'Action',
-      cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-        <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
-      </div>,
-    },
-  ];
-
-  const MyBiddingData = [{}, {}]
-
-  const myPreviousWorkData = [
-    {
-      id: 1,
-      title: "Plumber",
-      banner: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
-    },
-    {
-      id: 2,
-      title: "Carpainter",
-      banner: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_640.jpg",
-    }
-  ]
 
   //* My Previous Work DataTable Columns
   const myPreviousWorkColumns = [
-    {
-      name: 'S.No',
-      selector: (row, index) => index + 1,
-    },
+    { name: 'S.No.', selector: row => myPreviousWorkData.indexOf(row) + 1, style: { backGroundColor: "#000", paddingLeft: "20px" } },
     {
       name: 'Title',
       selector: row => row.title,
     },
     {
       name: 'Description',
-      selector: row => row.title,
+      selector: row => row.description,
     },
     {
       name: 'Image',
-      cell: row => <img src={row.banner} alt="Banner" style={{ width: '50px', height: '50px' }} onClick={() => handleView(row)} />,
+      cell: row => <img src={api_urls + row.images} alt="Banner" style={{ width: '50px', height: '50px' }} onClick={() => handleView(row)} />,
+    },
+    {
+      name: 'Date',
+      selector: row => formatTimestampToDateString(row.createdAt),
     },
     {
       name: 'Action',
       cell: row => (
         <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-          <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
+          <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
         </div>
       ),
+    },
+  ];
+
+  //* My Bidding DataTable Columns
+  const MyBiddingColumns = [
+    { name: 'S.No.', selector: row => MyBiddingData.indexOf(row) + 1, style: { backGroundColor: "#000", paddingLeft: "20px" } },
+    {
+      name: 'Job Title',
+      selector: row => row?.jobId?.jobTitle,
+    },
+    // {
+    //   name: 'User',
+    //   selector: row => row.name,
+    // },
+    {
+      name: 'Price',
+      selector: row => row.amount,
+    },
+    {
+      name: 'Created Date',
+      selector: row => formatTimestampToDateString(row.createdAt),
+    },
+    {
+      name: 'Status',
+      selector: row => row?.jobId?.isActive,
+    },
+    {
+      name: 'Action',
+      cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
+        <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
+      </div>,
     },
   ];
 
@@ -124,6 +107,8 @@ const ViewPartner = () => {
   useEffect(function () {
     //! Dispatching API for Getting All partner
     dispatch(PartnerActions.getPartnerById({ labourID: partnerId }))
+    dispatch(PartnerActions.getPartnerWorkByPartnerId({ labourID: partnerId }))
+    dispatch(PartnerActions.getBiddingListByPartnerId({ labourID: partnerId }))
   }, []);
 
   return (
@@ -202,6 +187,9 @@ const ViewPartner = () => {
               data={myPreviousWorkData}
               pagination
               customStyles={DataTableCustomStyles}
+              paginationPerPage={5}
+              paginationRowsPerPageOptions={[5, 10, 15, 20]}
+              paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
             />
           </CCard>
         </CCol>
@@ -214,6 +202,9 @@ const ViewPartner = () => {
               data={MyBiddingData}
               pagination
               customStyles={DataTableCustomStyles}
+              paginationPerPage={5}
+              paginationRowsPerPageOptions={[5, 10, 15, 20]}
+              paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
             />
           </CCard>
         </CCol>

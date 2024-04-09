@@ -15,7 +15,7 @@ import { formatTimestampToDateString } from '../../../utils/commonFunction';
 const ViewUser = () => {
   const dispatch = useDispatch()
   const { id: userId } = useParams()
-  const { singleUserData: userData } = useSelector((state) => state?.userReducer);
+  const { singleUserData: userData, userJobData: MyJobData } = useSelector((state) => state?.userReducer);
   console.log("Single User Data :: ", userData)
 
   const [editVisible, setEditVisible] = useState(false);
@@ -88,8 +88,6 @@ const ViewUser = () => {
       </div>,
     },
   ];
-
-  const MyJobData = [{}, {}]
 
   useEffect(function () {
     //! Dispatching API for Getting All User

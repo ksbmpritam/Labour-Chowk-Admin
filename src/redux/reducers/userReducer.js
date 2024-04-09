@@ -5,6 +5,7 @@ const initialState = {
     activeUserData: [],
     bannedUserData: [],
     singleUserData: null,
+    userJobData: []
 };
 
 const userReducer = (state = initialState, actions) => {
