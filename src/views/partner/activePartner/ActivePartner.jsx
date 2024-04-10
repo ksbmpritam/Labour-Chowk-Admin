@@ -2,13 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CIcon from '@coreui/icons-react';
 import * as icon from '@coreui/icons';
-import DataTable from 'react-data-table-component';
-import { DataTableCustomStyles } from '../../../styles';
-import DataTableHeader from '../../../components/common/DataTableHeader';
 import { useNavigate } from 'react-router-dom';
 import * as PartnerActions from '../../../redux/actions/partnerAction';
 import { api_urls } from '../../../utils/apiUrls';
-import MainLoader from '../../../components/loader/MainLoader';
 import MainDataTable from '../../../components/common/MainDataTable';
 
 const ActivePartner = () => {

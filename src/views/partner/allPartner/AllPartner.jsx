@@ -4,12 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import CIcon from '@coreui/icons-react';
 import * as icon from '@coreui/icons';
 import { CButton, CCol, CForm, CFormCheck, CFormFeedback, CFormInput, CFormLabel, CFormSelect, CInputGroup, CInputGroupText, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow, CFormSwitch } from '@coreui/react';
-import DataTable from 'react-data-table-component';
-import { DataTableCustomStyles } from '../../../styles';
-import DataTableHeader from '../../../components/common/DataTableHeader';
 import { api_urls } from '../../../utils/apiUrls';
 import * as PartnerActions from '../../../redux/actions/partnerAction';
-import MainLoader from '../../../components/loader/MainLoader';
 import { SwitchOffSvg, SwitchOnSvg } from '../../../utils/svg';
 import MainDataTable from '../../../components/common/MainDataTable';
 
@@ -151,7 +147,7 @@ const AllPartner = () => {
         {
             name: 'Status',
             selector: row => <div style={{ cursor: "pointer", textTransform: "capitalize" }} onClick={() => handleActiveBannedStatus(row)}>
-                {row?.isActive == 'active' ? <div data-tooltip-id="my-tooltip" data-tooltip-content="Active"><SwitchOnSvg /></div> : <div  data-tooltip-id="my-tooltip" data-tooltip-content="Banned"><SwitchOffSvg /></div>}
+                {row?.isActive == 'active' ? <div data-tooltip-id="my-tooltip" data-tooltip-content="Active"><SwitchOnSvg /></div> : <div data-tooltip-id="my-tooltip" data-tooltip-content="Banned"><SwitchOffSvg /></div>}
             </div>,
         },
         {
@@ -175,8 +171,6 @@ const AllPartner = () => {
             <MainDataTable title={'All Partner'} columns={partnerColumns} data={partnerData} />
 
 
-
-            {/* Edit Modal */}
             <CModal
                 backdrop="static"
                 visible={partnerModalVisible}

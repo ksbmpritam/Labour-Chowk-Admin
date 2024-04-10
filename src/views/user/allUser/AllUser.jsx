@@ -5,12 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import CIcon from '@coreui/icons-react';
 import * as icon from '@coreui/icons';
 import { CButton, CCol, CForm, CFormCheck, CFormFeedback, CFormInput, CFormLabel, CFormSelect, CInputGroup, CInputGroupText, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow } from '@coreui/react';
-import DataTable from 'react-data-table-component';
-import { DataTableCustomStyles } from '../../../styles';
-import DataTableHeader from '../../../components/common/DataTableHeader';
 import { api_urls } from '../../../utils/apiUrls';
 import * as UserActions from '../../../redux/actions/userAction';
-import MainLoader from '../../../components/loader/MainLoader';
 import { SwitchOffSvg, SwitchOnSvg } from '../../../utils/svg';
 import MainDataTable from '../../../components/common/MainDataTable';
 
@@ -165,7 +161,6 @@ const AllUser = () => {
             <MainDataTable title={'All Users'} columns={userColumns} data={userData} />
 
 
-            {/* Edit Modal */}
             <CModal
                 backdrop="static"
                 visible={userModalVisible}
