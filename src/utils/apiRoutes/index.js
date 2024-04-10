@@ -39,3 +39,9 @@ export const get_sub_skill = "api/admin/get_all_subSkill";
 export const create_sub_skill = "api/admin/add_subSkill";
 export const update_sub_skill = "api/admin/update_subskill_byID";
 export const delete_sub_skill = "api/admin/delete_subskill_byID";
+
+//! Banner
+export const get_banner = "api/admin/get_banners";
+export const create_banner = "api/admin/add_banner";
+export const update_banner = "api/admin/update_banner";
+export const delete_banner = "api/admin/delete_Banner";

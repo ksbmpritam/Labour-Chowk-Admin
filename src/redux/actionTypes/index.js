@@ -57,3 +57,10 @@ export const SET_SUB_SKILL = "SET_SUB_SKILL";
 export const CREATE_SUB_SKILL = "CREATE_SUB_SKILL";
 export const UPDATE_SUB_SKILL = "UPDATE_SUB_SKILL";
 export const DELETE_SUB_SKILL = "DELETE_SUB_SKILL";
+
+//! Banner
+export const GET_BANNER = "GET_BANNER";
+export const SET_BANNER = "SET_BANNER";
+export const CREATE_BANNER = "CREATE_BANNER";
+export const UPDATE_BANNER = "UPDATE_BANNER";
+export const DELETE_BANNER = "DELETE_BANNER";

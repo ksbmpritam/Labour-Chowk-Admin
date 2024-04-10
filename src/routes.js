@@ -36,7 +36,7 @@ const PartnerComplaint = React.lazy(() => import('./views/complaint/partner/Part
 
 
 //! Banner 
-const Banner = React.lazy(() => import('./views/banner/bannerDeatils/Banner'))
+const DisplayBanner = React.lazy(() => import('./views/banner/displayBanner/DisplayBanner'))
 const AddBanner = React.lazy(() => import('./views/banner/addBanner/AddBanner'))
 
 //! Job Uploaded
@@ -93,7 +93,7 @@ const routes = [
   { path: '/partner-complaint', name: 'PartnerComplaint', element: PartnerComplaint },
 
   //! Banner 
-  { path: '/banner', name: 'Banner', element: Banner },
+  { path: '/banner', name: 'Banner', element: DisplayBanner },
   { path: '/add-banner', name: 'AddBanner', element: AddBanner },
 
   //! Job Uploaded
