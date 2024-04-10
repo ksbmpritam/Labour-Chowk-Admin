@@ -1,7 +1,7 @@
 import * as actionTypes from "../actionTypes";
 
 const initialState = {
-    allJobData: null,
+    allJobData: [],
 };
 
 const jobReducer = (state = initialState, actions) => {

@@ -4,11 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as icon from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import { CButton, CCol, CForm, CModal, CModalBody, CModalHeader, CModalTitle, } from '@coreui/react';
-import * as BiddingActions from "../../redux/actions/biddingAction";
-import MainLoader from '../../components/loader/MainLoader';
-import { formatTimestampToDateString } from '../../utils/commonFunction';
 import MainDataTable from '../../components/common/MainDataTable';
-
+import * as BiddingActions from "../../redux/actions/biddingAction";
+import { formatTimestampToDateString } from '../../utils/commonFunction';
 
 const Booking = () => {
     const navigate = useNavigate();
@@ -17,7 +15,7 @@ const Booking = () => {
     console.log("All Bidding Data :: ", biddingData)
 
     const [singleBiddingData, setSingleBiddingData] = useState({});
-    const [visibleSingleBiddingModal, setvisibleSingleBiddingModal] = useState(false); // Define visibleSingleBiddingModal state
+    const [visibleSingleBiddingModal, setvisibleSingleBiddingModal] = useState(false);
 
     //* Handle View Bidding Modal 
     const handleViewBidding = (row) => {
@@ -66,7 +64,6 @@ const Booking = () => {
             <MainDataTable title={'Bidding'} columns={biddingColumns} data={biddingData} />
 
 
-            {/* view modal */}
             <CModal
                 alignment="center"
                 visible={visibleSingleBiddingModal}

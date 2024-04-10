@@ -1,113 +1,92 @@
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CIcon from '@coreui/icons-react';
-import React, { useState } from 'react';
-import DataTable from 'react-data-table-component';
 import * as icon from '@coreui/icons';
-import DataTableHeader from '../../components/common/DataTableHeader';
 import { CButton, CCol, CForm, CModal, CModalBody, CModalHeader, CModalTitle, } from '@coreui/react';
-import { DataTableCustomStyles } from '../../styles';
+import MainDataTable from '../../components/common/MainDataTable';
+import * as JobActions from "../../redux/actions/jobAction";
+import { formatTimestampToDateString } from '../../utils/commonFunction';
 
 const Jobs = () => {
-    const [selectedViewRow, setSelectedViewRow] = useState({});
-    const [viewVisible, setViewVisible] = useState(false); // Define viewVisible state
+    const dispatch = useDispatch()
+    const { allJobData: jobUploadData } = useSelector((state) => state?.jobReducer);
+    console.log("All Job Data :: ", jobUploadData)
 
-    const handleView = (row) => {
-        setSelectedViewRow(row);
-        setViewVisible(true);
+    const [singleBookingData, setSingleBookingData] = useState({});
+    const [visibleSingleBookingModal, setvisibleSingleBookingModal] = useState(false);
+
+    //* Handle View Bidding Modal 
+    const handleViewBooking = (row) => {
+        setSingleBookingData(row);
+        setvisibleSingleBookingModal(true);
     };
 
-    const jobUploadData = [
-        {
-            id: 1,
-            title: "Plumber",
-            skills: "abc",
-            description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
-            status: "Open",
-        },
-        {
-            id: 2,
-            title: "Carpainter",
-            skills: "def",
-            description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
-            status: "expired",
-        }
-    ];
-
+    //* Job Uploaded DataTable Columns
     const jobUploadColumns = [
-        {
-            name: 'S.No',
-            selector: (row, index) => index + 1,
-            // maxWidth: '150px',
-        },
+        { name: 'S.No.', selector: row => jobUploadData.indexOf(row) + 1, style: { backGroundColor: "#000", paddingLeft: "20px" } },
         {
             name: 'Title',
-            selector: row => row.title,
-        },
-        {
-            name: 'Skills',
-            selector: row => row.skills,
+            selector: row => row.jobTitle,
         },
         {
             name: 'Description',
-            selector: row => row.description,
+            selector: row => row.jobDescription,
             width: '180px'
         },
         {
             name: 'Created Date',
-            selector: row => row.status,
+            selector: row => formatTimestampToDateString(row.createdAt),
         },
         {
             name: 'Status',
-            selector: row => row.status,
+            selector: row => row.isActive,
         },
         {
             name: 'Action',
             cell: row => (
                 <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleView(row)} icon={icon.cilTouchApp} size="sm" />
+                    <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} onClick={() => handleViewBooking(row)} icon={icon.cilTouchApp} size="sm" />
                 </div>
             ),
         },
     ];
 
+    useEffect(function () {
+        //! Dispatching API for Getting Active partner
+        dispatch(JobActions.getAllJobList())
+    }, []);
+
     return (
         <>
-            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                <DataTableHeader title={'Job Uploaded'} data={jobUploadData} />
-                <DataTable
-                    columns={jobUploadColumns}
-                    data={jobUploadData}
-                    pagination
-                    customStyles={DataTableCustomStyles}
-                />
-            </div>
-            {/* view modal */}
+            <MainDataTable title={'Job Uploaded'} columns={jobUploadColumns} data={jobUploadData} />
+
             <CModal
                 alignment="center"
-                visible={viewVisible}
-                onClose={() => setViewVisible(false)}
+                visible={visibleSingleBookingModal}
+                onClose={() => setvisibleSingleBookingModal(false)}
                 aria-labelledby="ViewModal"
             >
                 <CModalHeader>
-                    <CModalTitle id="VerticallyCenteredExample">View Banner</CModalTitle>
+                    <CModalTitle id="VerticallyCenteredExample">Bidding Detail</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
                     <CForm className="row g-3 needs-validation">
                         <CCol md={12}>
-                            <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Title:</span> {selectedViewRow.title} </p>
+                            <p><span style={{ fontWeight: "600" }}>Job Title :</span> {singleBookingData?.jobId?.jobTitle} </p>
                         </CCol>
                         <CCol md={12}>
-                            <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Skills:</span> {selectedViewRow.skills} </p>
+                            <p><span style={{ fontWeight: "600" }}>Price :</span> {singleBookingData?.amount} </p>
                         </CCol>
 
                         <CCol md={12}>
-                            <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Description:</span> {selectedViewRow.description}  </p>
+                            <p><span style={{ fontWeight: "600" }}>Created Date :</span> {formatTimestampToDateString(singleBookingData?.createdAt)}  </p>
                         </CCol>
                         <CCol md={12}>
-                            <p><span style={{ fontWeight: 'bold', fontSize: '18px' }}>Status:</span> {selectedViewRow.status}  </p>
+                            <p><span style={{ fontWeight: "600" }}>Status :</span> {singleBookingData?.jobId?.isActive}  </p>
                         </CCol>
 
-                        <CCol xs={2} className="text-center">
-                            <CButton style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 10px" }} onClick={() => setViewVisible(false)}>
+                        <CCol>
+                            <CButton style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 15px", fontWeight: "600" }} onClick={() => setvisibleSingleBookingModal(false)}>
                                 Close
                             </CButton>
                         </CCol>

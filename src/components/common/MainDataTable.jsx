@@ -1,14 +1,19 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import DataTable from 'react-data-table-component';
 import { DataTableCustomStyles } from '../../styles'
 import DataTableHeader from './DataTableHeader';
 import MainLoader from '../loader/MainLoader';
 
 const MainDataTable = ({ title, columns, data }) => {
+    const { isLoading } = useSelector(state => state?.commonReducer)
+    console.log("Is Laoding ::: ", isLoading)
+    
     return (
         <>
-            <MainLoader />
-            {data &&
+            {isLoading ?
+                <MainLoader /> :
+                data &&
                 <div style={{ padding: "20px", backgroundColor: "#fff", marginBottom: "20px" }}>
                     <DataTableHeader title={title} data={data} />
                     <DataTable
