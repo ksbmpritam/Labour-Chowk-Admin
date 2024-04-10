@@ -12,6 +12,7 @@ import { api_urls } from '../../../utils/apiUrls';
 import * as UserActions from '../../../redux/actions/userAction';
 import MainLoader from '../../../components/loader/MainLoader';
 import { SwitchOffSvg, SwitchOnSvg } from '../../../utils/svg';
+import MainDataTable from '../../../components/common/MainDataTable';
 
 const AllUser = () => {
     const navigate = useNavigate();
@@ -161,22 +162,8 @@ const AllUser = () => {
 
     return (
         <>
-            <MainLoader />
-            {
-                userData &&
-                <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                    <DataTableHeader title={'All Users'} data={userData} />
-                    <DataTable
-                        columns={userColumns}
-                        data={userData}
-                        pagination
-                        customStyles={DataTableCustomStyles}
-                        paginationPerPage={5}
-                        paginationRowsPerPageOptions={[5, 10, 15, 20]}
-                        paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
-                    />
-                </div>
-            }
+            <MainDataTable title={'All Users'} columns={userColumns} data={userData} />
+
 
             {/* Edit Modal */}
             <CModal

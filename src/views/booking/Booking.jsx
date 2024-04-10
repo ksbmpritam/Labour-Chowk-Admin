@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as icon from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import { CButton, CCol, CForm, CModal, CModalBody, CModalHeader, CModalTitle, } from '@coreui/react';
-import DataTableHeader from '../../components/common/DataTableHeader';
 import * as BiddingActions from "../../redux/actions/biddingAction";
 import MainLoader from '../../components/loader/MainLoader';
 import { formatTimestampToDateString } from '../../utils/commonFunction';
@@ -64,13 +63,8 @@ const Booking = () => {
 
     return (
         <>
-            <MainLoader />
+            <MainDataTable title={'Bidding'} columns={biddingColumns} data={biddingData} />
 
-            {biddingData &&
-                <div style={{ padding: "20px", backgroundColor: "#fff", marginBottom: "20px" }}>
-                    <MainDataTable title={'Bidding'} columns={biddingColumns} data={biddingData} />
-                </div>
-            }
 
             {/* view modal */}
             <CModal

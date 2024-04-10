@@ -11,6 +11,7 @@ import { api_urls } from '../../../utils/apiUrls';
 import * as PartnerActions from '../../../redux/actions/partnerAction';
 import MainLoader from '../../../components/loader/MainLoader';
 import { SwitchOffSvg, SwitchOnSvg } from '../../../utils/svg';
+import MainDataTable from '../../../components/common/MainDataTable';
 
 const AllPartner = () => {
     const navigate = useNavigate();
@@ -171,22 +172,9 @@ const AllPartner = () => {
 
     return (
         <>
-            <MainLoader />
-            {
-                partnerData &&
-                <div style={{ padding: "20px", backgroundColor: "#fff", marginBottom: "20px" }}>
-                    <DataTableHeader title={'All Partner'} data={partnerData} />
-                    <DataTable
-                        columns={partnerColumns}
-                        data={partnerData}
-                        pagination
-                        customStyles={DataTableCustomStyles}
-                        paginationPerPage={5}
-                        paginationRowsPerPageOptions={[5, 10, 15, 20]}
-                        paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
-                    />
-                </div>
-            }
+            <MainDataTable title={'All Partner'} columns={partnerColumns} data={partnerData} />
+
+
 
             {/* Edit Modal */}
             <CModal

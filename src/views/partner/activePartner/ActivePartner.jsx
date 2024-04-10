@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import * as PartnerActions from '../../../redux/actions/partnerAction';
 import { api_urls } from '../../../utils/apiUrls';
 import MainLoader from '../../../components/loader/MainLoader';
+import MainDataTable from '../../../components/common/MainDataTable';
 
 const ActivePartner = () => {
     const navigate = useNavigate();
@@ -52,22 +53,7 @@ const ActivePartner = () => {
 
     return (
         <>
-            <MainLoader />
-            {
-                partnerData &&
-                <div style={{ padding: "20px", backgroundColor: "#fff", marginBottom: "20px" }}>
-                    <DataTableHeader title={'Active Partner'} data={partnerData} />
-                    <DataTable
-                        columns={activePartnerColumns}
-                        data={partnerData}
-                        pagination
-                        customStyles={DataTableCustomStyles}
-                        paginationPerPage={5}
-                        paginationRowsPerPageOptions={[5, 10, 15, 20]}
-                        paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
-                    />
-                </div>
-            }
+            <MainDataTable title={'Active Partner'} columns={activePartnerColumns} data={partnerData} />
         </>
     )
 }

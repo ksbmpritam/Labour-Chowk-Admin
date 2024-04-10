@@ -9,6 +9,7 @@ import DataTableHeader from '../../../components/common/DataTableHeader';
 import { api_urls } from '../../../utils/apiUrls';
 import * as UserActions from '../../../redux/actions/userAction';
 import MainLoader from '../../../components/loader/MainLoader';
+import MainDataTable from '../../../components/common/MainDataTable';
 
 const BannedUser = () => {
     const navigate = useNavigate();
@@ -53,22 +54,7 @@ const BannedUser = () => {
 
     return (
         <>
-            <MainLoader />
-            {
-                userData &&
-                <div style={{ padding: "20px", backgroundColor: "#fff" }}>
-                    <DataTableHeader title={'Banned User'} data={userData} />
-                    <DataTable
-                        columns={userColumns}
-                        data={userData}
-                        pagination
-                        customStyles={DataTableCustomStyles}
-                        paginationPerPage={5}
-                        paginationRowsPerPageOptions={[5, 10, 15, 20]}
-                        paginationComponentOptions={{ rowsPerPageText: 'Rows Per Page :' }}
-                    />
-                </div>
-            }
+            <MainDataTable title={'Banned Users'} columns={userColumns} data={userData} />
         </>
     )
 }
