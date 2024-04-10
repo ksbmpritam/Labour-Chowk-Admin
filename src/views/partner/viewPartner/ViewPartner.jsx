@@ -42,7 +42,7 @@ const ViewPartner = () => {
       name: 'Action',
       cell: row => (
         <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-          <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
+          {/* <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" /> */}
           <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="Delete" style={{ cursor: "pointer" }} icon={icon.cilBan} size="sm" onClick={() => dispatch(PartnerActions.deletePartnerWorkByWorkId({ workId: row?._id, labourID: partnerId }))} />
         </div>
       ),
