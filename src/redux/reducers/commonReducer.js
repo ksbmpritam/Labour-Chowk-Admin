@@ -1,7 +1,7 @@
 import * as actionTypes from "../actionTypes";
 
 const initialState = {
-    isLoading: true,
+    isLoading: false,
 };
 
 const commonReducer = (state = initialState, actions) => {
