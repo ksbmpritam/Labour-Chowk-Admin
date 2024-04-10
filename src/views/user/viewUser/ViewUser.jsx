@@ -89,11 +89,38 @@ const ViewUser = () => {
     },
   ];
 
+  //! Handle Kyc Status : Partner 
+  const handleKycStatus = (status) => {
+    console.log("Kyc Status", status)
+
+    if (status === 'verified') {
+      console.log("verified")
+      dispatch(UserActions.changeUserKycStatus({ userID: userId, isVerified: "unVerified" }))
+    }
+    if (status === 'unVerified') {
+      console.log("unVerified")
+      dispatch(UserActions.changeUserKycStatus({ userID: userId, isVerified: "verified" }))
+    }
+  }
+
+  //! Handle Status - Active/Banned : Partner
+  const handleActiveBannedStatus = (status) => {
+    console.log("Active-Banned", status)
+    if (status === 'active') {
+      console.log("active")
+      dispatch(UserActions.changeUserStatus({ userID: userId, isActive: "inActive" }))
+    }
+    if (status === 'inActive') {
+      console.log("inActive")
+      dispatch(UserActions.changeUserStatus({ userID: userId, isActive: "active" }))
+    }
+  }
+
   useEffect(function () {
     //! Dispatching API for Getting All User
     dispatch(UserActions.getUserById({ userID: userId }))
-     //! Dispatching API for Getting Job List
-     dispatch(UserActions.getJobListByUserId({ userID: userId }))
+    //! Dispatching API for Getting Job List
+    dispatch(UserActions.getJobListByUserId({ userID: userId }))
   }, []);
 
   return (
@@ -114,8 +141,9 @@ const ViewUser = () => {
                     <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
                       <div style={{ display: "flex", gap: "10px" }}>
                         <div style={{ color: "#000", fontWeight: "600" }}>Kyc Status : </div>
-                        <div style={{ textTransform: "capitalize" }}>{userData?.isVerified?.toLowerCase()}</div>
-                        <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }}>Change Status</div>
+                        <div style={{ textTransform: "capitalize", color: userData?.isVerified == 'verified' ? 'green' : 'red' }}>{userData?.isVerified?.toLowerCase()}</div>
+
+                        <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }} onClick={() => handleKycStatus(userData?.isVerified)}>Change Status</div>
                       </div>
                     </div>
 
@@ -145,7 +173,7 @@ const ViewUser = () => {
                       <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start", marginTop: "20px" }}>
                         <div style={{ display: "flex", gap: "10px" }}>
                           <div style={{ color: "#000", fontWeight: "600" }}>Status : </div>
-                          <div style={{ textTransform: "capitalize" }}>{userData?.isActive?.toLowerCase()}</div>
+                          <div style={{ textTransform: "capitalize", color: userData?.isActive == 'active' ? 'green' : 'red' }}>{userData?.isActive?.toLowerCase()}</div>
                         </div>
                         <div style={{ backgroundColor: "#2A9BAA", color: "#fff", fontWeight: "600", borderRadius: "5px", padding: "3px 10px", fontSize: "14px", cursor: "pointer" }} onClick={() => handleActiveBannedStatus(userData?.isActive)}>Change Status</div>
                       </div>
