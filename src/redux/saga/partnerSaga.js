@@ -9,7 +9,7 @@ function* getAllPartner() {
     try {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         const { data } = yield call(axios.post, `${api_urls + get_all_partner}`, {});
-        // console.log("Get All Partner Saga Response ::: ", data)
+        console.log("Get All Partner Saga Response ::: ", data)
 
         if (data?.success) {
             yield delay(500);
@@ -18,7 +18,7 @@ function* getAllPartner() {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
     } catch (error) {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
-        // console.log("Get All Partner Saga Error ::: ", error)
+        console.log("Get All Partner Saga Error ::: ", error)
     }
 }
 
@@ -26,7 +26,7 @@ function* getActivePartner() {
     try {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         const { data } = yield call(axios.post, `${api_urls + get_active_partner}`, {});
-        // console.log("Get Active Partner Saga Response ::: ", data)
+        console.log("Get Active Partner Saga Response ::: ", data)
 
         if (data?.success) {
             yield delay(500);
@@ -35,7 +35,7 @@ function* getActivePartner() {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
     } catch (error) {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
-        // console.log("Get Active Partner Saga Error ::: ", error)
+        console.log("Get Active Partner Saga Error ::: ", error)
     }
 }
 
@@ -43,7 +43,7 @@ function* getBannedPartner() {
     try {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         const { data } = yield call(axios.post, `${api_urls + get_banned_partner}`, {});
-        // console.log("Get Banned Partner Saga Response ::: ", data)
+        console.log("Get Banned Partner Saga Response ::: ", data)
 
         if (data?.success) {
             yield delay(500);
@@ -52,17 +52,17 @@ function* getBannedPartner() {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
     } catch (error) {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
-        // console.log("Get Banned Partner Saga Error ::: ", error)
+        console.log("Get Banned Partner Saga Error ::: ", error)
     }
 }
 
 function* getPartnerById(action) {
     try {
         const { payload } = action;
-        // console.log("Payload ::: ", payload)
+        console.log("Payload ::: ", payload)
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         const { data } = yield call(axios.post, `${api_urls + get_partner_by_id}`, payload);
-        // console.log("Get Partner By Id Saga Response ::: ", data)
+        console.log("Get Partner By Id Saga Response ::: ", data)
 
         if (data?.success) {
             yield delay(500);
@@ -71,15 +71,15 @@ function* getPartnerById(action) {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
     } catch (error) {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
-        // console.log("Get Partner By Id Saga Error ::: ", error)
+        console.log("Get Partner By Id Saga Error ::: ", error)
     }
 }
 
 function* changePartnerStatus(action) {
     try {
         const { payload } = action;
-        // console.log("Payload ::: ", payload)
-        // console.log("Payload ID ::: ", payload?.labourID)
+        console.log("Payload ::: ", payload)
+        console.log("Payload ID ::: ", payload?.labourID)
 
         const result = yield Swal.fire({
             title: `Are You Sure To Change Status`,
@@ -93,7 +93,7 @@ function* changePartnerStatus(action) {
 
         if (result.isConfirmed) {
             const { data } = yield call(axios.post, `${api_urls + change_partner_status}`, payload);
-            // console.log("Change Partner Status Saga Response ::: ", data)
+            console.log("Change Partner Status Saga Response ::: ", data)
 
             if (data.success) {
                 Swal.fire({
@@ -115,15 +115,15 @@ function* changePartnerStatus(action) {
             showConfirmButton: false,
             timer: 2000,
         });
-        // console.log("Change Partner Status Saga Error ::: ", error)
+        console.log("Change Partner Status Saga Error ::: ", error)
     }
 }
 
 function* changePartnerKycStatus(action) {
     try {
         const { payload } = action;
-        // console.log("Payload ::: ", payload)
-        // console.log("Payload ID ::: ", payload?.labourID)
+        console.log("Payload ::: ", payload)
+        console.log("Payload ID ::: ", payload?.labourID)
 
         const result = yield Swal.fire({
             title: `Are You Sure To Change Partner Kyc Status`,
@@ -137,7 +137,7 @@ function* changePartnerKycStatus(action) {
 
         if (result.isConfirmed) {
             const { data } = yield call(axios.post, `${api_urls + change_partner_kyc_status}`, payload);
-            // console.log("Change Partner Kyc Status Saga Response ::: ", data)
+            console.log("Change Partner Kyc Status Saga Response ::: ", data)
 
             if (data.success) {
                 Swal.fire({
@@ -159,18 +159,18 @@ function* changePartnerKycStatus(action) {
             showConfirmButton: false,
             timer: 2000,
         });
-        // console.log("Change Partner Kyc Status Saga Error ::: ", error)
+        console.log("Change Partner Kyc Status Saga Error ::: ", error)
     }
 }
 
 function* updatePartner(action) {
     try {
         const { payload } = action;
-        // console.log("Payload ::: ", payload)
+        console.log("Payload ::: ", payload)
 
         const { data } = yield call(axios.post, `${api_urls + update_partner}`, payload?.data, { headers: { "Content-Type": "multipart/form-data" } })
 
-        // console.log("Update Partner Saga Response ::: ", data)
+        console.log("Update Partner Saga Response ::: ", data)
 
         if (data?.success) {
             Swal.fire({
@@ -191,7 +191,7 @@ function* updatePartner(action) {
             showConfirmButton: false,
             timer: 2000,
         });
-        // console.log("Update Partner Saga Error ::: ", error)
+        console.log("Update Partner Saga Error ::: ", error)
     }
 }
 
@@ -297,20 +297,20 @@ function* deletePartnerWorkByWorkId(action) {
 function* getBiddingListByPartnerId(action) {
     try {
         const { payload } = action;
-        // console.log("Payload ::: ", payload)
+        console.log("Payload ::: ", payload)
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         const { data } = yield call(axios.post, `${api_urls + get_bidding_list_by_partner_id}`, payload);
-        // console.log("Get Bidding List By Partner Id Saga Response ::: ", data)
+        console.log("Get Bidding List By Partner Id Saga Response ::: ", data)
 
         if (data?.success) {
             yield delay(500);
-            // console.log("Get Bidding List By Partner Id Saga Response ::: ", data?.result)
+            console.log("Get Bidding List By Partner Id Saga Response ::: ", data?.result)
             yield put({ type: actionTypes.SET_BIDDING_LIST_BY_PARTNER_ID, payload: data?.result });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
     } catch (error) {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
-        // console.log("Get Bidding List By Partner Id Saga Error ::: ", error)
+        console.log("Get Bidding List By Partner Id Saga Error ::: ", error)
     }
 }
 
