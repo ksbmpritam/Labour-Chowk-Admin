@@ -1,71 +1,111 @@
-import React from 'react'
-import DataTable from 'react-data-table-component';
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import * as icon from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
+import { CButton, CCol, CForm, CModal, CModalBody, CModalHeader, CModalTitle, } from '@coreui/react';
 import DataTableHeader from '../../components/common/DataTableHeader';
-import { DataTableCustomStyles } from '../../styles';
+import * as BiddingActions from "../../redux/actions/biddingAction";
+import MainLoader from '../../components/loader/MainLoader';
+import { formatTimestampToDateString } from '../../utils/commonFunction';
+import MainDataTable from '../../components/common/MainDataTable';
 
-const bookingColumns = [
-    {
-        name: 'S.No',
-        selector: (row, index) => index + 1,
-    },
-    {
-        name: 'Job Title',
-        selector: row => row.job,
-    },
-    {
-        name: 'Partner',
-        selector: row => row.name,
-    },
-    {
-        name: 'Price',
-        selector: row => row.name,
-    },
-    {
-        name: 'Created Date',
-        selector: row => row.status,
-    },
-    {
-        name: 'Status',
-        selector: row => row.status,
-    },
-    {
-        name: 'Action',
-        cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
-            <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" />
-        </div>,
-    },
-];
-
-const bookingData = [
-    {
-        id: 1,
-        name: 'Beetlejuice',
-        job: "This page was last edited on 9 January 2024, at 23:54 (UTC).",
-        status: 'active'
-    },
-    {
-        id: 2,
-        name: 'Gautam',
-        job: "This page was last edited on 9 January 2024, at 23:54 (UTC).",
-        status: 'active'
-    },
-]
 
 const Booking = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const { allBiddingData: biddingData } = useSelector((state) => state?.biddingReducer);
+    console.log("All Bidding Data :: ", biddingData)
+
+    const [singleBiddingData, setSingleBiddingData] = useState({});
+    const [visibleSingleBiddingModal, setvisibleSingleBiddingModal] = useState(false); // Define visibleSingleBiddingModal state
+
+    //* Handle View Bidding Modal 
+    const handleViewBidding = (row) => {
+        setSingleBiddingData(row);
+        setvisibleSingleBiddingModal(true);
+    };
+
+    //* Bidding DataTable Columns
+    const biddingColumns = [
+        { name: 'S.No.', selector: row => biddingData.indexOf(row) + 1, style: { backGroundColor: "#000", paddingLeft: "20px" } },
+        {
+            name: 'Job Title',
+            selector: row => row?.jobId?.jobTitle,
+        },
+        // {
+        //   name: 'User',
+        //   selector: row => row.name,
+        // },
+        {
+            name: 'Price',
+            selector: row => row.amount,
+        },
+        {
+            name: 'Created Date',
+            selector: row => formatTimestampToDateString(row.createdAt),
+        },
+        {
+            name: 'Status',
+            selector: row => row?.jobId?.isActive,
+        },
+        {
+            name: 'Action',
+            cell: row => <div style={{ display: "flex", gap: "20px", alignItems: "center" }} >
+                <CIcon data-tooltip-id="my-tooltip" data-tooltip-content="View" style={{ cursor: "pointer" }} icon={icon.cilTouchApp} size="sm" onClick={() => handleViewBidding(row)} />
+            </div>,
+        },
+    ];
+
+    useEffect(function () {
+        //! Dispatching API for Getting Active partner
+        dispatch(BiddingActions.getAllBiddingList())
+    }, []);
+
     return (
         <>
-            <div style={{ padding: "20px", backgroundColor: "#fff" }}>
+            <MainLoader />
 
-                <DataTableHeader title={'Bidding'} data={bookingData} />
-                <DataTable
-                    columns={bookingColumns}
-                    data={bookingData}
-                    pagination
-                    customStyles={DataTableCustomStyles}
-                />
-            </div>
+            {biddingData &&
+                <div style={{ padding: "20px", backgroundColor: "#fff", marginBottom: "20px" }}>
+                    <MainDataTable title={'Bidding'} columns={biddingColumns} data={biddingData} />
+                </div>
+            }
+
+            {/* view modal */}
+            <CModal
+                alignment="center"
+                visible={visibleSingleBiddingModal}
+                onClose={() => setvisibleSingleBiddingModal(false)}
+                aria-labelledby="ViewModal"
+            >
+                <CModalHeader>
+                    <CModalTitle id="VerticallyCenteredExample">Bidding Detail</CModalTitle>
+                </CModalHeader>
+                <CModalBody>
+                    <CForm className="row g-3 needs-validation">
+                        <CCol md={12}>
+                            <p><span style={{ fontWeight: "600" }}>Job Title :</span> {singleBiddingData?.jobId?.jobTitle} </p>
+                        </CCol>
+                        <CCol md={12}>
+                            <p><span style={{ fontWeight: "600" }}>Price :</span> {singleBiddingData?.amount} </p>
+                        </CCol>
+
+                        <CCol md={12}>
+                            <p><span style={{ fontWeight: "600" }}>Created Date :</span> {formatTimestampToDateString(singleBiddingData?.createdAt)}  </p>
+                        </CCol>
+                        <CCol md={12}>
+                            <p><span style={{ fontWeight: "600" }}>Status :</span> {singleBiddingData?.jobId?.isActive}  </p>
+                        </CCol>
+
+                        <CCol>
+                            <CButton style={{ backgroundColor: "#212631", color: "#fff", fontSize: "14px", padding: "5px 15px", fontWeight: "600" }} onClick={() => setvisibleSingleBiddingModal(false)}>
+                                Close
+                            </CButton>
+                        </CCol>
+                    </CForm>
+                </CModalBody>
+            </CModal>
         </>
     )
 }

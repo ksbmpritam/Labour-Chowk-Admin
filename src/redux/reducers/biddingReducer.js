@@ -1,7 +1,7 @@
 import * as actionTypes from "../actionTypes";
 
 const initialState = {
-    allBiddingData: null,
+    allBiddingData: [],
 };
 
 const biddingReducer = (state = initialState, actions) => {
