@@ -29,6 +29,7 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     const form = event.currentTarget
+    console.log(form);
     if (form.checkValidity() === false) {
       event.stopPropagation()
     } else {
